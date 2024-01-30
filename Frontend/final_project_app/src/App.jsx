@@ -7,9 +7,9 @@ import NavBar from './Components/Navbar'
 import Welcome from './Components/Welcome'
 
 function App () {
-  const [ticker, setTicker] = useState()
-
-
+  const [stock, setStock] = useState()
+  const [quote, setQuote] = useState()
+  const [intraday, setIntraday] = useState()
 
 
 useEffect(() => {
@@ -17,16 +17,42 @@ fetch('http://localhost:5555/random_stock')
 .then(r => r.json())
 .then (data => {
     console.log(data)
-    setTicker(data.stock.ticker)
+    setStock(data)
 })  
 }, []);
 
-function handleRandomTicker() {
+
+useEffect(() => {
+  if (stock) {
+  fetch(`http://localhost:5555/stock_price/${stock?.symbol}`)
+  .then(r => r.json())
+  .then (data => {
+      console.log(data)
+      setQuote(data)
+  })
+}
+  }, [stock]);
+
+  useEffect(() => {
+    if (stock) {
+    fetch(`http://localhost:5555//intraday/${stock?.symbol}`)
+    .then(r => r.json())
+    .then (data => {
+        console.log(data)
+        setIntraday(data)
+    })
+  }
+    }, [stock]);
+
+
+
+function handleRandomStock() {
   fetch('http://localhost:5555/random_stock')
   .then(r => r.json())
   .then (data => {
-      console.log(data.stock.ticker)
-      setTicker(data.stock.ticker)
+      console.log(data)
+      setStock(data)
+      setQuote(data)
   }) 
 
 }
@@ -45,9 +71,9 @@ return (
 
   <div>
     
-
     {/* <Welcome /> */}
-    <Outlet context = {{ ticker, setTicker, handleRandomTicker }} />
+    <Outlet context = {{ stock, setStock, handleRandomStock, quote, intraday}} />
+
   </div>
 </div>
 

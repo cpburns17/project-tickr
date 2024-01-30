@@ -6,6 +6,7 @@ import StockCard from './Components/StockCard.jsx'
 import Portfolio from './Components/Portfolio.jsx'
 import Search from "./Components/Search.jsx";
 import Metrics from "./Components/Metrics.jsx"
+import News from "./Components/News.jsx"
 
 
 
@@ -38,6 +39,11 @@ const routes = [
         {
             path: "/metrics",
             element: <Metrics />,
+            errorElement: <h1>Something went wrong!</h1>
+        },
+        {
+            path: "/news",
+            element: <News />,
             errorElement: <h1>Something went wrong!</h1>
         },
         {

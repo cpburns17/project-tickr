@@ -1,7 +1,7 @@
 import React, {useState} from "react"
 // import { useOutletContext } from "react-router-dom"
 
-function CompanyInfo () {
+function News () {
 
 return (
 
@@ -13,4 +13,4 @@ return (
 
 }
 
-export default CompanyInfo
+export default News

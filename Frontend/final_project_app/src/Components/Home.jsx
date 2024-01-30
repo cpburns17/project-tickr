@@ -14,13 +14,11 @@ return (
         <NavBar />
         </h1>
     </header> */}
-    Homepage
+
     <div>
         <StockCard />
-        {/* {renderTickers} */}
     </div>
 
-    {/* <Outlet /> */}
 
 </div>
 

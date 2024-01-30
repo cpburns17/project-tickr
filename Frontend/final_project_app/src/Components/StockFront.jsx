@@ -6,29 +6,31 @@ import Invest from './Invest'
 
 
 function StockFront () {
-    const [name, setName] = useState()
-    const { ticker } = useOutletContext();
+    const { stock, intraday} = useOutletContext();
 
-    // const stock = tickers.map((ticker) => (
-    //     <div key={ticker.ticker}>{ticker.ticker}</div>
-    //   ))
+    const closeValue = parseFloat(intraday?.close);
 
-    // useEffect(() => {
-    //     fetch(`http://localhost:5555//overview/${ticker}`)
-    //     .then(r => r.json())
-    //     .then (data => {
-    //         console.log(data)
-    //         setName(data)
-
-    //     })  
-    //     }, []);
 
 return (
 
     <div>
         <h1>
-            Stock Front:  {ticker} 
+            {stock?.name}
         </h1>
+        <h2>
+            {stock?.symbol}
+        </h2>
+        <h2>
+            PPS: ${isNaN(closeValue) ? "N/A" : closeValue.toFixed(2)}
+        </h2>
+        <p> tickr: {stock?.symbol}</p>
+        {/* <p> Company: {stock?.name} </p> */}
+        <p> Exchange: {stock?.exchange}</p>
+        <p>{stock?.currensy}</p>
+        <p> Industry: {stock?.industry}</p>
+        <p> Description: {stock?.description}</p>
+
+        
 
         <div>
             <NavLink to="/invest" className='nav-invest'>

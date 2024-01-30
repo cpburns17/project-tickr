@@ -42,8 +42,27 @@ def index():
 
 @app.get('/random_stock')
 def get_stocks():
+    d  = {}
+    fetched = False
+    while not fetched:
+        stock = random_stock()
+        # print(stock['ticker'])
+        url = f"https://www.alphavantage.co/query?function=OVERVIEW&symbol={stock['ticker']}&apikey={config['my_key']}"
+        r = requests.get(url)
+        data = r.json() 
+        # print(data)
+        if r.ok and len(data) != 0:
+            d['name']= data.get('Name')
+            d['symbol'] = data.get('Symbol')
+            d['exchange'] = data.get('Exchange')
+            d['description'] = data.get('Description')
+            d['industry'] = data.get('Industry')
+            d['fiftytwo_high'] = data.get('52WeekHigh') 
+            d['fiftytwo_low'] = data.get('52WeekLow')
+            d['pe_ratio'] = data.get('PERatio')
+            fetched = True
 
-    return {'stock': random_stock()}
+    return d,200
 
 
 @app.get("/overview/<ticker>")
@@ -64,13 +83,14 @@ def get_stock_overview(ticker):
 
     return d
 
-@app.get("/stock_price/<ticker>")
-def get_stock_pride(ticker):
-    url = f'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={ticker}&apikey={config["my_key"]}'
+@app.get("/stock_price/<stock>")
+def get_stock_pride(stock):
+    url = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={stock}&apikey={config['my_key']}"
     r = requests.get(url)
     data = r.json() 
-    
+    # print(data)
     global_quote = data.get('Global Quote', {})
+    # print(global_quote)
 
     d = {
 
@@ -83,20 +103,37 @@ def get_stock_pride(ticker):
     'previous_close': global_quote.get('08. previous close', ''),
 
     }
+    # print(d)
 
     return d
 
 
 @app.get("/intraday/<ticker>")
 def get_stock_intraday(ticker):
-    url = f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={ticker}&interval=5min&apikey={config["my_key"]}'
+    url = f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={ticker}&interval=1min&entitlement=delayed&apikey={config["my_key"]}'
     r = requests.get(url)
     data = r.json() 
 
-    time_series = data.get('Time Series (5min)', {})
+    time = data.get('Meta Data', {})
+    # print(time)
+    d = {
+        'last_refreshed': time.get('3. Last Refreshed', '')
+    }
+    time = data['Meta Data']['3. Last Refreshed']
+    intraday = data['Time Series (1min)'][time]
 
-    print(data)
-    return data
+    print(f"intraday:\n{intraday}\n")
+
+    p = {
+        'open': intraday.get('1. open', ''),
+        'high': intraday.get('2. high', ''),
+        'low': intraday.get('3. low', ''),
+        'close': intraday.get('4. close', ''),
+        'volume': intraday.get('5. volume', '')
+
+    }
+
+    return p, d
 
 
 @app.get("/news/<ticker>")
@@ -155,17 +192,6 @@ def get_stock_by_id(id):
     pass
 
 
-
-
-
-
-# link for sec : https://www.sec.gov/files/company_tickers.json
-# link for dumb stock without index: https://dumbstockapi.com/stock?exchanges=NYSE
-# github with ticker info in jsons: https://github.com/rreichel3/US-Stock-Symbols
-
-
-
-
 # Load your JSON file
 with open('db.json', 'r') as file:
     object_list = json.load(file)
@@ -181,3 +207,12 @@ with open('tickers.json', 'w') as file:
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
+
+
+
+# link for sec : https://www.sec.gov/files/company_tickers.json
+# link for dumb stock without index: https://dumbstockapi.com/stock?exchanges=NYSE
+# github with ticker info in jsons: https://github.com/rreichel3/US-Stock-Symbols
+
+
+

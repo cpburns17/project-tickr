@@ -6,7 +6,7 @@ import StockBack from './StockBack'
 
 function StockCard () {
     const [frontCard, setFrontCard] = useState(true)
-    const { ticker, setTicker, handleRandomTicker } = useOutletContext();
+    const { stock, setStock, handleRandomStock } = useOutletContext();
 
 
     function flipCard() {
@@ -17,9 +17,9 @@ function StockCard () {
 return (
 
     <div>
-        Stock Cards
-        <button onClick={handleRandomTicker}> Random Stock</button>
-        
+
+        <button onClick={handleRandomStock}> Random Stock</button>
+
 
         <div>
             <button onClick={flipCard}> Flip Card </button>
