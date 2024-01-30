@@ -10,6 +10,7 @@ function App () {
   const [stock, setStock] = useState()
   const [quote, setQuote] = useState()
   const [intraday, setIntraday] = useState()
+  const [news, setNews] = useState([])
 
 
 useEffect(() => {
@@ -30,6 +31,10 @@ useEffect(() => {
       console.log(data)
       setQuote(data)
   })
+  .catch((error) => {
+    console.error('Error fetching stock price:', error);
+
+  });
 }
   }, [stock]);
 
@@ -41,8 +46,25 @@ useEffect(() => {
         console.log(data)
         setIntraday(data)
     })
+    .catch((error) => {
+      console.error('Error fetching intraday data:', error);
+    });
   }
     }, [stock]);
+
+    useEffect(() => {
+      if (stock) {
+      fetch(`http://localhost:5555/news/${stock?.symbol}`)
+      .then(r => r.json())
+      .then (data => {
+          console.log(data)
+          setNews(data.slice(0, 5))
+      })
+      .catch((error) => {
+        console.error('Error fetching news:', error);
+      });
+    }
+      }, [stock]);
 
 
 
@@ -54,6 +76,9 @@ function handleRandomStock() {
       setStock(data)
       setQuote(data)
   }) 
+  .catch((error) => {
+    console.error('Error fetching random stock:', error);
+  });
 
 }
 
@@ -72,7 +97,7 @@ return (
   <div>
     
     {/* <Welcome /> */}
-    <Outlet context = {{ stock, setStock, handleRandomStock, quote, intraday}} />
+    <Outlet context = {{ stock, setStock, handleRandomStock, quote, intraday, news}} />
 
   </div>
 </div>
