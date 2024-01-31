@@ -7,7 +7,7 @@ from dotenv import dotenv_values
 from flask_bcrypt import Bcrypt;
 import requests;
 from dotenv import dotenv_values
-from models import db, User, Stock, Trades;
+from models import db, User, Trades;
 import random
 import json
 
@@ -187,9 +187,118 @@ def get_stock_news(ticker):
 #     return data
 
 
-app.get('/stock/<int:id>')
-def get_stock_by_id(id):
-    pass
+
+@app.get('/trades')
+def get_trades():
+    trades = Trades.query.all()
+    return [t.to_dict() for t in trades]
+
+@app.post('/trades')
+def transaction():
+    try:
+        data = request.json
+        print(data)
+        new_trade = Trades(
+            name = data.get('name'),
+            ticker = data.get('ticker'),
+            stock_price = data.get('stock_price'),
+            bought = data.get('bought'),
+            sold = data.get('sold'),
+            quantity = data.get('quantity'),
+            time = data.get('time'),
+            user_id = data.get('user_id')
+        )
+        user = db.session.get(User, data.get('user_id'))
+        total_purchase = db.session.query(Trades).filter_by(bought=data.get('bought')).count()
+        total_sale = db.session.query(Trades).filter_by(sold=data.get('sold')).count()
+
+        if not user:
+            raise ValueError('no user error 1')
+        
+        if total_purchase != 0:
+            user.balance = user.balance - int(data.get('quantity'))* float(data.get('stock_price'))
+            if user.balance < 0:
+                raise Exception
+        db.session.add(user)
+        db.session.commit()
+        
+        if total_sale != 0:
+            user.balance = user.balance + int(data.get('quantity')) * float(data.get('stock_price'))
+        db.session.add(user)
+        db.session.commit()
+
+        db.session.add(new_trade)
+        db.session.commit()
+        print(new_trade)
+        return new_trade.to_dict(), 201
+    
+    except Exception as e:
+        print(e)
+        return {'errors': str(e)}, 400
+    
+    
+# @app.get('/stocks')
+# def retrieve_stocks():
+#     stocks = Stock.query.all()
+#     return [s.to_dict() for s in stocks]
+
+# @app.post('/stocks')
+# def post_stock():
+#     try:
+#         data = request.json
+#         new_stock = Stock(
+#             name = data.get('name'),
+#             ticker = data.get('ticker'),
+#         )
+
+#         db.session.add(new_stock)
+#         db.session.commit()
+#         return new_stock.to_dict(), 201
+    
+#     except Exception as e:
+#         print(e)
+#         return {'errors': str(e)}, 400
+
+
+@app.get('/user')
+def get_user():
+    users = User.query.all()
+    return [u.to_dict() for u in users]
+
+
+app.post('/user')
+def create_user():
+    try:
+        data = request.json
+        print(data)
+        new_user = User(
+            name = data.get('name'),
+            balance = data.get('balance'),
+        )
+        db.session.add(new_user)
+        db.session.commit()
+        return new_user.to_dict(), 201
+
+    except Exception as e:
+        print(e)
+        return {'error': str(e)}, 400
+
+@app.get("/user/<int:id>")
+def get_user_by_id(id):
+    current_user = db.session.get(User, id)
+    if not current_user:
+        return {"error": "User not found"}, 404
+    
+    return current_user.to_dict(), 200
+        
+
+
+
+
+
+
+
+
 
 
 # Load your JSON file
@@ -203,6 +312,17 @@ for i, obj in enumerate(object_list):
 # Save the modified JSON back to the file
 with open('tickers.json', 'w') as file:
     json.dump(object_list, file, indent=2)
+
+
+
+
+
+
+
+
+
+
+
 
 
 if __name__ == "__main__":

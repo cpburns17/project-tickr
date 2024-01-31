@@ -3,6 +3,7 @@ import React, {useState, useEffect} from "react"
 import { NavLink } from "react-router-dom";
 import {useOutletContext} from "react-router-dom"
 import Invest from './Invest'
+import Portfolio from './Portfolio'
 
 
 function StockFront () {
@@ -21,7 +22,7 @@ return (
             {stock?.symbol}
         </h2>
         <h2>
-            PPS: ${isNaN(closeValue) ? "N/A" : closeValue.toFixed(2)}
+            ${isNaN(closeValue) ? "N/A" : closeValue.toFixed(2)}
         </h2>
         <p> tickr: {stock?.symbol}</p>
         {/* <p> Company: {stock?.name} </p> */}

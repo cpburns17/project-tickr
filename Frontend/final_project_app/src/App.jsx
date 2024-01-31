@@ -11,6 +11,7 @@ function App () {
   const [quote, setQuote] = useState()
   const [intraday, setIntraday] = useState()
   const [news, setNews] = useState([])
+  // const [total, setTotal] = useState()
 
 
 useEffect(() => {
@@ -65,6 +66,17 @@ useEffect(() => {
       });
     }
       }, [stock]);
+
+    // useEffect(() => {
+    //   fetch('http://localhost:5555/user/1')
+    //   .then(r => r.json())
+    //   .then (data => {
+    //       console.log(data)
+    //       setTotal(data)
+    //   })  
+    //   }, []);
+
+
 
 
 
