@@ -2,23 +2,21 @@ import React, {useState} from "react"
 import { useOutletContext } from "react-router-dom"
 
 function Invest () {
-    const {stock, quote, intraday} = useOutletContext() 
+    const {stock, quote, intraday, user} = useOutletContext() 
 
     const [stockPrice, setStockPrice] = useState()
     const [bought, setBought] = useState(0)
     const [sold, setSold] = useState(0)
     const [quantity, setQuantity] = useState(0)
     const [time, setTime] = useState()
-    const [user, setUser] = useState(1)
-
+    // const [user, setUser] = useState(1)
 
 
     const closeValue = parseFloat(intraday?.close);
     const currentPrice = closeValue.toFixed(2)
     const stockName = stock?.name
     const stockTick = stock?.symbol
-    
-
+    const userID = user?.id
 
 
 
@@ -41,7 +39,7 @@ function Invest () {
         sold: sold,
         quantity: quantity,
         time: formattedDate,
-        user_id: user,
+        user_id: userID,
 
     }
 

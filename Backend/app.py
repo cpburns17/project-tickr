@@ -216,14 +216,14 @@ def transaction():
             raise ValueError('no user error 1')
         
         if total_purchase != 0:
-            user.balance = user.balance - int(data.get('quantity'))* float(data.get('stock_price'))
+            user.balance = user.balance + int(data.get('quantity'))* float(data.get('stock_price'))
             if user.balance < 0:
                 raise Exception
         db.session.add(user)
         db.session.commit()
         
         if total_sale != 0:
-            user.balance = user.balance + int(data.get('quantity')) * float(data.get('stock_price'))
+            user.balance = user.balance - int(data.get('quantity')) * float(data.get('stock_price'))
         db.session.add(user)
         db.session.commit()
 

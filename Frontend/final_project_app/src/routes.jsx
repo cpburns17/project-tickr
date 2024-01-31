@@ -7,6 +7,8 @@ import Portfolio from './Components/Portfolio.jsx'
 import Search from "./Components/Search.jsx";
 import Metrics from "./Components/Metrics.jsx"
 import News from "./Components/News.jsx"
+import Transactions from './Components/Transactions.jsx'
+import Sell from './Components/Sell.jsx'
 
 
 
@@ -49,6 +51,16 @@ const routes = [
         {
             path: "/invest",
             element: <Invest />,
+            errorElement: <h1>Something went wrong!</h1>
+        },
+        {
+            path: "/sell",
+            element: <Sell />,
+            errorElement: <h1>Something went wrong!</h1>
+        },
+        {
+            path: "/transactions",
+            element: <Transactions />,
             errorElement: <h1>Something went wrong!</h1>
         },
         
