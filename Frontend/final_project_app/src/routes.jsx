@@ -9,6 +9,7 @@ import Metrics from "./Components/Metrics.jsx"
 import News from "./Components/News.jsx"
 import Transactions from './Components/Transactions.jsx'
 import Sell from './Components/Sell.jsx'
+import Buy from './Components/Buy.jsx'
 
 
 
@@ -56,6 +57,11 @@ const routes = [
         {
             path: "/sell",
             element: <Sell />,
+            errorElement: <h1>Something went wrong!</h1>
+        },
+        {
+            path: "/buy",
+            element: <Buy />,
             errorElement: <h1>Something went wrong!</h1>
         },
         {

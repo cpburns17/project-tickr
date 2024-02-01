@@ -2,14 +2,14 @@ import React, {useState, useEffect} from "react"
 import { useOutletContext, useLocation } from "react-router-dom"
 
 
-function Sell () {
+function Buy (){
     const {stock, quote, intraday, user} = useOutletContext() 
 
     const location = useLocation();
     const trade = location.state && location.state.trade;
     const aggregatedQuantity = location.state;
-    const [sellSuccess, setSellSuccess] = useState(false); // New state variable
-    const [sellQuantity, setSellQuantity] = useState(0); // New state variable
+    const [buySuccess, setBuySuccess] = useState(false); // New state variable
+    const [buyQuantity, setBuyQuantity] = useState(0); // New state variable
     
 
 
@@ -33,16 +33,6 @@ function Sell () {
     const [ticker, setTicker] = useState("DefaultTicker");
 
 
-    // useEffect(() => {
-
-    //     const tickerSymb = trade.ticker;
-    //     if (tickerSymb) {
-    //       setTicker(tickerSymb);
-    //       console.log("Ticker from props:", tickerSymb);
-    //     }
-    //   }, [location]);
-
-    // console.log(ticker)
 
     useEffect(() => {
     fetch(`http://localhost:5555/intraday/${stockTick}`)
@@ -62,12 +52,12 @@ function Sell () {
 
     function handleSubmit(e) {
         e.preventDefault();
-        const sellQuantity = parseFloat(quantity);
-        if (sellQuantity <= 0 || sellQuantity > currentQuantity) {
-            // Show an error message or handle the validation appropriately
-            console.error("Invalid quantity entered");
-            return;
-        }
+        const buyQuantity = parseFloat(quantity);
+        // if (buyQuantity <= 0 || buyQuantity > currentQuantity) {
+        //     // Show an error message or handle the validation appropriately
+        //     console.error("Invalid quantity entered");
+        //     return;
+        // }
 
         setStockPrice(currentPrice)
 
@@ -75,13 +65,13 @@ function Sell () {
         const formattedDate = currentDate.toLocaleString('en-US', { timeZone: 'America/New_York' });
 
 
-    const newStockSold = {
+    const newStockBought = {
         name: stockName,
         ticker: stockTick,
         stock_price: currentPrice, 
-        bought: bought,
-        sold: currentPrice * sellQuantity,
-        quantity: sellQuantity,
+        bought: currentPrice * buyQuantity,
+        sold: sold,
+        quantity: buyQuantity,
         time: formattedDate,
         user_id: userID,
 
@@ -93,7 +83,7 @@ function Sell () {
         headers: {
             "Content-type": "application/json"
         },
-        body: JSON.stringify(newStockSold)
+        body: JSON.stringify(newStockBought)
     })
     .then((response) => {
         if (!response.ok) {
@@ -103,9 +93,9 @@ function Sell () {
         })
         .then((data) => {
         console.log("Post successful:", data);
-        setSellSuccess(true);
+        setBuySuccess(true);
         setQuantity(0);
-        setSellQuantity(sellQuantity); // Store sellQuantity in state
+        setBuyQuantity(buyQuantity); 
 
 
         })
@@ -118,7 +108,7 @@ function Sell () {
 return (
 
 <div>
-    <h2>Sell Component</h2>
+    <h2>Buy Component</h2>
         <p>Company: {trade.name}</p>
         <p>Ticker: {trade.ticker}</p>
         <p>Shares Owned: {currentQuantity}</p>
@@ -126,7 +116,6 @@ return (
         <p>Total: ${trade.bought}</p> */}
         <div>
             <h3>Current Stock Price: ${currentPrice}</h3>
-            <p>*must be below current shares owned</p>
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -137,12 +126,12 @@ return (
                     className="form-control"
                 />
                 <button type='submit'>
-                    Liquidate
+                    Place order
                 </button>
             </form>
 
-        {sellSuccess && (
-        <p>Congrats, you sold {sellQuantity} shares for ${(currentPrice * sellQuantity).toFixed(2)}!</p>
+        {buySuccess && (
+        <p>Congrats, you bought {buyQuantity} shares for ${(currentPrice * buyQuantity).toFixed(2)}!</p>
         )}
         </div>
 
@@ -150,6 +139,7 @@ return (
 
 );
 
+
 };
 
-export default Sell
+export default Buy

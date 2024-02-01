@@ -16,23 +16,33 @@ useEffect(() => {
     }, [user]);
 
 
+const transactionMap = transactions?.map((trade, index) => (
+    <li key={index}>
+        <p>{trade.name}</p>
+        <p>Ticker: {trade.ticker}</p>
+        <p>PPS: ${trade.stock_price}</p>
+        <p
+        style={{
+            color: trade.bought > 0 ? "green" : trade.sold > 0 ? "red" : "black",
+        }}
+        >
+        Shares: {trade.bought > 0 ? "+" : trade.sold > 0 ? "-" : ""}
+        {trade.quantity}
+        </p>
+        {trade.bought > 0 && (
+        <p style={{ color: "green" }}>Total Bought: ${trade.bought}</p>
+        )}
+        {trade.sold > 0 && <p style={{ color: "red" }}>Total Sold: ${trade.sold}</p>}
+    </li>
+    ));
+
+
 return (
     <div>
         <h1>Balance: ${myBalance}</h1>
         
         <h2>Transaction History:</h2>
-        <ul>
-        {transactions?.map((trade, index) => (
-            <li key={index}>
-            <h1>- ${trade.bought}</h1>
-            <p>Company: {trade.name}</p>
-            <p>Ticker: {trade.ticker}</p>
-            <p># of shares: {trade.quantity}</p>
-            <p>PPS: ${trade.stock_price}</p>
-            <p>{trade.time}</p>
-            </li>
-        ))}
-        </ul>
+        <h3> {transactionMap}</h3>
     </div>
 );
 
