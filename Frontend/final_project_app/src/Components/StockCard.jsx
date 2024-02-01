@@ -24,7 +24,7 @@ return (
         <div>
             <button onClick={flipCard}> Flip Card </button>
             {frontCard ? 
-            <StockFront /> 
+            <StockFront/> 
             : 
             <StockBack />
             }

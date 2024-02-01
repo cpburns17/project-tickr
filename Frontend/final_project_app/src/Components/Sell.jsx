@@ -118,15 +118,15 @@ function Sell () {
 return (
 
 <div>
-    <h2>Sell Component</h2>
-        <p>Company: {trade.name}</p>
-        <p>Ticker: {trade.ticker}</p>
+    <h2>Company: {trade.name}</h2>
+        {/* <p>Ticker: {trade.ticker}</p> */}
         <p>Shares Owned: {currentQuantity}</p>
         {/* <p>PPS: ${trade.stock_price}</p>
         <p>Total: ${trade.bought}</p> */}
         <div>
-            <h3>Current Stock Price: ${currentPrice}</h3>
-            <p>*must be below current shares owned</p>
+            <h3>Current Market PPS: ${currentPrice}</h3>
+            <h1>${(currentPrice * quantity).toFixed(2)}</h1>
+            <p>Enter # of shared you'd like to sell (max {currentQuantity}):</p>
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"

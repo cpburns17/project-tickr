@@ -12,6 +12,9 @@ function App () {
   const [intraday, setIntraday] = useState()
   const [news, setNews] = useState([])
   const [user, setUser] = useState()
+  const [search, setSearch] = useState("")
+
+  const [jsonList, setJsonList] = useState()
 
 
 useEffect(() => {
@@ -22,7 +25,6 @@ fetch('http://localhost:5555/random_stock')
     setStock(data)
 })  
 }, []);
-
 
 useEffect(() => {
   if (stock) {
@@ -78,8 +80,6 @@ useEffect(() => {
 
 
 
-
-
 function handleRandomStock() {
   fetch('http://localhost:5555/random_stock')
   .then(r => r.json())
@@ -94,6 +94,23 @@ function handleRandomStock() {
 
 }
 
+useEffect(() => {
+  fetch('http://localhost:5555/tickers_list')
+  .then(r => r.json())
+  .then (data => {
+      // console.log(data)
+      setJsonList(data)
+  })  
+  }, []);
+
+
+function handleSearch(searchTerm){
+  setSearch(searchTerm)
+}
+
+  const filteredStocks = search.trim() === ""
+  ? []
+  : jsonList?.filter(list => list?.name.toLowerCase().includes(search.toLowerCase()))
 
 
 
@@ -111,7 +128,7 @@ return (
   <div>
     
     {/* <Welcome /> */}
-    <Outlet context = {{ stock, setStock, handleRandomStock, quote, intraday, news, user}} />
+    <Outlet context = {{ stock, setStock, handleRandomStock, quote, intraday, news, user, search, handleSearch, filteredStocks}} />
 
   </div>
 </div>

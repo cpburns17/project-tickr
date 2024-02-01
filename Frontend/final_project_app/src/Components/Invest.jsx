@@ -11,6 +11,9 @@ function Invest () {
     const [time, setTime] = useState()
     // const [user, setUser] = useState(1)
 
+    const [buySuccess, setBuySuccess] = useState(false)
+    const [buyQuantity, setBuyQuantity] = useState(0); 
+
 
     const closeValue = parseFloat(intraday?.close);
     const currentPrice = closeValue.toFixed(2)
@@ -23,6 +26,7 @@ function Invest () {
     function handleSubmit(e) {
         e.preventDefault();
         setStockPrice(currentPrice)
+        const buyQuantity = parseFloat(quantity)
         // setUser(1)
         // setBought(currentPrice * quantity)
         // setQuantity(quantity)
@@ -35,9 +39,9 @@ function Invest () {
         name: stockName,
         ticker: stockTick,
         stock_price: currentPrice, 
-        bought: currentPrice * quantity,
+        bought: currentPrice * buyQuantity,
         sold: sold,
-        quantity: quantity,
+        quantity: buyQuantity,
         time: formattedDate,
         user_id: userID,
 
@@ -58,29 +62,23 @@ function Invest () {
         })
         .then((data) => {
         console.log("Post successful:", data);
+        setBuySuccess(true);
+        setQuantity(0);
+        setBuyQuantity(buyQuantity); 
+
 
         })
         .catch((error) => console.error("Post error:", error));
-
-        setQuantity(0);
-
     }
-
-
-    // console.log(user)
-    // console.log(bought)
-    // console.log(sold)
-    // console.log(stockPrice)
-
-
-
 
 
 return (
 
     <div>
-        {stock?.name}
-        <h1>${currentPrice}</h1>
+        <h2> {stock?.name}</h2>
+        <h3> PPS: ${currentPrice} USD</h3>
+        <h1>${(currentPrice * quantity).toFixed(2)}</h1>
+        <p>Enter # of shares you'd like to buy:</p>
         <form onSubmit={handleSubmit}>
             <input
                 type="text"
@@ -94,7 +92,11 @@ return (
                 Place Order
             </button>
 
+
         </form>
+        {buySuccess && (
+        <p>Congrats, you bought {buyQuantity} shares for ${(currentPrice * buyQuantity).toFixed(2)}!</p>
+        )}
     </div>
 
 );
