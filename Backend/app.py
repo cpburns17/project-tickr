@@ -33,12 +33,25 @@ def random_stock():
             return random.choice(data)
         else:
             return None
-
-
+        
+def json_list():
+    with open('tickers.json') as f:
+        data = json.load(f)
+        if data:
+            return data
+        else:
+            return None
 
 @app.get("/")
 def index():
     return "Home"
+
+@app.get('/tickers_list')
+def get_tickers():
+    stocks = json_list()
+
+    return stocks
+
 
 @app.get('/random_stock')
 def get_stocks():
@@ -161,22 +174,24 @@ def get_stock_news(ticker):
     return news_list
 
 
-# @app.get('/search')
-# def search_by_ticker():
-#     url = f'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=tesco&apikey={config["my_key"]}'
-#     r = requests.get(url)
-#     data = r.json()
+@app.get('/search')
+def search_by_ticker(ticker):
+    url = f'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={ticker}&apikey={config["my_key"]}'
+    r = requests.get(url)
+    data = r.json()
 
-#     search_results = data.get('bestMatches', [])
-#     results_list = []
-#     for result in search_results:
-#         d = {
-#         'symbol': result.get('1. symbol', ''),
-#         'name': result.get('2, name', ''),
-#         }
-#         results_list.append(d)
+    search_results = data.get('bestMatches', [])
+    results_list = []
+    for result in search_results:
+        d = {
+        'symbol': result.get('1. symbol', ''),
+        'name': result.get('2, name', ''),
+        }
+        results_list.append(d)
 
-#     return results_list
+    return results_list
+
+
 
 # @app.get('/top_trades')
 # def get_top_trades():
@@ -301,17 +316,17 @@ def get_user_by_id(id):
 
 
 
-# Load your JSON file
-with open('db.json', 'r') as file:
-    object_list = json.load(file)
+# # Load your JSON file
+# with open('db.json', 'r') as file:
+#     object_list = json.load(file)
 
-# Add an 'id' key to each object
-for i, obj in enumerate(object_list):
-    obj['id'] = i + 1  # IDs start from 1
+# # Add an 'id' key to each object
+# for i, obj in enumerate(object_list):
+#     obj['id'] = i + 1  # IDs start from 1
 
-# Save the modified JSON back to the file
-with open('tickers.json', 'w') as file:
-    json.dump(object_list, file, indent=2)
+# # Save the modified JSON back to the file
+# with open('tickers.json', 'w') as file:
+#     json.dump(object_list, file, indent=2)
 
 
 
