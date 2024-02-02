@@ -34,6 +34,7 @@ const transactionMap = transactions?.map((trade, index) => (
         )}
         {trade.sold > 0 && <p style={{ color: "green" }}>Sold: +${trade.sold}</p>}
         <p>{trade.quantity} of {trade.ticker} @ ${trade.stock_price}</p>
+        <p>{trade.time}</p>
     </li>
     ));
 

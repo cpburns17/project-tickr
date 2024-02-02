@@ -19,19 +19,17 @@ function App () {
 
 
 useEffect(() => {
-  if location:
-    setStock(location.state.stock)
-  else:
 fetch('http://localhost:5555/random_stock')
 .then(r => r.json())
 .then (data => {
-    // console.log(data)
+    console.log(data)
     setStock(data)
 })  
 }, []);
 
 useEffect(() => {
   if (stock) {
+    
   fetch(`http://localhost:5555/stock_price/${stock?.symbol}`)
   .then(r => r.json())
   .then (data => {
@@ -62,6 +60,7 @@ useEffect(() => {
 
     useEffect(() => {
       if (stock) {
+        console.log("enws")
       fetch(`http://localhost:5555/news/${stock?.symbol}`)
       .then(r => r.json())
       .then (data => {
@@ -78,7 +77,7 @@ useEffect(() => {
       fetch('http://localhost:5555/user/1')
       .then(r => r.json())
       .then (data => {
-          console.log(data)
+          // console.log(data)
           setUser(data)
       })  
       }, []);

@@ -10,7 +10,13 @@ function Search () {
 
     function handleClick (stock) {
         stock.symbol = stock.ticker
-        setStock(stock)
+        fetch('http://localhost:5555/overview/'+stock.symbol)
+        .then(r => r.json())
+        .then (data => {
+            console.log(data)
+            setStock(data)
+    })  
+        
         navigate('/', {state: stock})
         console.log(stock)
 
