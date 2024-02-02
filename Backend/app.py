@@ -123,6 +123,7 @@ def get_stock_pride(stock):
 
 @app.get("/intraday/<ticker>")
 def get_stock_intraday(ticker):
+    print(ticker)
     url = f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={ticker}&interval=1min&entitlement=delayed&apikey={config["my_key"]}'
     r = requests.get(url)
     data = r.json() 
@@ -132,6 +133,7 @@ def get_stock_intraday(ticker):
     d = {
         'last_refreshed': time.get('3. Last Refreshed', '')
     }
+    print(data)
     time = data['Meta Data']['3. Last Refreshed']
     intraday = data['Time Series (1min)'][time]
 

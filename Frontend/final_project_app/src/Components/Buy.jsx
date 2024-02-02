@@ -116,6 +116,7 @@ return (
         <p>Total: ${trade.bought}</p> */}
         <div>
             <h3>Current Stock Price: ${currentPrice}</h3>
+            <h1>${(currentPrice * quantity).toFixed(2)}</h1>
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"

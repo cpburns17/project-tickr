@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"
-import { useOutletContext } from "react-router-dom"
+import { useOutletContext, useLocation } from "react-router-dom"
 // import App from '../App.jsx'
 import StockFront from './StockFront'
 import StockBack from './StockBack'
@@ -7,6 +7,7 @@ import StockBack from './StockBack'
 function StockCard () {
     const [frontCard, setFrontCard] = useState(true)
     const { stock, setStock, handleRandomStock } = useOutletContext();
+    const location = useLocation() 
 
 
     function flipCard() {
@@ -22,13 +23,13 @@ return (
 
 
         <div>
-            <button onClick={flipCard}> Flip Card </button>
             {frontCard ? 
             <StockFront/> 
             : 
             <StockBack />
             }
         </div>
+            <button onClick={flipCard}> Flip Card </button>
 
     </div>
 

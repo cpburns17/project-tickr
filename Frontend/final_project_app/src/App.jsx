@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 // import {useNavigate} from 'react-router-dom'
-import {Outlet} from 'react-router-dom'
+import {Outlet, useLocation} from 'react-router-dom'
 
 import './App.css'
 import NavBar from './Components/Navbar'
@@ -10,14 +10,18 @@ function App () {
   const [stock, setStock] = useState()
   const [quote, setQuote] = useState()
   const [intraday, setIntraday] = useState()
-  const [news, setNews] = useState([])
+  const [news, setNews] = useState()
   const [user, setUser] = useState()
   const [search, setSearch] = useState("")
 
   const [jsonList, setJsonList] = useState()
+  const location = useLocation() 
 
 
 useEffect(() => {
+  if location:
+    setStock(location.state.stock)
+  else:
 fetch('http://localhost:5555/random_stock')
 .then(r => r.json())
 .then (data => {
@@ -43,7 +47,8 @@ useEffect(() => {
 
   useEffect(() => {
     if (stock) {
-    fetch(`http://localhost:5555//intraday/${stock?.symbol}`)
+      console.log(stock)
+    fetch(`http://localhost:5555/intraday/${stock?.symbol}`)
     .then(r => r.json())
     .then (data => {
         // console.log(data)
@@ -60,8 +65,8 @@ useEffect(() => {
       fetch(`http://localhost:5555/news/${stock?.symbol}`)
       .then(r => r.json())
       .then (data => {
-          // console.log(data)
-          setNews(data.slice(0, 5))
+          console.log(data.slice(1, 6))
+          setNews(data.slice(1, 10))
       })
       .catch((error) => {
         console.error('Error fetching news:', error);

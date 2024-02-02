@@ -3,17 +3,23 @@ import { useOutletContext, useNavigate } from "react-router-dom"
 
 function Search () {
 
-    const {search, handleSearch, filteredStocks} = useOutletContext()
+    const {search, handleSearch, filteredStocks, setStock} = useOutletContext()
 
     
     const navigate = useNavigate() 
 
     function handleClick (stock) {
-        navigate('/stock', {state: stock.ticker})
+        stock.symbol = stock.ticker
+        setStock(stock)
+        navigate('/', {state: stock})
+        console.log(stock)
+
     }
 
     function handleSearchChange(e){
         handleSearch(e.target.value)
+
+        
     }
 
     const listSearch = filteredStocks.map((stock)=>{

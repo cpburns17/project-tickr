@@ -11,7 +11,6 @@ function StockFront () {
 
     const closeValue = parseFloat(intraday?.close);
 
-
 return (
 
     <div>
@@ -22,11 +21,10 @@ return (
             {stock?.symbol}
         </h2>
         <h2>
-            ${isNaN(closeValue) ? "N/A" : closeValue.toFixed(2)}
+            ${isNaN(closeValue) ? "N/A" : closeValue.toFixed(2)} USD
         </h2>
         {/* <p> Company: {stock?.name} </p> */}
         <p> Exchange: {stock?.exchange}</p>
-        <p>{stock?.currensy}</p>
         <p> Industry: {stock?.industry}</p>
         <p> Description: {stock?.description}</p>
 

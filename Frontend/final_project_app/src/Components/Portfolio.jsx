@@ -73,7 +73,7 @@ function Portfolio() {
     return (
         <div>
             <h1>Balance: ${myBalance}</h1>
-            <h2> My Portfolio:</h2>
+            <h2> {user.name}'s Portfolio:</h2>
             <ul>{portfolioMap}</ul>
             <h2>
                 <NavLink to="/transactions" className='nav-transactions'>
