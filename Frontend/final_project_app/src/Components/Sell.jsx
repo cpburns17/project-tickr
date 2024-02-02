@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from "react"
-import { useOutletContext, useLocation } from "react-router-dom"
+import { useOutletContext, useLocation, useNavigate } from "react-router-dom"
 
 
 function Sell () {
     const {stock, quote, intraday, user} = useOutletContext() 
 
+    // const navigate = useNavigate()
     const location = useLocation();
     const trade = location.state && location.state.trade;
     const aggregatedQuantity = location.state;
@@ -33,16 +34,10 @@ function Sell () {
     const [ticker, setTicker] = useState("DefaultTicker");
 
 
-    // useEffect(() => {
+    // function handleGoBack() {
+    //     navigate(-1);
+    // }
 
-    //     const tickerSymb = trade.ticker;
-    //     if (tickerSymb) {
-    //       setTicker(tickerSymb);
-    //       console.log("Ticker from props:", tickerSymb);
-    //     }
-    //   }, [location]);
-
-    // console.log(ticker)
 
     useEffect(() => {
     fetch(`http://localhost:5555/intraday/${stockTick}`)
@@ -139,6 +134,8 @@ return (
                 <button type='submit'>
                     Liquidate
                 </button>
+                {/* <br></br>
+                <button  onClick={handleGoBack}> Go Back </button> */}
             </form>
 
         {sellSuccess && (

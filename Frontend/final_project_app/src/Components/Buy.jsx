@@ -1,18 +1,17 @@
 import React, {useState, useEffect} from "react"
-import { useOutletContext, useLocation } from "react-router-dom"
+import { useOutletContext, useLocation, useNavigate} from "react-router-dom"
 
 
 function Buy (){
     const {stock, quote, intraday, user} = useOutletContext() 
 
+    // const navigate = useNavigate()
     const location = useLocation();
     const trade = location.state && location.state.trade;
     const aggregatedQuantity = location.state;
     const [buySuccess, setBuySuccess] = useState(false); // New state variable
     const [buyQuantity, setBuyQuantity] = useState(0); // New state variable
     
-
-
   
     const [stockPrice, setStockPrice] = useState()
     const [bought, setBought] = useState(0)
@@ -32,6 +31,9 @@ function Buy (){
     const [currentStockData, setCurrentStockData] = useState()
     const [ticker, setTicker] = useState("DefaultTicker");
 
+    // function handleGoBack() {
+    //     navigate(-1);
+    // }
 
 
     useEffect(() => {
@@ -129,7 +131,10 @@ return (
                 <button type='submit'>
                     Place order
                 </button>
+                {/* <br></br>
+                <button  onClick={handleGoBack}> Go Back </button> */}
             </form>
+
 
         {buySuccess && (
         <p>Congrats, you bought {buyQuantity} shares for ${(currentPrice * buyQuantity).toFixed(2)}!</p>

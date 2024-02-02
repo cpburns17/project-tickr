@@ -77,7 +77,7 @@ useEffect(() => {
       fetch('http://localhost:5555/user/1')
       .then(r => r.json())
       .then (data => {
-          // console.log(data)
+          console.log(data)
           setUser(data)
       })  
       }, []);
@@ -125,7 +125,7 @@ return (
 <div>
   <header>
     <h1> 
-      <NavBar />
+      <NavBar user = {user}/>
     </h1>
   </header>
 

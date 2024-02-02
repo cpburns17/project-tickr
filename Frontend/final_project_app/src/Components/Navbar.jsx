@@ -2,10 +2,13 @@ import React, {useState} from 'react'
 import {useOutletContext} from "react-router-dom"
 import { NavLink } from "react-router-dom";
 
-// import Portfolio from './Portfolio';
-// import {useNavigate} from 'react-router-dom'
 
-function Navbar () {
+function Navbar ({user}) {
+
+
+    const parseBalance = parseFloat(user?.balance);
+    const myBalance = parseBalance.toFixed(0);
+    console.log(myBalance)
 
 
 return (
@@ -20,8 +23,9 @@ return (
         </NavLink>
 
         <NavLink to='/portfolio' className='navbar'>
-            Portfolio
+            Portfolio 
         </NavLink>
+        ${myBalance}
     </div>
 )
 }

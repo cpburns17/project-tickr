@@ -56,35 +56,6 @@ function Portfolio() {
                 <p>Ticker: {trade.ticker}</p>
                 <p>Shares Owned: {aggregatedQuantity}</p>
                 <p>Total Investment: ${totalInvestment.toFixed(2)}</p>
-
-                <button onClick={() => handleToggleTransactionHistory(trade.ticker)}>
-                    {selectedTicker === trade.ticker ? 'Hide' : 'Show'} Transaction History
-                </button>
-
-                {selectedTicker === trade.ticker && (
-                    <ul>
-                        {transactions
-                            .filter((transaction) => transaction.ticker === trade.ticker)
-                            .map((transaction, index) => (
-                                <li key={index}>
-                                    {/* Render transaction details here */}
-                                    <p>{transaction.name}</p>
-                                    {transaction.bought > 0 && (
-                                        <p style={{ color: "red" }}>Bought: -${transaction.bought}</p>
-                                    )}
-                                    {transaction.sold > 0 && (
-                                        <p style={{ color: "green" }}>Sold: +${transaction.sold}</p>
-                                    )}
-                                    <p>
-                                        {transaction.quantity} of {transaction.ticker} @ $
-                                        {transaction.stock_price}
-                                    </p>
-                                    <p>{transaction.time}</p>
-                                </li>
-                            ))}
-                    </ul>
-                )}
-
                 <NavLink
                     to={{ pathname: "/sell" }}
                     state={{ trade: trade, aggregatedQuantity: aggregatedQuantity }}
@@ -100,6 +71,35 @@ function Portfolio() {
                 >
                     Buy
                 </NavLink>
+                <br></br>
+                <button onClick={() => handleToggleTransactionHistory(trade.ticker)}>
+                    {selectedTicker === trade.ticker ? 'Hide' : 'Show'} Transaction History
+                </button>
+
+                {selectedTicker === trade.ticker && (
+                    <ul>
+                        {transactions
+                            .filter((transaction) => transaction.ticker === trade.ticker)
+                            .map((transaction, index) => (
+                                <li key={index}>
+
+                                    {transaction.bought > 0 && (
+                                        <h4 style={{ color: "red", fontSize: 'bold' }}>Bought: {transaction.quantity} of {transaction.ticker} @ $
+                                        {(transaction.stock_price).toFixed(2)} = - ${(transaction.bought).toFixed(2)}</h4>
+                                    )}
+
+                                    {transaction.sold > 0 && (
+                                        <h4 style={{ color: "green", fontSize: 'bold'}}>Sold: {transaction.quantity} of {transaction.ticker} @ $
+                                        {(transaction.stock_price).toFixed(2)} = + ${(transaction.sold).toFixed(2)}</h4>
+                                    )}
+
+                                    <p>{transaction.time}</p>
+
+                                </li>
+                            ))}
+                    </ul>
+                )}
+
                 
             </li>
         );
@@ -108,11 +108,11 @@ function Portfolio() {
     return (
         <div>
             <h1>Balance: ${myBalance}</h1>
-            <h2>{user.name}'s Portfolio:</h2>
+            <h2>My Portfolio:</h2>
             <ul>{portfolioMap}</ul>
             <h2>
                 <NavLink to="/transactions" className="nav-transactions">
-                    See Transaction History
+                    See All Transactions
                 </NavLink>
             </h2>
         </div>
