@@ -5,7 +5,7 @@ import { useOutletContext, useLocation, useNavigate } from "react-router-dom"
 function Sell () {
     const {stock, quote, intraday, user} = useOutletContext() 
 
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     const location = useLocation();
     const trade = location.state && location.state.trade;
     const aggregatedQuantity = location.state;
@@ -34,9 +34,9 @@ function Sell () {
     const [ticker, setTicker] = useState("DefaultTicker");
 
 
-    // function handleGoBack() {
-    //     navigate(-1);
-    // }
+    function handleGoBack() {
+        navigate(-1);
+    }
 
 
     useEffect(() => {
@@ -119,7 +119,7 @@ return (
         {/* <p>PPS: ${trade.stock_price}</p>
         <p>Total: ${trade.bought}</p> */}
         <div>
-            <h3>Current Market PPS: ${currentPrice}</h3>
+            <h3>Current Stock PPS: ${currentPrice}</h3>
             <h1>${(currentPrice * quantity).toFixed(2)}</h1>
             <p>Enter # of shared you'd like to sell (max {currentQuantity}):</p>
             <form onSubmit={handleSubmit}>
@@ -132,10 +132,10 @@ return (
                     className="form-control"
                 />
                 <button type='submit'>
-                    Liquidate
+                    Execute
                 </button>
-                {/* <br></br>
-                <button  onClick={handleGoBack}> Go Back </button> */}
+                <br></br>
+                <button  onClick={handleGoBack}> Go Back </button>
             </form>
 
         {sellSuccess && (

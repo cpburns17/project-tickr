@@ -40,7 +40,9 @@ function Portfolio() {
         setSelectedTicker(ticker === selectedTicker ? null : ticker);
     };
 
-    const portfolioMap = uniqueTradeObjects?.map((trade, index) => {
+    const portfolioMap = (uniqueTradeObjects || [])
+    .filter((trade) => aggregatedQuantities[trade.ticker] !== 0)
+    .map((trade, index) => {
         const aggregatedQuantity = aggregatedQuantities[trade.ticker] || 0;
 
         const totalInvestment =

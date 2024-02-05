@@ -1,8 +1,9 @@
 import React, {useState} from "react"
-import { useOutletContext } from "react-router-dom"
+import { useOutletContext, useNavigate } from "react-router-dom"
 
 function Invest () {
     const {stock, quote, intraday, user} = useOutletContext() 
+    const navigate = useNavigate();
 
     const [stockPrice, setStockPrice] = useState()
     const [bought, setBought] = useState(0)
@@ -21,6 +22,12 @@ function Invest () {
     const stockTick = stock?.symbol
     const userID = user?.id
 
+
+    
+
+    function handleGoBack() {
+        navigate(-1);
+    }
 
 
     function handleSubmit(e) {
@@ -91,6 +98,8 @@ return (
             <button type='submit'>
                 Place Order
             </button>
+            <br></br>
+                <button  onClick={handleGoBack}> Go Back </button>
 
 
         </form>

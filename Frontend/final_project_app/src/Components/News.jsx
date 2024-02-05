@@ -1,8 +1,14 @@
 import React, {useState} from "react"
-import { useOutletContext } from "react-router-dom"
+import { useOutletContext, useNavigate } from "react-router-dom"
 
 function News () {
     const {news, stock} = useOutletContext()
+    const navigate = useNavigate();
+
+
+    function handleGoBack() {
+        navigate(-1);
+    }
 
     const formatPublishedDate = (dateString) => {
         // Assuming dateString is in the format YYYYMMDD
@@ -33,6 +39,8 @@ return (
     <div>
         <h1>Market News Feed</h1>
         <h2>{stock?.name}</h2>
+        <br></br>
+                <button  onClick={handleGoBack}> Go Back </button>
         {marketNews}
     </div>
 

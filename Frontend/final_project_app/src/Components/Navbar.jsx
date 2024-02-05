@@ -4,11 +4,15 @@ import { NavLink } from "react-router-dom";
 
 
 function Navbar ({user}) {
-
-
     const parseBalance = parseFloat(user?.balance);
     const myBalance = parseBalance.toFixed(0);
-    console.log(myBalance)
+    // console.log(myBalance)
+
+    const refreshPage = () => {
+        // This function generates a new key to force remount
+        const key = Math.random();
+        window.location.href = `/portfolio?key=${key}`;
+    };
 
 
 return (
@@ -22,9 +26,13 @@ return (
             {/* Going to use an icon here */}
         </NavLink>
 
-        <NavLink to='/portfolio' className='navbar'>
-            Portfolio 
-        </NavLink>
+    <NavLink
+        to={{ pathname: '/portfolio', key: Math.random() }}
+        onClick={refreshPage}
+        className="navbar"
+    >
+        Portfolio 
+    </NavLink>
         ${myBalance}
     </div>
 )
