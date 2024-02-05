@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from "react"
-// import { useOutletContext } from "react-router-dom"
+import { useOutletContext, useNavigate } from "react-router-dom"
+import Login from './Login'
+import Signup from './Signup'
 
-function Welcome () {
+function Welcome ({user, setUser}) {
     const [filterValue, setFilterValue] = useState("");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [user, setUser] = useState(null);
+    // const [user, setUser] = useState(null);
     const [showSignup, setShowSignup] = useState(false);
     const navigate = useNavigate();
     
@@ -47,8 +49,26 @@ return (
 
     <div>
         Welcome Page!!!
-        <Signup setIsLoggedIn = {setIsLoggedIn} setUser = {setUser}/>
-        <Login attemptLogin = {attemptLogin}/>
+        {user === null && !showSignup ? (
+            <Login attemptLogin = {attemptLogin}/>
+        ) : null}
+
+        {user === null && showSignup ? (
+            <Signup setIsLoggedIn = {setIsLoggedIn} setUser = {setUser}/>
+        ) : null}
+
+        {user === null ? (
+        <div className="d-flex justify-content-center mt-3">
+            <button
+                className="btn btn-primary"
+                onClick={() => setShowSignup(!showSignup)}
+            >
+                {showSignup ? "Go to Login" : "Go to Signup"}
+            </button>
+        </div>
+
+    ) : null}
+
     </div>
 
 )

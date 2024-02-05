@@ -15,6 +15,7 @@ config = dotenv_values(".env")
 config['my_key']
 
 app = Flask(__name__)
+app.secret_key = config['FLASK_SECRET_KEY']
 CORS(app, resources={r"/*": {"origins": "*"}})
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -31,34 +32,35 @@ def index():
     return "Home"
 
 # LOGIN AND SIGNUP 
-# @app.get("/api/check_session")
-# def check_session():
-#     user = db.session.get(User, session.get("user_id"))
-#     print(f'check session {session.get("user_id")}')
-#     if user:
-#         return user.to_dict(rules=["-password_hash"]), 200
-#     else:
-#         return {"message": "No user logged in"}, 401
+@app.get("/api/check_session")
+def check_session():
+    user = db.session.get(User, session.get("user_id"))
+    print(f'check session {session.get("user_id")}')
+    if user:
+        return user.to_dict(rules=["-password_hash"]), 200
+    else:
+        return {"message": "No user logged in"}, 401
 
 
-# @app.delete("/api/logout")
-# def logout():
-#     session.pop("user_id")
-#     return {"message": "Logged out"}, 200
+@app.post("/api/login")
+def login():
+    data = request.json
 
-# @app.post("/api/login")
-# def login():
-#     data = request.json
+    user = User.query.filter(User.username == data.get("username")).first()
+    # print(data)
+    print(user)
+    if user and bcrypt.check_password_hash(user.password, data.get("password")):
+        session["user_id"] = user.id
+        print("success")
+        return user.to_dict(rules=['-password']), 200
+    else:
+        return {"error": "Invalid username or password"}, 401
+    
 
-#     user = User.query.filter(User.username == data.get("username")).first()
-#     print(data)
-#     print(user)
-#     if user and bcrypt.check_password_hash(user.password, data.get("password")):
-#         session["user_id"] = user.id
-#         print("success")
-#         return user.to_dict(rules=['-password','-comments']), 200
-#     else:
-#         return {"error": "Invalid username or password"}, 401
+@app.delete("/api/logout")
+def logout():
+    session.pop("user_id")
+    return {"message": "Logged out"}, 200
 
 
 # GET AND POST USER 
@@ -69,19 +71,20 @@ def get_user():
     return [u.to_dict() for u in users]
 
 
-app.post('/api/user')
+@app.post('/api/user')
 def create_user():
     try:
         data = request.json
         print(data)
         new_user = User(
             name = data.get('name'),
-            # username = data.get('username'),
-            # password = data.get('password'),
+            username = data.get('username'),
+            password = bcrypt.generate_password_hash(data.get('password')),
             balance = data.get('balance'),
         )
         db.session.add(new_user)
         db.session.commit()
+        session["user_id"] = new_user.id
         return new_user.to_dict(), 201
 
     except Exception as e:

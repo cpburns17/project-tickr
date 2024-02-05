@@ -37,7 +37,7 @@ function Buy (){
 
 
     useEffect(() => {
-    fetch(`http://localhost:5555/intraday/${stockTick}`)
+    fetch(`api/intraday/${stockTick}`)
     .then(r => r.json())
     .then (data => {
         console.log(data)
@@ -80,7 +80,7 @@ function Buy (){
     }
 
 
-    fetch('http://localhost:5555/trades', {
+    fetch('api/trades', {
         method: "POST",
         headers: {
             "Content-type": "application/json"

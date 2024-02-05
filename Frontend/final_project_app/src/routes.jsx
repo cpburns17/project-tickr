@@ -10,7 +10,7 @@ import News from "./Components/News.jsx"
 import Transactions from './Components/Transactions.jsx'
 import Sell from './Components/Sell.jsx'
 import Buy from './Components/Buy.jsx'
-import Login from './Components/Login.jsx'
+import Welcome from './Components/Welcome.jsx'
 import Signup from './Components/Signup.jsx'
 // import SingleTransaction from './Components.SingleTransaction.jsx'
 
@@ -78,8 +78,8 @@ const routes = [
             errorElement: <h1>Something went wrong!</h1>
         },
         {
-            path: "/login",
-            element: <Login />,
+            path: "/welcome",
+            element: <Welcome />,
             errorElement: <h1>Something went wrong!</h1>
         },
         // {

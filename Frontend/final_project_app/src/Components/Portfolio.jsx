@@ -48,8 +48,8 @@ function Portfolio() {
         const totalInvestment =
             trade.bought > 0
                 ? aggregatedQuantity * trade.stock_price // For bought transactions
-                : trade.sold > 0
-                ? aggregatedQuantity * trade.sold // For sold transactions
+            : trade.sold > 0
+                ? aggregatedQuantity * trade.stock_price // For sold transactions
                 : 0;
 
         return (

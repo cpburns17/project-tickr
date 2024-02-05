@@ -58,7 +58,7 @@ function Invest () {
 
     }
 
-    fetch('http://localhost:5555/trades', {
+    fetch('api/trades', {
         method: "POST",
         headers: {
             "Content-type": "application/json"

@@ -5,6 +5,7 @@ function Signup ({setIsLoggedIn, setUser}) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
+    const [balance, setBalance] = useState(10000)
     const navigate = useNavigate();
 
     const handleUsername = (e) => {
@@ -21,15 +22,16 @@ function Signup ({setIsLoggedIn, setUser}) {
 
         const handleSubmit = (e) => {
             e.preventDefault();
-            setIsLoggedIn(true);
+            // setIsLoggedIn(true);
 
         const newUser = {
             username: username,
             password: password,
             name: name,
+            balance: balance,
         };
 
-        fetch("http://localhost:5555/user", {
+        fetch("api/user", {
             method: "POST",
             headers: {
             "Content-Type": "application/json",
@@ -41,7 +43,7 @@ function Signup ({setIsLoggedIn, setUser}) {
             console.log("User created:", data);
             setUser(data);
             // Redirect to /login
-            navigate('/login');
+            navigate('/');
             })
             .catch((error) => {
             console.error("Error creating user:", error);

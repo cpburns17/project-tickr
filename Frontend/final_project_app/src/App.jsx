@@ -13,7 +13,7 @@ function App () {
   const [quote, setQuote] = useState()
   const [intraday, setIntraday] = useState()
   const [news, setNews] = useState()
-  const [user, setUser] = useState()
+  const [user, setUser] = useState(null)
   const [search, setSearch] = useState("")
 
   const [jsonList, setJsonList] = useState()
@@ -24,7 +24,7 @@ useEffect(() => {
 fetch('api/random_stock')
 .then(r => r.json())
 .then (data => {
-    console.log(data)
+    // console.log(data)
     setStock(data)
 })  
 }, []);
@@ -47,7 +47,7 @@ useEffect(() => {
 
   useEffect(() => {
     if (stock) {
-      console.log(stock)
+      // console.log(stock)
     fetch(`api/intraday/${stock?.symbol}`)
     .then(r => r.json())
     .then (data => {
@@ -62,11 +62,10 @@ useEffect(() => {
 
     useEffect(() => {
       if (stock) {
-        console.log("enws")
       fetch(`api/news/${stock?.symbol}`)
       .then(r => r.json())
       .then (data => {
-          console.log(data.slice(1, 6))
+          // console.log(data.slice(1, 6))
           setNews(data.slice(1, 10))
       })
       .catch((error) => {
@@ -83,7 +82,7 @@ function handleRandomStock() {
   fetch('api/random_stock')
   .then(r => r.json())
   .then (data => {
-      console.log(data)
+      // console.log(data)
       setStock(data)
       setQuote(data)
   }) 
@@ -107,11 +106,16 @@ useEffect(() => {
 
 // GET USER 
 useEffect(() => {
-  fetch('api/user/1')
-  .then(r => r.json())
+  fetch('api/user/')
+  .then(r => {
+    if (r.ok){
+      return r.json()
+    }
+   throw Error()
+  })
   .then (data => {
-      console.log(data)
       setUser(data)
+      console.log(data)
   })  
   }, []);
 
@@ -134,7 +138,7 @@ return (
   <>
   
   {user === null ? (
-    <Welcome />) : (
+    <Welcome user = {user} setUser = {setUser}/>) : (
       
 <div>
   <header>

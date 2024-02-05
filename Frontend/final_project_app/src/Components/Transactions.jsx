@@ -30,9 +30,9 @@ const transactionMap = transactions?.map((trade, index) => (
         {trade.quantity}
         </p> */}
         {trade.bought > 0 && (
-        <p style={{ color: "red" }}>Bought: -${trade.bought}</p>
+        <p style={{ color: "red" }}>Bought: -${(trade.bought).toFixed(2)}</p>
         )}
-        {trade.sold > 0 && <p style={{ color: "green" }}>Sold: +${trade.sold}</p>}
+        {trade.sold > 0 && <p style={{ color: "green" }}>Sold: +${(trade.sold).toFixed(2)}</p>}
         <p>{trade.quantity} of {trade.ticker} @ ${trade.stock_price}</p>
         <p>{trade.time}</p>
     </li>

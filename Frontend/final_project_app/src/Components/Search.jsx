@@ -10,7 +10,7 @@ function Search () {
 
     function handleClick (stock) {
         stock.symbol = stock.ticker
-        fetch('http://localhost:5555/overview/'+stock.symbol)
+        fetch('api/overview/'+stock.symbol)
         .then(r => r.json())
         .then (data => {
             console.log(data)
