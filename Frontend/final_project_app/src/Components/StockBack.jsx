@@ -20,13 +20,13 @@ return (
     <div>
         <h1> Stock Back</h1>
         {/* <p>Price: ${parsePrice.toFixed(2)}</p> */}
+        <p>Open: ${parseOpen.toFixed(2)}</p>
+        <p>Previous Close: ${parseClose.toFixed(2)}</p>
         <p>52 Week High: ${stock?.fiftytwo_high}</p>
         <p>52 Week Low: ${stock?.fiftytwo_low}</p>
         <p>P/E Ratio: ${stock?.pe_ratio}</p>
         {/* <p>High: ${parseHigh.toFixed(2)}</p>
         <p>Low: ${parseLow.toFixed(2)}</p> */}
-        <p>Open: ${parseOpen.toFixed(2)}</p>
-        <p>Previous Close: ${parseClose.toFixed(2)}</p>
         {/* <p>Volume: {quote?.volume}</p> */}
 
         <div>

@@ -22,10 +22,88 @@ app.json.compact = False
 bcrypt = Bcrypt(app)
 migrate = Migrate(app, db)
 
+
 db.init_app(app)
 
 
+@app.get("/")
+def index():
+    return "Home"
 
+# LOGIN AND SIGNUP 
+# @app.get("/api/check_session")
+# def check_session():
+#     user = db.session.get(User, session.get("user_id"))
+#     print(f'check session {session.get("user_id")}')
+#     if user:
+#         return user.to_dict(rules=["-password_hash"]), 200
+#     else:
+#         return {"message": "No user logged in"}, 401
+
+
+# @app.delete("/api/logout")
+# def logout():
+#     session.pop("user_id")
+#     return {"message": "Logged out"}, 200
+
+# @app.post("/api/login")
+# def login():
+#     data = request.json
+
+#     user = User.query.filter(User.username == data.get("username")).first()
+#     print(data)
+#     print(user)
+#     if user and bcrypt.check_password_hash(user.password, data.get("password")):
+#         session["user_id"] = user.id
+#         print("success")
+#         return user.to_dict(rules=['-password','-comments']), 200
+#     else:
+#         return {"error": "Invalid username or password"}, 401
+
+
+# GET AND POST USER 
+
+@app.get('/api/user')
+def get_user():
+    users = User.query.all()
+    return [u.to_dict() for u in users]
+
+
+app.post('/api/user')
+def create_user():
+    try:
+        data = request.json
+        print(data)
+        new_user = User(
+            name = data.get('name'),
+            # username = data.get('username'),
+            # password = data.get('password'),
+            balance = data.get('balance'),
+        )
+        db.session.add(new_user)
+        db.session.commit()
+        return new_user.to_dict(), 201
+
+    except Exception as e:
+        print(e)
+        return {'error': str(e)}, 400
+
+@app.get("/api/user/<int:id>")
+def get_user_by_id(id):
+    current_user = db.session.get(User, id)
+    if not current_user:
+        return {"error": "User not found"}, 404
+    
+    return current_user.to_dict(), 200
+        
+
+
+
+
+
+
+
+# RANDOM STOCK FUNCTION
 def random_stock():
     with open('tickers.json') as f:
         data = json.load(f)
@@ -33,7 +111,8 @@ def random_stock():
             return random.choice(data)
         else:
             return None
-        
+
+# GRABS JSON FILE 
 def json_list():
     with open('tickers.json') as f:
         data = json.load(f)
@@ -42,18 +121,15 @@ def json_list():
         else:
             return None
 
-@app.get("/")
-def index():
-    return "Home"
-
-@app.get('/tickers_list')
+# RETURNS JSON LIST
+@app.get('/api/tickers_list')
 def get_tickers():
     stocks = json_list()
 
     return stocks
 
-
-@app.get('/random_stock')
+# GETS RANDOM STOCK FROM API
+@app.get('/api/random_stock')
 def get_stocks():
     d  = {}
     fetched = False
@@ -77,8 +153,8 @@ def get_stocks():
 
     return d,200
 
-
-@app.get("/overview/<ticker>")
+# OVERVIEW OF STOCK 
+@app.get("/api/overview/<ticker>")
 def get_stock_overview(ticker):
     url = f"https://www.alphavantage.co/query?function=OVERVIEW&symbol={ticker}&apikey={config['my_key']}"
     r = requests.get(url)
@@ -96,7 +172,9 @@ def get_stock_overview(ticker):
 
     return d
 
-@app.get("/stock_price/<stock>")
+
+# GLOBAL QUOTE OF STOCK 
+@app.get("/api/stock_price/<stock>")
 def get_stock_pride(stock):
     url = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={stock}&apikey={config['my_key']}"
     r = requests.get(url)
@@ -117,11 +195,11 @@ def get_stock_pride(stock):
 
     }
     # print(d)
-
     return d
 
 
-@app.get("/intraday/<ticker>")
+# INTRADAY DATA 
+@app.get("/api/intraday/<ticker>")
 def get_stock_intraday(ticker):
     print(ticker)
     url = f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={ticker}&interval=1min&entitlement=delayed&apikey={config["my_key"]}'
@@ -147,11 +225,11 @@ def get_stock_intraday(ticker):
         'volume': intraday.get('5. volume', '')
 
     }
-
     return p, d
 
 
-@app.get("/news/<ticker>")
+# NEWS & SENTIMENTS
+@app.get("/api/news/<ticker>")
 def get_stock_news(ticker):
     url = f'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers={ticker}&apikey={config["my_key"]}'
     r = requests.get(url)
@@ -172,11 +250,11 @@ def get_stock_news(ticker):
         }
         news_list.append(d)
 
-
     return news_list
 
 
-@app.get('/search')
+# SEARCH FOR STOCK 
+@app.get('/api/search')
 def search_by_ticker(ticker):
     url = f'https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={ticker}&apikey={config["my_key"]}'
     r = requests.get(url)
@@ -194,7 +272,7 @@ def search_by_ticker(ticker):
     return results_list
 
 
-
+# TOP TRADES
 # @app.get('/top_trades')
 # def get_top_trades():
 #     url = f'https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey={config["my_key"]}'
@@ -204,13 +282,14 @@ def search_by_ticker(ticker):
 #     return data
 
 
-
-@app.get('/trades')
+# TRADES TABLE
+@app.get('/api/trades')
 def get_trades():
     trades = Trades.query.all()
     return [t.to_dict() for t in trades]
 
-@app.post('/trades')
+# POST TRADES TO TABLE
+@app.post('/api/trades')
 def transaction():
     try:
         data = request.json
@@ -232,6 +311,7 @@ def transaction():
         if not user:
             raise ValueError('no user error 1')
         
+# THIS UPDATES BALANCE WHEN BOUGHT OR SOLD      
         if total_purchase != 0:
             user.balance = user.balance + int(data.get('quantity'))* float(data.get('stock_price'))
             if user.balance < 0:
@@ -277,41 +357,6 @@ def transaction():
 #         return {'errors': str(e)}, 400
 
 
-@app.get('/user')
-def get_user():
-    users = User.query.all()
-    return [u.to_dict() for u in users]
-
-
-app.post('/user')
-def create_user():
-    try:
-        data = request.json
-        print(data)
-        new_user = User(
-            name = data.get('name'),
-            balance = data.get('balance'),
-        )
-        db.session.add(new_user)
-        db.session.commit()
-        return new_user.to_dict(), 201
-
-    except Exception as e:
-        print(e)
-        return {'error': str(e)}, 400
-
-@app.get("/user/<int:id>")
-def get_user_by_id(id):
-    current_user = db.session.get(User, id)
-    if not current_user:
-        return {"error": "User not found"}, 404
-    
-    return current_user.to_dict(), 200
-        
-
-
-
-
 
 
 
@@ -329,11 +374,6 @@ def get_user_by_id(id):
 # # Save the modified JSON back to the file
 # with open('tickers.json', 'w') as file:
 #     json.dump(object_list, file, indent=2)
-
-
-
-
-
 
 
 

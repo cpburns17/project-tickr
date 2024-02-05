@@ -4,6 +4,7 @@ import { useOutletContext, useNavigate } from "react-router-dom"
 function Invest () {
     const {stock, quote, intraday, user} = useOutletContext() 
     const navigate = useNavigate();
+    const [portfolioKey, setPortfolioKey] = useState(0);
 
     const [stockPrice, setStockPrice] = useState()
     const [bought, setBought] = useState(0)
@@ -23,7 +24,10 @@ function Invest () {
     const userID = user?.id
 
 
-    
+    function handlePortfolioRedirect() {
+        const key = Math.random();
+        window.location.href = `/portfolio?key=${key}`;
+    }
 
     function handleGoBack() {
         navigate(-1);
@@ -104,7 +108,12 @@ return (
 
         </form>
         {buySuccess && (
-        <p>Congrats, you bought {buyQuantity} shares for ${(currentPrice * buyQuantity).toFixed(2)}!</p>
+            <div>
+                <p>Congrats, you bought {buyQuantity} shares for ${(currentPrice * buyQuantity).toFixed(2)}!</p>
+                <button onClick={handlePortfolioRedirect}>
+                    Go to Portfolio
+                </button>
+            </div>
         )}
     </div>
 

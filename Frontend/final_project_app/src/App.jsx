@@ -5,6 +5,8 @@ import {Outlet, useLocation} from 'react-router-dom'
 import './App.css'
 import NavBar from './Components/Navbar'
 import Welcome from './Components/Welcome'
+import Signup from './Components/Signup'
+import Login from './Components/Login'
 
 function App () {
   const [stock, setStock] = useState()
@@ -19,7 +21,7 @@ function App () {
 
 
 useEffect(() => {
-fetch('http://localhost:5555/random_stock')
+fetch('api/random_stock')
 .then(r => r.json())
 .then (data => {
     console.log(data)
@@ -30,7 +32,7 @@ fetch('http://localhost:5555/random_stock')
 useEffect(() => {
   if (stock) {
     
-  fetch(`http://localhost:5555/stock_price/${stock?.symbol}`)
+  fetch(`api/stock_price/${stock?.symbol}`)
   .then(r => r.json())
   .then (data => {
       // console.log(data)
@@ -46,7 +48,7 @@ useEffect(() => {
   useEffect(() => {
     if (stock) {
       console.log(stock)
-    fetch(`http://localhost:5555/intraday/${stock?.symbol}`)
+    fetch(`api/intraday/${stock?.symbol}`)
     .then(r => r.json())
     .then (data => {
         // console.log(data)
@@ -61,7 +63,7 @@ useEffect(() => {
     useEffect(() => {
       if (stock) {
         console.log("enws")
-      fetch(`http://localhost:5555/news/${stock?.symbol}`)
+      fetch(`api/news/${stock?.symbol}`)
       .then(r => r.json())
       .then (data => {
           console.log(data.slice(1, 6))
@@ -73,19 +75,12 @@ useEffect(() => {
     }
       }, [stock]);
 
-    useEffect(() => {
-      fetch('http://localhost:5555/user/1')
-      .then(r => r.json())
-      .then (data => {
-          console.log(data)
-          setUser(data)
-      })  
-      }, []);
 
 
 
+// RANDOM Stock function
 function handleRandomStock() {
-  fetch('http://localhost:5555/random_stock')
+  fetch('api/random_stock')
   .then(r => r.json())
   .then (data => {
       console.log(data)
@@ -98,8 +93,9 @@ function handleRandomStock() {
 
 }
 
+// Get from JSON File
 useEffect(() => {
-  fetch('http://localhost:5555/tickers_list')
+  fetch('api/tickers_list')
   .then(r => r.json())
   .then (data => {
       // console.log(data)
@@ -108,6 +104,21 @@ useEffect(() => {
   }, []);
 
 
+
+// GET USER 
+useEffect(() => {
+  fetch('api/user/1')
+  .then(r => r.json())
+  .then (data => {
+      console.log(data)
+      setUser(data)
+  })  
+  }, []);
+
+  console.log(user)
+
+
+  //Search function 
 function handleSearch(searchTerm){
   setSearch(searchTerm)
 }
@@ -119,9 +130,12 @@ function handleSearch(searchTerm){
 
 
 
-
-
 return (
+  <>
+  
+  {user === null ? (
+    <Welcome />) : (
+      
 <div>
   <header>
     <h1> 
@@ -136,6 +150,22 @@ return (
 
   </div>
 </div>
+  )}
+
+
+{/* 
+  <header>
+    <h1> 
+      <NavBar user = {user}/>
+    </h1>
+  </header>
+  <div>
+    <Outlet context = {{ stock, setStock, handleRandomStock, quote, intraday, news, user, search, handleSearch, filteredStocks}} />
+  </div> */}
+
+
+
+</>
 
 );
 
