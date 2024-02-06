@@ -16,7 +16,7 @@ return (
     </header> */}
 
     <div>
-        <StockCard />
+        <StockCard className="stock-card"/>
     </div>
 
 

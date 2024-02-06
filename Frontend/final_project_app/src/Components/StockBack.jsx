@@ -20,7 +20,7 @@ function StockBack () {
 
 
 return (
-<Card >
+<Card className="stock-back">
     <Card.Body> 
         <Card.Title> {stock?.name} </Card.Title>
         <Card.Subtitle> {stock?.symbol}</Card.Subtitle>

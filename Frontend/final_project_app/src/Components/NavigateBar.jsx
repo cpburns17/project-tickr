@@ -23,8 +23,9 @@ function NavigateBar ({user, setUser, setIsLoggedIn}) {
 
 return (
 
-<Navbar expand="lg" className="bg-body-tertiary">
-    <Container> 
+<Navbar className='navbar' expand="lg" bg="light" fixed="top">
+    <Container  > 
+    {/* <Navbar.Brand href="#home">Tickr</Navbar.Brand> */}
         <Nav.Link href="/" className='navbar'>
             Home
         </Nav.Link>

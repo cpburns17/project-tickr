@@ -19,8 +19,6 @@ return (
 
     <div>
 
-        <button onClick={handleRandomStock}> Random Stock</button>
-
 
         <div>
             {frontCard ? 
@@ -29,7 +27,9 @@ return (
             <StockBack />
             }
         </div>
-            <button onClick={flipCard}> Flip Card </button>
+        <button onClick={handleRandomStock}> Random Stock</button>
+        <br></br>
+        <button onClick={flipCard}> Flip Card </button>
 
     </div>
 

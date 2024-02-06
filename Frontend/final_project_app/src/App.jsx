@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react'
 // import {useNavigate} from 'react-router-dom'
 import {Outlet, useLocation} from 'react-router-dom'
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
+
 import NavigateBar from './Components/NavigateBar'
 import Welcome from './Components/Welcome'
-import Signup from './Components/Signup'
-import Login from './Components/Login'
+
 
 function App ({setIsLoggedIn}) {
   const [stock, setStock] = useState()
@@ -115,11 +115,11 @@ useEffect(() => {
   })
   .then (data => {
       setUser(data)
-      console.log(data)
+      // console.log(data)
   })  
   }, []);
 
-  console.log(user)
+  // console.log(user)
 
 
   //Search function 
@@ -143,7 +143,7 @@ return (
 <div>
   <header>
     <h1> 
-      <NavigateBar user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn}/>
+      <NavigateBar user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} bg="dark"/>
     </h1>
   </header>
 

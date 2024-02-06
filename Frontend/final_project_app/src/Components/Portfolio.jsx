@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
+
 function Portfolio() {
     const { user } = useOutletContext();
     const [transactions, setTransactions] = useState();
@@ -108,9 +111,10 @@ function Portfolio() {
     });
 
     return (
-        <div>
-            <h1>Balance: ${myBalance}</h1>
-            <h2>My Portfolio:</h2>
+        <div className="portfolio">
+            <h1 className="portfolio-balance" >Balance: ${myBalance}</h1>
+            <br></br>
+            {/* <h2>My Portfolio:</h2> */}
             <ul>{portfolioMap}</ul>
             <h2>
                 <NavLink to="/transactions" className="nav-transactions">

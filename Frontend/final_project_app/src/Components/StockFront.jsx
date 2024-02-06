@@ -5,6 +5,9 @@ import {useOutletContext} from "react-router-dom"
 import Invest from './Invest'
 import Portfolio from './Portfolio'
 
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
+
 
 function StockFront () {
     const { stock, intraday} = useOutletContext();
@@ -12,34 +15,62 @@ function StockFront () {
     const closeValue = parseFloat(intraday?.close);
 
 return (
-
-    <div>
-        <h1>
+<Card className="stock-front">
+    <Card.Body>
+        <h2>
             {stock?.name}
-        </h1>
-        <h2>
+        </h2>
+        <Card.Subtitle>
             {stock?.symbol}
-        </h2>
-        <h2>
+        </Card.Subtitle>
+        <br></br>
+        <ListGroup variant="flush">
+        <h1>
             ${isNaN(closeValue) ? "N/A" : closeValue.toFixed(2)} USD
-        </h2>
-        {/* <p> Company: {stock?.name} </p> */}
+        </h1>
         <p> Exchange: {stock?.exchange}</p>
         <p> Industry: {stock?.industry}</p>
-        <p> Description: {stock?.description}</p>
-
-        
-
+        </ListGroup>
+        <Card.Text> Description: {stock?.description}</Card.Text>
+    </Card.Body>
+    <Card.Body> 
         <div>
             <NavLink to="/invest" className='nav-invest'>
                 Click here to invest
             </NavLink>
         </div>
         {/* <Invest /> */}
-    </div>
+    </Card.Body>
 
+</Card>
 );
 
 }
 
 export default StockFront
+
+
+// <div>
+// <h1>
+//     {stock?.name}
+// </h1>
+// <h2>
+//     {stock?.symbol}
+// </h2>
+// <h2>
+//     ${isNaN(closeValue) ? "N/A" : closeValue.toFixed(2)} USD
+// </h2>
+// {/* <p> Company: {stock?.name} </p> */}
+// <p> Exchange: {stock?.exchange}</p>
+// <p> Industry: {stock?.industry}</p>
+// <p> Description: {stock?.description}</p>
+
+
+
+// <div>
+//     <NavLink to="/invest" className='nav-invest'>
+//         Click here to invest
+//     </NavLink>
+// </div>
+// {/* <Invest /> */}
+// </div>
