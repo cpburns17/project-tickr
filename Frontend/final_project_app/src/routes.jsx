@@ -12,6 +12,7 @@ import Sell from './Components/Sell.jsx'
 import Buy from './Components/Buy.jsx'
 import Welcome from './Components/Welcome.jsx'
 import Signup from './Components/Signup.jsx'
+// import Logout from './Components/Logout.jsx'
 // import SingleTransaction from './Components.SingleTransaction.jsx'
 
 
@@ -82,6 +83,11 @@ const routes = [
             element: <Welcome />,
             errorElement: <h1>Something went wrong!</h1>
         },
+        // {
+        //     path: "/logout",
+        //     element: <Logout />,
+        //     errorElement: <h1>Something went wrong!</h1>
+        // },
         // {
         //     path: "/transaction-history",
         //     element: <SingleTransaction />,

@@ -3,12 +3,12 @@ import React, {useState, useEffect} from 'react'
 import {Outlet, useLocation} from 'react-router-dom'
 
 import './App.css'
-import NavBar from './Components/Navbar'
+import NavigateBar from './Components/NavigateBar'
 import Welcome from './Components/Welcome'
 import Signup from './Components/Signup'
 import Login from './Components/Login'
 
-function App () {
+function App ({setIsLoggedIn}) {
   const [stock, setStock] = useState()
   const [quote, setQuote] = useState()
   const [intraday, setIntraday] = useState()
@@ -138,12 +138,12 @@ return (
   <>
   
   {user === null ? (
-    <Welcome user = {user} setUser = {setUser}/>) : (
+    <Welcome user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn}/>) : (
       
 <div>
   <header>
     <h1> 
-      <NavBar user = {user}/>
+      <NavigateBar user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn}/>
     </h1>
   </header>
 
