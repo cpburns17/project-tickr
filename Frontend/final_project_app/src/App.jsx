@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 // import {useNavigate} from 'react-router-dom'
 import {Outlet, useLocation} from 'react-router-dom'
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 
 import NavigateBar from './Components/NavigateBar'
@@ -143,7 +143,7 @@ return (
 <div>
   <header>
     <h1> 
-      <NavigateBar user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} bg="dark"/>
+      <NavigateBar user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} />
     </h1>
   </header>
 

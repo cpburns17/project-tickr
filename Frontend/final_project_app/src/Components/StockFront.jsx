@@ -7,12 +7,15 @@ import Portfolio from './Portfolio'
 
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+import Button from 'react-bootstrap/Button';
 
 
-function StockFront () {
+function StockFront ({flipCard}) {
     const { stock, intraday} = useOutletContext();
 
     const closeValue = parseFloat(intraday?.close);
+
+
 
 return (
 <Card className="stock-front">
@@ -39,7 +42,8 @@ return (
                 Click here to invest
             </NavLink>
         </div>
-        {/* <Invest /> */}
+        <br></br>
+        <Button onClick={flipCard} className="flip-card-front"> Flip Card </Button>
     </Card.Body>
 
 </Card>
@@ -50,27 +54,27 @@ return (
 export default StockFront
 
 
-// <div>
-// <h1>
-//     {stock?.name}
-// </h1>
-// <h2>
-//     {stock?.symbol}
-// </h2>
-// <h2>
-//     ${isNaN(closeValue) ? "N/A" : closeValue.toFixed(2)} USD
-// </h2>
-// {/* <p> Company: {stock?.name} </p> */}
-// <p> Exchange: {stock?.exchange}</p>
-// <p> Industry: {stock?.industry}</p>
-// <p> Description: {stock?.description}</p>
-
-
-
-// <div>
-//     <NavLink to="/invest" className='nav-invest'>
-//         Click here to invest
-//     </NavLink>
-// </div>
-// {/* <Invest /> */}
-// </div>
+// return (
+//     <div>
+//         <h1>
+//             {stock?.name}
+//         </h1>
+//         <h2>
+//             {stock?.symbol}
+//         </h2>
+//         <h2>
+//             ${isNaN(closeValue) ? "N/A" : closeValue.toFixed(2)} USD
+//         </h2>
+//         <p> Exchange: {stock?.exchange}</p>
+//         <p> Industry: {stock?.industry}</p>
+//         <p> Description: {stock?.description}</p>
+        
+        
+        
+//         <div>
+//             <NavLink to="/invest" className='nav-invest'>
+//                 Click here to invest
+//             </NavLink>
+//         </div>
+//     </div>
+// )

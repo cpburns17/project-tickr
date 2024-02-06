@@ -4,6 +4,11 @@ import { useOutletContext, useLocation } from "react-router-dom"
 import StockFront from './StockFront'
 import StockBack from './StockBack'
 
+
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Button from 'react-bootstrap/Button';
+
 function StockCard () {
     const [frontCard, setFrontCard] = useState(true)
     const { stock, setStock, handleRandomStock } = useOutletContext();
@@ -16,21 +21,18 @@ function StockCard () {
 
 
 return (
-
-    <div>
-
-
+    <div className="stock-card-container">
+    {/* <Card className="stock-card"> */}
         <div>
             {frontCard ? 
-            <StockFront/> 
+            <StockFront flipCard={flipCard}/> 
             : 
-            <StockBack />
+            <StockBack flipCard={flipCard}/>
             }
         </div>
-        <button onClick={handleRandomStock}> Random Stock</button>
         <br></br>
-        <button onClick={flipCard}> Flip Card </button>
-
+    {/* </Card> */}
+        <Button onClick={handleRandomStock} variant="success"> Random Stock</Button>
     </div>
 
 );

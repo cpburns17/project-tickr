@@ -48,7 +48,7 @@ function Welcome ({user, setUser}) {
 return (
 
     <div>
-        Welcome Page!!!
+        Welcome to Tickr!
         {user === null && !showSignup ? (
             <Login attemptLogin = {attemptLogin}/>
         ) : null}

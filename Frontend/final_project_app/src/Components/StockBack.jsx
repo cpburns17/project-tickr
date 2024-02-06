@@ -5,10 +5,11 @@ import Metrics from './Metrics'
 
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+import Button from 'react-bootstrap/Button';
 
 
 
-function StockBack () {
+function StockBack ({flipCard}) {
     const {quote, stock,} = useOutletContext()
 
     const parseHigh = parseFloat(quote?.high);
@@ -22,10 +23,9 @@ function StockBack () {
 return (
 <Card className="stock-back">
     <Card.Body> 
-        <Card.Title> {stock?.name} </Card.Title>
-        <Card.Subtitle> {stock?.symbol}</Card.Subtitle>
+        <h2> {stock?.name} </h2>
         {/* <p>Price: ${parsePrice.toFixed(2)}</p> */}
-        <ListGroup variant="flush">
+        <ListGroup >
         <ListGroup.Item>Open: ${parseOpen.toFixed(2)}</ListGroup.Item>
         <ListGroup.Item>Previous Close: ${parseClose.toFixed(2)}</ListGroup.Item>
         <ListGroup.Item>52 Week High: ${stock?.fiftytwo_high}</ListGroup.Item>
@@ -34,13 +34,18 @@ return (
         </ListGroup>
     </Card.Body>
     <Card.Body>
-            <Card.Link href="#metrics" className='nav-metrics'>
+            <Card.Link href="metrics" className='nav-metrics'>
                 See Metrics
             </Card.Link>
-            <Card.Link href="#news" className='nav-news'>
+            <Card.Link href="news" className='nav-news'>
                 Market News
             </Card.Link>
+            <br></br>
+            <br></br>
+            <Button onClick={flipCard} className="flip-card-back"> Flip Card </Button>
     </Card.Body>
+
+    
 
 </Card>
 

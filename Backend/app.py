@@ -171,6 +171,7 @@ def get_stock_overview(ticker):
     d['fiftytwo_high'] = data.get('52WeekHigh')
     d['fiftytwo_low'] = data.get('52WeekLow')
     d['pe_ratio'] = data.get('PERatio')
+    d['div_per_share'] = data.get('DividendPerShare')
     
 
     return d

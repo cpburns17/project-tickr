@@ -1,6 +1,11 @@
 import React, {useState} from "react"
 import { useOutletContext, useNavigate } from "react-router-dom"
 
+
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Button from 'react-bootstrap/Button';
+
 function News () {
     const {news, stock} = useOutletContext()
     const navigate = useNavigate();
@@ -16,31 +21,39 @@ function News () {
         const month = dateString.slice(4, 6);
         const day = dateString.slice(6, 8);
     
-        return `${year}/${month}/${day}`;
+        return `${month}/${day}/${year}`;
     };
 
     const marketNews = news?.map((n, index) => (
-        <div> 
-        <li key = {index}> 
-        <h2>{n.title}</h2>
-        <h3>Authors: {n.authors}</h3>
-        <p>"{n.summary}"</p>
-        <p>Published: {formatPublishedDate(n.published)}</p>
-        <p>{n.source_domain}</p>
-        {/* <p>{n.url}</p> */}
-        </li>
-        </div>
+    <Card style={{width: '30rem'}} className="news-card">
+        <Card.Img variant='top' src={n.image} />
+        <Card.Body> 
+            <Card.Title> {n.title}</Card.Title>
+            <Card.Text> "{n.summary}"</Card.Text>
+        </Card.Body>
+        <ListGroup key = {index}>
+            <ListGroup.Item>Authors: {n.authors}</ListGroup.Item>
+            <ListGroup.Item>Published: {formatPublishedDate(n.published)}</ListGroup.Item>
+            <ListGroup.Item>{n.source_domain}</ListGroup.Item>
+            {/* <p>{n.url}</p> */}
+        </ListGroup>
+        <Card.Body>
+            <Card.Link href={n.url}> Read More </Card.Link>
+        </Card.Body>
+
+        
+    </Card>
     ))
 
     console.log(marketNews)
 
 return (
-
-    <div>
-        <h1>Market News Feed</h1>
-        <h2>{stock?.name}</h2>
+    <div className='news-page'>
+        <h1>Market News: {stock?.name} </h1>
         <br></br>
-                <button  onClick={handleGoBack}> Go Back </button>
+        <Button  onClick={handleGoBack}> Go Back </Button>
+        <br></br>
+        <br></br>
         {marketNews}
     </div>
 
