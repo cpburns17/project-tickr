@@ -2,13 +2,13 @@ import React, {useState, useEffect} from "react"
 import { useOutletContext, useLocation, useNavigate} from "react-router-dom"
 
 
-function Buy (){
+function Buy ({trade, aggregatedQuantity}){
     const {stock, quote, intraday, user} = useOutletContext() 
 
     const navigate = useNavigate()
-    const location = useLocation();
-    const trade = location.state && location.state.trade;
-    const aggregatedQuantity = location.state;
+    // const location = useLocation();
+    // const trade = location.state && location.state.trade;
+    // const aggregatedQuantity = location.state;
     const [buySuccess, setBuySuccess] = useState(false); // New state variable
     const [buyQuantity, setBuyQuantity] = useState(0); // New state variable
     
@@ -21,7 +21,7 @@ function Buy (){
 
     const closeValue = parseFloat(stockPrice);
     const currentPrice = closeValue.toFixed(2)
-    console.log(currentPrice)
+
     const stockName = trade?.name
     const stockTick = trade?.ticker
     const currentQuantity = aggregatedQuantity.aggregatedQuantity
@@ -40,10 +40,9 @@ function Buy (){
     fetch(`api/intraday/${stockTick}`)
     .then(r => r.json())
     .then (data => {
-        console.log(data)
+        // console.log(data)
         setCurrentStockData(data)
         setStockPrice(data?.close)
-        console.log(data?.close)
     })
     .catch((error) => {
         console.error('Error fetching intraday data:', error);

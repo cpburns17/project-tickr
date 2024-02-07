@@ -84,8 +84,7 @@ function Invest () {
 
 
 return (
-
-    <div>
+    <div className="invest-container">
         <h2> {stock?.name}</h2>
         <h3> PPS: ${currentPrice} USD</h3>
         <h1>${(currentPrice * quantity).toFixed(2)}</h1>
@@ -103,7 +102,7 @@ return (
                 Place Order
             </button>
             <br></br>
-                <button  onClick={handleGoBack}> Go Back </button>
+                {/* <button  onClick={handleGoBack}> Go Back </button> */}
 
 
         </form>

@@ -48,6 +48,7 @@ class Trades(db.Model, SerializerMixin):
 
 
     user_id = db.Column(db.Integer, db.ForeignKey('user_table.id'))
+    
 
     user = db.relationship('User', back_populates='trades')
 

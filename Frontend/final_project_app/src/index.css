@@ -300,3 +300,10 @@ max-width: 100%;
   margin-bottom: 15%;
 
 }
+
+
+
+.invest-container {
+  justify-content: center;
+  align-items: center;
+}

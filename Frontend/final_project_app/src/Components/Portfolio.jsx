@@ -2,8 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
+//This is Bootstrap
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+
+//This is MUI
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import Buy from "./Buy";
+import Sell from "./Sell"
 
 function Portfolio() {
     const { user } = useOutletContext();
@@ -12,6 +21,25 @@ function Portfolio() {
 
     const parseBalance = parseFloat(user?.balance);
     const myBalance = parseBalance.toFixed(2);
+
+//THIS IS MODAL 
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
+
+
 
     useEffect(() => {
         if (user) {
@@ -67,20 +95,47 @@ function Portfolio() {
             </ListGroup>
             </Card.Body>
             <Card.Body> 
-                <Card.Link
+
+<Button onClick={handleOpen}>Sell</Button>
+<Modal
+open={open}
+onClose={handleClose}
+aria-labelledby="modal-modal-title"
+aria-describedby="modal-modal-description"
+>
+<Box sx={style}>
+    <Sell trade={trade} aggregatedQuantity={aggregatedQuantity} />
+</Box>
+</Modal>
+
+<Button onClick={handleOpen}>Buy</Button>
+<Modal
+open={open}
+onClose={handleClose}
+aria-labelledby="modal-modal-title"
+aria-describedby="modal-modal-description"
+>
+<Box sx={style}>
+    <Buy trade={trade} aggregatedQuantity={aggregatedQuantity} />
+</Box>
+</Modal>
+                
+                {/* <NavLink
                     to={{ pathname: "/sell" }}
                     state={{ trade: trade, aggregatedQuantity: aggregatedQuantity }}
                     className="nav-sell"
                 >
                     Sell
-                </Card.Link>
-                <Card.Link
+                </NavLink> */}
+                {/* <NavLink
                     to={{ pathname: "/buy" }}
                     state={{ trade: trade, aggregatedQuantity: aggregatedQuantity }}
                     className="nav-buy"
                 >
                     Buy
-                </Card.Link>
+                </NavLink> */}
+
+                
             </Card.Body>
                 <br></br>
                 <button onClick={() => handleToggleTransactionHistory(trade.ticker)}>

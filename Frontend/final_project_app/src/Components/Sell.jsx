@@ -2,18 +2,16 @@ import React, {useState, useEffect} from "react"
 import { useOutletContext, useLocation, useNavigate } from "react-router-dom"
 
 
-function Sell () {
+function Sell ({aggregatedQuantity, trade}) {
     const {stock, quote, intraday, user} = useOutletContext() 
 
     const navigate = useNavigate()
-    const location = useLocation();
-    const trade = location.state && location.state.trade;
-    const aggregatedQuantity = location.state;
-    const [sellSuccess, setSellSuccess] = useState(false); // New state variable
-    const [sellQuantity, setSellQuantity] = useState(0); // New state variable
+    // const location = useLocation();
+    // const trade = location.state && location.state.trade;
+    // const aggregatedQuantity = location.state;
+    const [sellSuccess, setSellSuccess] = useState(false);
+    const [sellQuantity, setSellQuantity] = useState(0); 
     
-
-
   
     const [stockPrice, setStockPrice] = useState()
     const [bought, setBought] = useState(0)
@@ -23,7 +21,7 @@ function Sell () {
 
     const closeValue = parseFloat(stockPrice);
     const currentPrice = closeValue.toFixed(2)
-    console.log(currentPrice)
+
     const stockName = trade?.name
     const stockTick = trade?.ticker
     const currentQuantity = aggregatedQuantity.aggregatedQuantity
@@ -43,10 +41,9 @@ function Sell () {
     fetch(`api/intraday/${stockTick}`)
     .then(r => r.json())
     .then (data => {
-        console.log(data)
+        // console.log(data)
         setCurrentStockData(data)
         setStockPrice(data?.close)
-        console.log(data?.close)
     })
     .catch((error) => {
         console.error('Error fetching intraday data:', error);
@@ -100,7 +97,7 @@ function Sell () {
         console.log("Post successful:", data);
         setSellSuccess(true);
         setQuantity(0);
-        setSellQuantity(sellQuantity); // Store sellQuantity in state
+        setSellQuantity(sellQuantity); 
 
 
         })
