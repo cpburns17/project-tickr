@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {useOutletContext} from "react-router-dom"
 // import { NavLink } from "react-router-dom";
-// import Logout from './Logout'
+import Logout from './Logout'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Container from 'react-bootstrap/Container';
@@ -41,6 +41,7 @@ return (
                 className="nav-link">
                 Portfolio 
                 </Nav.Link>
+                <Logout className="nav-logout" setUser={setUser} setIsLoggedIn={setIsLoggedIn}/>
                 <Nav.Link disabled className="nav-balance">
                     Balance: ${myBalance} 
                 </Nav.Link>

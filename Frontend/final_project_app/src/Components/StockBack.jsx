@@ -21,7 +21,7 @@ function StockBack ({flipCard}) {
 
 
 return (
-<Card className="stock-back">
+<Card className="stock-back" data-bs-theme="dark">
     <Card.Body> 
         <h2> {stock?.name} </h2>
         {/* <p>Price: ${parsePrice.toFixed(2)}</p> */}

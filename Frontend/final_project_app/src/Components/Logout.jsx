@@ -1,29 +1,31 @@
-// import React, { useState } from 'react';
-// import { useNavigate, useOutletContext } from 'react-router-dom'; 
+import React, { useState } from 'react';
+import { useNavigate, useOutletContext } from 'react-router-dom'; 
 
-// function Logout() {
-//     const {setUser, setIsLoggedIn} = useOutletContext()
+import Button from 'react-bootstrap/Button';
 
-//     const navigate = useNavigate();
+function Logout({setUser, setIsLoggedIn, user}) {
+    // const {setUser, setIsLoggedIn} = useOutletContext()
 
-//     const handleLogout = () => {
-//     fetch('/api/logout', {
-//         method: 'DELETE'
-//     })
-//         .then((r) => r.json())
-//         .then((data) => {
-//         console.log('Session ended: ', data)
-//         setIsLoggedIn(false)
-//         setUser(null)
-//         navigate('/')
-//         })
-//     };
+    const navigate = useNavigate();
 
-//     return (
-//     <button onClick={handleLogout}>
-//         Logout
-//     </button>
-//     );
-// }
+    const handleLogout = () => {
+    fetch('/api/logout', {
+        method: 'DELETE'
+    })
+        .then((r) => r.json())
+        .then((data) => {
+        console.log('Session ended: ', data)
+        setIsLoggedIn(false)
+        setUser(null)
+        navigate('/welcome')
+        })
+    };
 
-// export default Logout;
+    return (
+    <button onClick={handleLogout} className="nav-link">
+        Logout
+    </button>
+    );
+}
+
+export default Logout;

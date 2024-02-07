@@ -12,6 +12,7 @@ const handleChangePassword = (e) => setPassword(e.target.value);
 function handleLogIn(e) {
 e.preventDefault();
 attemptLogin({ username: username, password: password });
+console.log(e)
 }
 
 

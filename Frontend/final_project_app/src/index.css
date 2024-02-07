@@ -35,7 +35,7 @@ h1 {
   line-height: 1.1;
 }
 
-
+/* 
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -46,7 +46,7 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
-}
+} */
 button:hover {
   border-color: #646cff;
 }
@@ -55,7 +55,7 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
@@ -66,10 +66,15 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
+
+
 
 /* NEW CODE STARTS HERE:  */
 
+
+
+    /* NAVBAR SETUP */
 
 header {
   margin-bottom: 70px;
@@ -77,13 +82,13 @@ header {
 
 .ticker-logo {
   padding-left: 1%;
-
 }
 
-.nav-link {
-  font-size: 10px;
+.navbar {
+  font-size: 30px;
   font-family: sans-serif;
 }
+
 
 .navbar-nav {
   width: 100%;
@@ -92,20 +97,38 @@ header {
 
 .nav-balance {
   margin-left: auto;
-  color: rgb(38, 179, 38) !important;
-  
-
+  color: rgb(116, 179, 116) !important;
 }
 
+.nav-logout {
+  font-size: 20px !important;
+}
+
+
+
+      /* WELCOME PAGE COMPONENT */
+
+.welcome-h2 {
+  font-size: 50px;
+}
+
+.welcome-text{
+  font-size: 17px;
+  font-weight: 500;
+}
+
+
+
+
+
+
+
+
+    /* STOCK CARD  COMPONENT */
 
 .stock-card {
 max-width: 100%;
 }
-
-/* .news-page {
-justify-content: center;
-} */
-
 
 .stock-card-container {
   width: 500px;
@@ -151,4 +174,129 @@ justify-content: center;
   overflow: hidden; /* Ensures items don't stretch the card */
   text-overflow: ellipsis; /* Adds ellipsis for overflowed text */
   white-space: nowrap; /* Prevents text wrapping */
+}
+
+
+      /* SLIDES COMPONENT  */
+
+.slide1-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.slide1{
+  text-align: center;
+  color: black !important;
+  font-weight: 700;
+  font-size: x-large;
+  margin-bottom: 15%;
+
+}
+
+.slide2-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.slide2{
+  text-align: center;
+  color: black !important;
+  font-weight: 600;
+  font-size: x-large;
+  margin-bottom: 5%;
+
+}
+
+.slide3-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.slide3{
+  text-align: center;
+  color: black !important;
+  font-weight: 600;
+  font-size: x-large;
+  margin-bottom: 5%;
+
+}
+
+.slide4-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.slide4{
+  text-align: center;
+  color: black !important;
+  font-weight: 600;
+  font-size: x-large;
+  margin-bottom: 5%;
+}
+
+.slide5-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide5{
+  text-align: center;
+  color: black !important;
+  font-weight: 600;
+  font-size: x-large;
+  margin-bottom: 5%;
+}
+
+
+.slide6-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide6{
+  text-align: center;
+  color: black !important;
+  font-weight: 600;
+  font-size: x-large;
+  margin-bottom: 1%;
+}
+
+.slide7-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide7{
+  text-align: center;
+  color: black !important;
+  font-weight: 600;
+  font-size: x-large;
+  margin-bottom: 1%;
+}
+
+.last-slide-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.last-slide{
+  text-align: center;
+  color: black !important;
+  font-weight: 700;
+  font-size: x-large;
+  margin-bottom: 15%;
+
 }

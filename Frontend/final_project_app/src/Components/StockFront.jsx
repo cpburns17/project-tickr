@@ -18,7 +18,7 @@ function StockFront ({flipCard}) {
 
 
 return (
-<Card className="stock-front">
+<Card className="stock-front" data-bs-theme="dark">
     <Card.Body>
         <h2>
             {stock?.name}

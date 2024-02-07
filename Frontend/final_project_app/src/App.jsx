@@ -6,15 +6,17 @@ import './App.css'
 
 import NavigateBar from './Components/NavigateBar'
 import Welcome from './Components/Welcome'
+// import Logout from './Components/Logout'
 
 
-function App ({setIsLoggedIn}) {
+function App () {
   const [stock, setStock] = useState()
   const [quote, setQuote] = useState()
   const [intraday, setIntraday] = useState()
   const [news, setNews] = useState()
   const [user, setUser] = useState(null)
   const [search, setSearch] = useState("")
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [jsonList, setJsonList] = useState()
   const location = useLocation() 
@@ -115,11 +117,11 @@ useEffect(() => {
   })
   .then (data => {
       setUser(data)
-      // console.log(data)
+      console.log(data)
   })  
   }, []);
 
-  // console.log(user)
+  console.log(user)
 
 
   //Search function 
@@ -138,16 +140,17 @@ return (
   <>
   
   {user === null ? (
-    <Welcome user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn}/>) : (
+    <Welcome user = {user} setUser = {setUser}  setIsLoggedIn = {setIsLoggedIn}/>) : (
       
 <div>
   <header>
     <h1> 
       <NavigateBar user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} />
+      {/* <Logout user={user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn}/> */}
     </h1>
   </header>
 
-  <div>
+  <div >
     
     {/* <Welcome /> */}
     <Outlet context = {{ stock, setStock, handleRandomStock, quote, intraday, news, user, search, handleSearch, filteredStocks}} />

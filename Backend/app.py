@@ -103,9 +103,6 @@ def get_user_by_id(id):
 
 
 
-
-
-
 # RANDOM STOCK FUNCTION
 def random_stock():
     with open('tickers.json') as f:

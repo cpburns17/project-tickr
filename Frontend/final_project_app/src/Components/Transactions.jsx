@@ -50,7 +50,7 @@ const transactionMap = transactions?.map((trade, index) => (
 
 
 return (
-    <div className="transactions">
+    <div className="transactions" >
         {/* <h1>Balance: ${myBalance}</h1> */}
         <h2>Transaction History:</h2>
         <br></br>

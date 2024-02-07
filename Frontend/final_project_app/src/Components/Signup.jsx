@@ -43,7 +43,7 @@ function Signup ({setIsLoggedIn, setUser}) {
             console.log("User created:", data);
             setUser(data);
             // Redirect to /login
-            navigate('/');
+            navigate('/slides');
             })
             .catch((error) => {
             console.error("Error creating user:", error);
