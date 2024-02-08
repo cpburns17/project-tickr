@@ -17,11 +17,15 @@ function App () {
   const [user, setUser] = useState(null)
   const [search, setSearch] = useState("")
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const [jsonList, setJsonList] = useState()
+  const [logo, setLogo] = useState()
+  const [graph, setGraph] = useState()
+
+  const [isLoading, setIsLoading] = useState(false);
   const location = useLocation() 
 
 
+  // GET RANDOM STOCK 
 useEffect(() => {
 fetch('api/random_stock')
 .then(r => r.json())
@@ -31,6 +35,41 @@ fetch('api/random_stock')
 })  
 }, []);
 
+// GET STOCK LOGO 
+useEffect(() => {
+  if (stock) {
+    
+  fetch(`api/logo/${stock?.symbol}`)
+  .then(r => r.json())
+  .then (data => {
+      console.log(data)
+      setLogo(data)
+  })
+  .catch((error) => {
+    console.error('Error fetching stock logo:', error);
+
+  });
+}
+  }, [stock]);
+
+  useEffect(() => {
+    if (stock) {
+      
+    fetch(`api/SMA/${stock?.symbol}`)
+    .then(r => r.json())
+    .then (data => {
+        console.log(data)
+        setGraph(data)
+    })
+    .catch((error) => {
+      console.error('Error fetching stock price:', error);
+  
+    });
+  }
+    }, [stock]);
+
+
+// GET STOCK PRICE DETAILS
 useEffect(() => {
   if (stock) {
     
@@ -47,6 +86,9 @@ useEffect(() => {
 }
   }, [stock]);
 
+
+
+  // GET STOCK INTRADAY DATA 
   useEffect(() => {
     if (stock) {
       // console.log(stock)
@@ -62,6 +104,8 @@ useEffect(() => {
   }
     }, [stock]);
 
+
+// GET STOCK MARKET NEWS
     useEffect(() => {
       if (stock) {
       fetch(`api/news/${stock?.symbol}`)
@@ -117,11 +161,10 @@ useEffect(() => {
   })
   .then (data => {
       setUser(data)
-      console.log(data)
   })  
   }, []);
 
-  console.log(user)
+  // console.log(user)
 
 
   //Search function 
@@ -138,38 +181,24 @@ function handleSearch(searchTerm){
 
 return (
   <>
-  
+
   {user === null ? (
     <Welcome user = {user} setUser = {setUser}  setIsLoggedIn = {setIsLoggedIn}/>) : (
       
-<div>
-  <header>
-    <h1> 
-      <NavigateBar user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} />
-      {/* <Logout user={user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn}/> */}
-    </h1>
-  </header>
-
-  <div >
+  <div>
     
-    {/* <Welcome /> */}
-    <Outlet context = {{ stock, setStock, handleRandomStock, quote, intraday, news, user, search, handleSearch, filteredStocks}} />
+    <header>
+      <h1> 
+        <NavigateBar user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} />
+      </h1>
+    </header>
+
+    <div >
+      <Outlet context = {{ stock, setStock, handleRandomStock, logo, quote, intraday, news, user, search, graph, handleSearch, filteredStocks}} />
+    </div>
 
   </div>
-</div>
   )}
-
-
-{/* 
-  <header>
-    <h1> 
-      <NavBar user = {user}/>
-    </h1>
-  </header>
-  <div>
-    <Outlet context = {{ stock, setStock, handleRandomStock, quote, intraday, news, user, search, handleSearch, filteredStocks}} />
-  </div> */}
-
 
 
 </>

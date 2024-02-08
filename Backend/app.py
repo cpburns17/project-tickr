@@ -13,6 +13,7 @@ import json
 
 config = dotenv_values(".env")
 config['my_key']
+config['my_key_2']
 
 app = Flask(__name__)
 app.secret_key = config['FLASK_SECRET_KEY']
@@ -31,6 +32,23 @@ db.init_app(app)
 def index():
     return "Home"
 
+
+
+# FinnHub FETCH (LOGO)
+
+@app.get('/api/logo/<ticker>')
+def get_logo(ticker):
+    url = f"https://finnhub.io/api/v1/stock/profile2?symbol={ticker}&token={config['my_key_2']}"
+    r = requests.get(url)
+    data = r.json() 
+    d = {}
+    d['logo'] = data.get('logo')
+    d['ticker'] = data.get('ticker')
+    d['exchange'] = data.get('exchange')
+
+    return d, 200 
+
+
 # LOGIN AND SIGNUP 
 @app.get("/api/check_session")
 def check_session():
@@ -41,7 +59,7 @@ def check_session():
     else:
         return {"message": "No user logged in"}, 401
 
-
+# LOGIN
 @app.post("/api/login")
 def login():
     data = request.json
@@ -56,7 +74,7 @@ def login():
     else:
         return {"error": "Invalid username or password"}, 401
     
-
+# LOGOUT
 @app.delete("/api/logout")
 def logout():
     session.pop("user_id")
@@ -99,7 +117,6 @@ def get_user_by_id(id):
     
     return current_user.to_dict(), 200
         
-
 
 
 
@@ -202,7 +219,7 @@ def get_stock_pride(stock):
 # INTRADAY DATA 
 @app.get("/api/intraday/<ticker>")
 def get_stock_intraday(ticker):
-    print(ticker)
+    # print(ticker)
     url = f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={ticker}&interval=1min&entitlement=delayed&apikey={config["my_key"]}'
     r = requests.get(url)
     data = r.json() 
@@ -212,7 +229,7 @@ def get_stock_intraday(ticker):
     d = {
         'last_refreshed': time.get('3. Last Refreshed', '')
     }
-    print(data)
+    # print(data)
     time = data['Meta Data']['3. Last Refreshed']
     intraday = data['Time Series (1min)'][time]
 
@@ -334,28 +351,27 @@ def transaction():
         print(e)
         return {'errors': str(e)}, 400
     
-    
-# @app.get('/stocks')
-# def retrieve_stocks():
-#     stocks = Stock.query.all()
-#     return [s.to_dict() for s in stocks]
+ 
 
-# @app.post('/stocks')
-# def post_stock():
-#     try:
-#         data = request.json
-#         new_stock = Stock(
-#             name = data.get('name'),
-#             ticker = data.get('ticker'),
-#         )
+@app.get('/api/SMA/<ticker>')
+def get_sma(ticker):
+    url = f'https://www.alphavantage.co/query?function=SMA&symbol={ticker}&interval=monthly&time_period=10&series_type=open&apikey={config["my_key"]}'
+    r = requests.get(url)
+    data = r.json()
 
-#         db.session.add(new_stock)
-#         db.session.commit()
-#         return new_stock.to_dict(), 201
+    d = data['Technical Analysis: SMA']
+    dates = []
+    values = []
+    for date, value in d.items():
+        dates.append(date)
+        values.append(float(value['SMA']))
     
-#     except Exception as e:
-#         print(e)
-#         return {'errors': str(e)}, 400
+    sma_graph = {
+        'dates': dates,
+        'values': values,
+    }
+
+    return sma_graph
 
 
 

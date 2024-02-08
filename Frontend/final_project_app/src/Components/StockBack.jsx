@@ -3,6 +3,10 @@ import { useOutletContext } from "react-router-dom"
 import { NavLink } from "react-router-dom";
 import Metrics from './Metrics'
 
+
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
@@ -10,7 +14,7 @@ import Button from 'react-bootstrap/Button';
 
 
 function StockBack ({flipCard}) {
-    const {quote, stock,} = useOutletContext()
+    const {quote, stock, logo} = useOutletContext()
 
     const parseHigh = parseFloat(quote?.high);
     const parseLow = parseFloat(quote?.low);
@@ -22,6 +26,7 @@ function StockBack ({flipCard}) {
 
 return (
 <Card className="stock-back" data-bs-theme="dark">
+<Card.Img variant="top" src={logo?.logo} />
     <Card.Body> 
         <h2> {stock?.name} </h2>
         {/* <p>Price: ${parsePrice.toFixed(2)}</p> */}
@@ -34,12 +39,12 @@ return (
         </ListGroup>
     </Card.Body>
     <Card.Body>
-            <Card.Link href="metrics" className='nav-metrics'>
+            <NavLink  to="/metrics" className='nav-metrics'>
                 See Metrics
-            </Card.Link>
-            <Card.Link href="news" className='nav-news'>
+            </NavLink>
+            <NavLink to="/news" className='nav-news'>
                 Market News
-            </Card.Link>
+            </NavLink>
             <br></br>
             <br></br>
             <Button onClick={flipCard} className="flip-card-back"> Flip Card </Button>
