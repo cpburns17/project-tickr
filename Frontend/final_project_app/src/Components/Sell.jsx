@@ -2,17 +2,20 @@ import React, {useState, useEffect} from "react"
 import { useOutletContext, useLocation, useNavigate } from "react-router-dom"
 
 
-function Sell ({aggregatedQuantity, trade}) {
+function Sell () {
     const {stock, quote, intraday, user} = useOutletContext() 
 
-    const navigate = useNavigate()
-    // const location = useLocation();
-    // const trade = location.state && location.state.trade;
-    // const aggregatedQuantity = location.state;
+    const navigate = useNavigate() //This is used to go back (button)
+
+    const location = useLocation();
+    const trade = location.state && location.state.trade;
+    const aggregatedQuantity = location.state;
+
+    console.log(trade)
+
     const [sellSuccess, setSellSuccess] = useState(false);
     const [sellQuantity, setSellQuantity] = useState(0); 
-    
-  
+
     const [stockPrice, setStockPrice] = useState()
     const [bought, setBought] = useState(0)
     const [sold, setSold] = useState(0)
@@ -21,10 +24,11 @@ function Sell ({aggregatedQuantity, trade}) {
 
     const closeValue = parseFloat(stockPrice);
     const currentPrice = closeValue.toFixed(2)
-
+    console.log(currentPrice)
     const stockName = trade?.name
     const stockTick = trade?.ticker
     const currentQuantity = aggregatedQuantity.aggregatedQuantity
+    console.log(currentQuantity)
     const userID = user?.id
 
 
@@ -41,7 +45,7 @@ function Sell ({aggregatedQuantity, trade}) {
     fetch(`api/intraday/${stockTick}`)
     .then(r => r.json())
     .then (data => {
-        // console.log(data)
+        console.log(data)
         setCurrentStockData(data)
         setStockPrice(data?.close)
     })
@@ -97,7 +101,7 @@ function Sell ({aggregatedQuantity, trade}) {
         console.log("Post successful:", data);
         setSellSuccess(true);
         setQuantity(0);
-        setSellQuantity(sellQuantity); 
+        setSellQuantity(sellQuantity); // Store sellQuantity in state
 
 
         })

@@ -23,6 +23,9 @@ a:hover {
 } */
 
 body {
+  background-image: url('/Users/connorburns/Development/projects-portfolio/final-project/Frontend/final_project_app/src/assets/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
   margin: 0;
   display: flex;
   place-items: center;
@@ -107,14 +110,21 @@ header {
 
 
       /* WELCOME PAGE COMPONENT */
+.welcome-page {
+  background-color: rgba(255, 255, 255, 0.4); 
+  border-radius: 19px; 
+  padding: 5%;
+}
 
 .welcome-h2 {
   font-size: 50px;
 }
 
 .welcome-text{
-  font-size: 17px;
-  font-weight: 500;
+  font-weight: 700;
+  font-size: 19px;
+
+
 }
 
 
@@ -334,9 +344,12 @@ max-width: 100%;
 }
 
 
-
-.invest-container {
-  justify-content: center;
-  align-items: center;
-  color: rgb(97, 180, 215)
+.invest-company-name{
+  font-weight: bolder;
 }
+
+.invest-purchase-amount{
+  display: flex;
+  justify-content: center;
+}
+

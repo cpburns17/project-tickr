@@ -26,16 +26,23 @@ function StockFront ({flipCard}) {
     const handleClose = () => setOpen(false);
 
     const style = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
         position: 'absolute',
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
+        width: '80%', // Adjust the width as needed
+        maxWidth: '700px', // Set max width if necessary
+        maxHeight: '80%', // Set max height if necessary
+        overflowY: 'auto', // Enable vertical scrolling if content overflows
         bgcolor: 'background.paper',
-        border: '2px solid #000',
+        border: '10px solid #000',
         boxShadow: 24,
-        p: 4,
-      };
+        p:'60px 60px',
+    };
 
 
 

@@ -3,10 +3,10 @@ import React, {useState, useEffect} from 'react'
 import {Outlet, useLocation} from 'react-router-dom'
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
+import background from './assets/background.jpg'
 
 import NavigateBar from './Components/NavigateBar'
 import Welcome from './Components/Welcome'
-// import Logout from './Components/Logout'
 
 
 function App () {
@@ -180,7 +180,7 @@ function handleSearch(searchTerm){
 
 
 return (
-  <>
+  <div >
 
   {user === null ? (
     <Welcome user = {user} setUser = {setUser}  setIsLoggedIn = {setIsLoggedIn}/>) : (
@@ -201,7 +201,7 @@ return (
   )}
 
 
-</>
+</div>
 
 );
 

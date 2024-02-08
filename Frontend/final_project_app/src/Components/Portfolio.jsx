@@ -5,10 +5,10 @@ import { NavLink } from "react-router-dom";
 //This is Bootstrap
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+import Button from 'react-bootstrap/Button';
 
 //This is MUI
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Buy from "./Buy";
@@ -23,22 +23,27 @@ function Portfolio() {
     const myBalance = parseBalance.toFixed(2);
 
 //THIS IS MODAL 
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
 
-    const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
-    };
+    // const [openBuy, setOpenBuy] = React.useState(false);
+    // const handleOpenBuy = () => setOpenBuy(true);
+    // const handleCloseBuy = () => setOpenBuy(false);
 
+    // const [openSell, setOpenSell] = React.useState(false);
+    // const handleOpenSell = () => setOpenSell(true);
+    // const handleCloseSell = () => setOpenSell(false);
+
+
+    // const style = {
+    //     position: 'absolute',
+    //     top: '50%',
+    //     left: '50%',
+    //     transform: 'translate(-50%, -50%)',
+    //     width: 400,
+    //     bgcolor: 'background.paper',
+    //     border: '2px solid #000',
+    //     boxShadow: 24,
+    //     p: 4,
+    // };
 
 
     useEffect(() => {
@@ -61,15 +66,18 @@ function Portfolio() {
         }
     });
 
+
     const uniqueTradeObjects = Array.from(
         new Set(transactions?.map((trade) => trade.ticker))
     ).map((ticker) => {
         return transactions.find((trade) => trade.ticker === ticker);
     });
 
+
     const handleToggleTransactionHistory = (ticker) => {
         setSelectedTicker(ticker === selectedTicker ? null : ticker);
     };
+
 
     const portfolioMap = (uniqueTradeObjects || [])
     .filter((trade) => aggregatedQuantities[trade.ticker] !== 0)
@@ -82,24 +90,24 @@ function Portfolio() {
             : trade.sold > 0
                 ? aggregatedQuantity * trade.stock_price // For sold transactions
                 : 0;
-
-        return (
-
-        <Card> 
-            <Card.Body>
+// MAP RETURN        
+return (
+    <Card> 
+        <Card.Body>
             <ListGroup> 
                 <h2>{trade.name}</h2>
                 <Card.Text>Ticker: {trade.ticker}</Card.Text>
                 <Card.Text>Shares Owned: {aggregatedQuantity}</Card.Text>
                 <Card.Text>Total Investment: ${totalInvestment.toFixed(2)}</Card.Text>
             </ListGroup>
-            </Card.Body>
-            <Card.Body> 
+        </Card.Body>
 
-<Button onClick={handleOpen}>Sell</Button>
+        <Card.Body> 
+{/* 
+<Button onClick={handleOpenSell}>Sell</Button>
 <Modal
-open={open}
-onClose={handleClose}
+open={openSell}
+onClose={handleCloseSell}
 aria-labelledby="modal-modal-title"
 aria-describedby="modal-modal-description"
 >
@@ -108,70 +116,68 @@ aria-describedby="modal-modal-description"
 </Box>
 </Modal>
 
-<Button onClick={handleOpen}>Buy</Button>
+<Button onClick={handleOpenBuy}>Buy</Button>
 <Modal
-open={open}
-onClose={handleClose}
+open={openBuy}
+onClose={handleCloseBuy}
 aria-labelledby="modal-modal-title"
 aria-describedby="modal-modal-description"
 >
 <Box sx={style}>
     <Buy trade={trade} aggregatedQuantity={aggregatedQuantity} />
 </Box>
-</Modal>
+</Modal> */}
                 
-                {/* <NavLink
-                    to={{ pathname: "/sell" }}
-                    state={{ trade: trade, aggregatedQuantity: aggregatedQuantity }}
-                    className="nav-sell"
-                >
-                    Sell
-                </NavLink> */}
-                {/* <NavLink
-                    to={{ pathname: "/buy" }}
-                    state={{ trade: trade, aggregatedQuantity: aggregatedQuantity }}
-                    className="nav-buy"
-                >
-                    Buy
-                </NavLink> */}
-
-                
-            </Card.Body>
-                <br></br>
-                <button onClick={() => handleToggleTransactionHistory(trade.ticker)}>
-                    {selectedTicker === trade.ticker ? 'Hide' : 'Show'} Transaction History
-                </button>
-                <br />
+            <NavLink
+                to={{ pathname: "/sell" }}
+                state={{ trade: trade, aggregatedQuantity: aggregatedQuantity }}
+                className="nav-sell"
+            >
+                Sell
+            </NavLink>
+            <NavLink
+                to={{ pathname: "/buy" }}
+                state={{ trade: trade, aggregatedQuantity: aggregatedQuantity }}
+                className="nav-buy"
+            >
+                Buy
+            </NavLink>
+    
+        </Card.Body>
+            <br></br>
+            <Button onClick={() => handleToggleTransactionHistory(trade.ticker)}>
+                {selectedTicker === trade.ticker ? 'Hide' : 'Show'} Transaction History
+            </Button>
+            <br />
                 {selectedTicker === trade.ticker && (
-
                     <ListGroup className="each-transaction">
                         {transactions
                             .filter((transaction) => transaction.ticker === trade.ticker)
                             .map((transaction, index) => (
-                                <ListGroup.Item key={index}>
+                        <ListGroup.Item key={index}>
 
-                                    {transaction.bought > 0 && (
-                                <h4 style={{ color: "red", fontSize: 'bold' }}>Bought: {transaction.quantity} of {transaction.ticker} @ $
-                                        {(transaction.stock_price).toFixed(2)} = - ${(transaction.bought).toFixed(2)}</h4>
-                                    )}
+                            {transaction.bought > 0 && (
+                        <h4 style={{ color: "red", fontSize: 'bold' }}>Bought: {transaction.quantity} of {transaction.ticker} @ $
+                                {(transaction.stock_price).toFixed(2)} = - ${(transaction.bought).toFixed(2)}
+                        </h4> )}
 
-                                    {transaction.sold > 0 && (
-                                <h4 style={{ color: "green", fontSize: 'bold'}}>Sold: {transaction.quantity} of {transaction.ticker} @ $
-                                        {(transaction.stock_price).toFixed(2)} = + ${(transaction.sold).toFixed(2)}</h4>
-                                    )}
+                            {transaction.sold > 0 && (
+                        <h4 style={{ color: "green", fontSize: 'bold'}}>Sold: {transaction.quantity} of {transaction.ticker} @ $
+                                {(transaction.stock_price).toFixed(2)} = + ${(transaction.sold).toFixed(2)}
+                        </h4>)}
 
-                                <Card.Footer>{transaction.time}</Card.Footer>
-
-                                </ListGroup.Item>
-                            ))}
+                        <Card.Footer>{transaction.time}</Card.Footer>
+                        </ListGroup.Item>
+                            ))
+                        };
                     </ListGroup>
-
                 )}
-    
-        </Card>
+    </Card>
 
-        );
-    });
+);
+});
+
+// PORTFOLIO RETURN
 
     return (
         <div className="portfolio">

@@ -1,6 +1,8 @@
 import React, {useState} from "react"
 import { useOutletContext, useNavigate } from "react-router-dom"
 
+import Button from 'react-bootstrap/Button';
+
 function Invest () {
     const {stock, quote, intraday, user} = useOutletContext() 
     const navigate = useNavigate();
@@ -29,9 +31,6 @@ function Invest () {
         window.location.href = `/portfolio?key=${key}`;
     }
 
-    function handleGoBack() {
-        navigate(-1);
-    }
 
 
     function handleSubmit(e) {
@@ -85,11 +84,11 @@ function Invest () {
 
 return (
     <div className="invest-container">
-        <h2> {stock?.name}</h2>
+        <h2 className="invest-company-name"> {stock?.name}</h2>
         <h3> PPS: ${currentPrice} USD</h3>
-        <h1>${(currentPrice * quantity).toFixed(2)}</h1>
+
         <p>Enter # of shares you'd like to buy:</p>
-        <form onSubmit={handleSubmit}>
+        <form className="invest-form" onSubmit={handleSubmit}>
             <input
                 type="text"
                 name="buy-stock"
@@ -98,20 +97,24 @@ return (
                 onChange={(e) => setQuantity(e.target.value)}
                 className="form-control"
             />
-            <button type='submit'>
-                Place Order
-            </button>
             <br></br>
-                {/* <button  onClick={handleGoBack}> Go Back </button> */}
+                    <h1 className="invest-purchase-amount"> Total: ${(currentPrice * quantity).toFixed(2)}</h1>
+            <br></br>
+            <Button className="invest-button" type='submit'>
+                Place Order
+            </Button>
+
 
 
         </form>
         {buySuccess && (
             <div>
-                <p>Congrats, you bought {buyQuantity} shares for ${(currentPrice * buyQuantity).toFixed(2)}!</p>
-                <button onClick={handlePortfolioRedirect}>
+                <br></br>
+                <h2>Congrats, you bought {buyQuantity} shares for ${(currentPrice * buyQuantity).toFixed(2)}!</h2>
+                <br></br>
+                <Button onClick={handlePortfolioRedirect}>
                     Go to Portfolio
-                </button>
+                </Button>
             </div>
         )}
     </div>

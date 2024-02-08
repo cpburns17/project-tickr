@@ -24,11 +24,10 @@ function StockBack ({flipCard}) {
     const parsePrice = parseFloat(quote?.price);
 
     const [openMetrics, setOpenMetrics] = useState(false); // State for Metrics Modal
-    const [openNews, setOpenNews] = useState(false); // State for News Modal
-
     const handleOpenMetrics = () => setOpenMetrics(true);
     const handleCloseMetrics = () => setOpenMetrics(false);
 
+    const [openNews, setOpenNews] = useState(false); // State for News Modal
     const handleOpenNews = () => setOpenNews(true);
     const handleCloseNews = () => setOpenNews(false);
 

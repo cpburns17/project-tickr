@@ -2,22 +2,24 @@ import React, {useState, useEffect} from "react"
 import { useOutletContext, useLocation, useNavigate} from "react-router-dom"
 
 
-function Buy ({trade, aggregatedQuantity}){
+function Buy (){
     const {stock, quote, intraday, user} = useOutletContext() 
 
-    const navigate = useNavigate()
-    // const location = useLocation();
-    // const trade = location.state && location.state.trade;
-    // const aggregatedQuantity = location.state;
+    const navigate = useNavigate() // Used for back button
+    const location = useLocation();
+    const trade = location.state && location.state.trade;
+    const aggregatedQuantity = location.state;
+
     const [buySuccess, setBuySuccess] = useState(false); // New state variable
     const [buyQuantity, setBuyQuantity] = useState(0); // New state variable
-    
-  
     const [stockPrice, setStockPrice] = useState()
     const [bought, setBought] = useState(0)
     const [sold, setSold] = useState(0)
     const [quantity, setQuantity] = useState(0)
     const [time, setTime] = useState()
+
+    const [currentStockData, setCurrentStockData] = useState()
+    const [ticker, setTicker] = useState("DefaultTicker");
 
     const closeValue = parseFloat(stockPrice);
     const currentPrice = closeValue.toFixed(2)
@@ -28,8 +30,6 @@ function Buy ({trade, aggregatedQuantity}){
     const userID = user?.id
 
 
-    const [currentStockData, setCurrentStockData] = useState()
-    const [ticker, setTicker] = useState("DefaultTicker");
 
     function handleGoBack() {
         navigate(-1);
@@ -109,8 +109,7 @@ function Buy ({trade, aggregatedQuantity}){
 return (
 
 <div>
-    <h2>Buy Component</h2>
-        <p>Company: {trade.name}</p>
+    <h2>Company: {trade.name}</h2>
         <p>Ticker: {trade.ticker}</p>
         <p>Shares Owned: {currentQuantity}</p>
         {/* <p>PPS: ${trade.stock_price}</p>
@@ -118,6 +117,7 @@ return (
         <div>
             <h3>Current Stock PPS: ${currentPrice}</h3>
             <h1>${(currentPrice * quantity).toFixed(2)}</h1>
+            <p>Enter # of shared you'd like to buy:</p>
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
