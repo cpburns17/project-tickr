@@ -182,6 +182,7 @@ aria-describedby="modal-modal-description"
     return (
         <div className="portfolio">
             <h1 className="portfolio-balance" >Balance: ${myBalance}</h1>
+            <h2> {user?.name}'s Portfolio</h2>
             <br></br>
             {/* <h2>My Portfolio:</h2> */}
             <ul>{portfolioMap}</ul>
