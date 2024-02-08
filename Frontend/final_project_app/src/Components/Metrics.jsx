@@ -25,8 +25,8 @@ function Metrics () {
 return (
 
 <div style={{ width: "1200px", height: "600px" }}>
-    <h1>Simple Moving Average (SMA)</h1>
-    <h2> {stock?.name}</h2>
+    <h1 className="metrics-title">Simple Moving Average (SMA)</h1>
+    <h2 className="metrics-stock-name"> {stock?.name}</h2>
     <br></br>
     <Line
         data={{
@@ -54,7 +54,7 @@ return (
         }}
     />
     <br></br>
-    <Button onClick={handleGoBack}>Back</Button>
+    {/* <Button onClick={handleGoBack}>Back</Button> */}
 
 </div>
 

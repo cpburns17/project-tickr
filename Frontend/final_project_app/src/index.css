@@ -177,6 +177,38 @@ max-width: 100%;
 }
 
 
+
+.news-title {
+  display: flex;
+  justify-content: center;
+  font-family: "Times New Roman", Times, serif; /* Use Times New Roman font */
+  font-size: 34px; /* Adjust font size as needed */
+  font-weight: bolder; /* Make the text bold */
+  padding: 10px 10px; /* Add padding for spacing */
+
+}
+
+.metrics-title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Times New Roman", Times, serif; /* Use Times New Roman font */
+  font-size: 34px; /* Adjust font size as needed */
+  font-weight: bolder; /* Make the text bold */
+
+}
+
+.metrics-stock-name{
+  display: flex;
+  justify-content: center;
+  font-family: "Times New Roman", Times, serif; /* Use Times New Roman font */
+  font-size: 34px; /* Adjust font size as needed */
+  font-weight: bolder; /* Make the text bold */
+  padding: 10px 10px; /* Add padding for spacing */
+}
+
+
+
       /* SLIDES COMPONENT  */
 
 .slide1-container {

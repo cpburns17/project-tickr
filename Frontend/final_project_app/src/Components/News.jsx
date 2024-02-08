@@ -27,18 +27,18 @@ function News () {
     const marketNews = news?.map((n, index) => (
     <Card style={{width: '30rem'}} className="news-card">
         <Card.Img variant='top' src={n.image} />
-        <Card.Body> 
-            <Card.Title> {n.title}</Card.Title>
+        <Card.Body > 
+            <Card.Title > {n.title}</Card.Title>
             <Card.Text> "{n.summary}"</Card.Text>
         </Card.Body>
-        <ListGroup key = {index}>
+        <ListGroup  key = {index}>
             <ListGroup.Item>Authors: {n.authors}</ListGroup.Item>
             <ListGroup.Item>Published: {formatPublishedDate(n.published)}</ListGroup.Item>
             <ListGroup.Item>{n.source_domain}</ListGroup.Item>
             {/* <p>{n.url}</p> */}
         </ListGroup>
         <Card.Body>
-            <Card.Link href={n.url}> Read More </Card.Link>
+            <Card.Link style= {{display: 'flex', justifyContent:'center', alignItems:'center'}} href={n.url}> Read More </Card.Link>
         </Card.Body>
 
         
@@ -49,10 +49,9 @@ function News () {
 
 return (
     <div className='news-page'>
-        <h1>Market News: {stock?.name} </h1>
-        <br></br>
-        <Button  onClick={handleGoBack}> Go Back </Button>
-        <br></br>
+
+        <h1 className='news-title'>Market News: {stock?.name} </h1>
+
         <br></br>
         {marketNews}
     </div>

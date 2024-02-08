@@ -2,6 +2,7 @@ import React, {useState} from "react"
 import { useOutletContext } from "react-router-dom"
 import { NavLink } from "react-router-dom";
 import Metrics from './Metrics'
+import News from './News'
 
 
 import Box from '@mui/material/Box';
@@ -22,7 +23,55 @@ function StockBack ({flipCard}) {
     const parseClose = parseFloat(quote?.previous_close);
     const parsePrice = parseFloat(quote?.price);
 
+    const [openMetrics, setOpenMetrics] = useState(false); // State for Metrics Modal
+    const [openNews, setOpenNews] = useState(false); // State for News Modal
 
+    const handleOpenMetrics = () => setOpenMetrics(true);
+    const handleCloseMetrics = () => setOpenMetrics(false);
+
+    const handleOpenNews = () => setOpenNews(true);
+    const handleCloseNews = () => setOpenNews(false);
+
+    const style = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '80%', // Adjust the width as needed
+        maxWidth: '1200px', // Set max width if necessary
+        maxHeight: '80%', // Set max height if necessary
+        overflowY: 'auto', // Enable vertical scrolling if content overflows
+        bgcolor: 'background.paper',
+        border: '10px solid #000',
+        boxShadow: 24,
+        p:'60px 60px',
+    };
+
+    const newsStyle = {
+        display: 'flex',
+        justifyContent: 'center',
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '80%', // Adjust the width as needed
+        maxWidth: '800px', // Set max width if necessary
+        maxHeight: '80%', // Set max height if necessary
+        overflowY: 'auto', // Enable vertical scrolling if content overflows
+        bgcolor: 'background.paper',
+        border: '10px solid #000',
+        boxShadow: 24,
+        p:'60px 60px',
+    };
+
+
+    const buttonContainerStyle = {
+        display: 'flex',
+        justifyContent: 'space-evenly',
+    };
 
 return (
 <Card className="stock-back" data-bs-theme="dark">
@@ -39,12 +88,37 @@ return (
         </ListGroup>
     </Card.Body>
     <Card.Body>
-            <NavLink  to="/metrics" className='nav-metrics'>
-                See Metrics
-            </NavLink>
-            <NavLink to="/news" className='nav-news'>
-                Market News
-            </NavLink>
+<div style={buttonContainerStyle}>
+<Button onClick={handleOpenMetrics}>Graph Data</Button>
+<Button onClick={handleOpenNews}>Market News</Button>
+</div>
+
+    <Modal
+    open={openMetrics}
+    onClose={handleCloseMetrics}
+    aria-labelledby="modal-modal-title"
+    aria-describedby="modal-modal-description"
+    >
+        <Box sx={style}>
+            <Metrics />
+        </Box>
+    </Modal>
+
+
+
+    <Modal
+    open={openNews}
+    onClose={handleCloseNews}
+    aria-labelledby="modal-modal-title"
+    aria-describedby="modal-modal-description"
+    >
+        <Box sx={newsStyle}>
+            <News />
+        </Box>
+    </Modal>
+
+
+
             <br></br>
             <br></br>
             <Button onClick={flipCard} className="flip-card-back"> Flip Card </Button>
@@ -83,3 +157,11 @@ export default StockBack
 //     </NavLink>
 // </div>
 // </div>
+
+
+            {/* <NavLink  to="/metrics" className='nav-metrics'>
+                See Metrics
+            </NavLink>
+            <NavLink to="/news" className='nav-news'>
+                Market News
+            </NavLink> */}
