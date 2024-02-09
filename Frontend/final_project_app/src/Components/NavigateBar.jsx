@@ -12,7 +12,7 @@ import Navbar from 'react-bootstrap/Navbar';
 
 function NavigateBar ({user, setUser, setIsLoggedIn}) {
     const parseBalance = parseFloat(user?.balance);
-    const myBalance = parseBalance.toFixed(0);
+    const myBalance = parseBalance.toLocaleString();
     // console.log(myBalance)
 
     const refreshPage = () => {
@@ -40,6 +40,9 @@ return (
                 onClick={refreshPage}
                 className="nav-link">
                 Portfolio 
+                </Nav.Link>
+                <Nav.Link href="/slides" className='nav-link'>
+                    Terminology
                 </Nav.Link>
                 <Logout className="nav-logout" setUser={setUser} setIsLoggedIn={setIsLoggedIn}/>
                 <Nav.Link disabled className="nav-balance">

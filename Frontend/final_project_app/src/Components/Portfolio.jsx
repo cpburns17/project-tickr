@@ -20,7 +20,7 @@ function Portfolio() {
     const [selectedTicker, setSelectedTicker] = useState(null);
 
     const parseBalance = parseFloat(user?.balance);
-    const myBalance = parseBalance.toFixed(2);
+    const myBalance = parseBalance.toLocaleString();
 
 //THIS IS MODAL 
 
