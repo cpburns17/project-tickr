@@ -180,31 +180,23 @@ function handleSearch(searchTerm){
 
 
 return (
-  <div >
+<div >
 
-  {user === null ? (
-    <Welcome user = {user} setUser = {setUser}  setIsLoggedIn = {setIsLoggedIn}/>) : (
-      
-  <div>
-    
-    <header>
-      <h1> 
-        <NavigateBar user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} />
-      </h1>
-    </header>
+    {user === null ? (
+      <Welcome user = {user} setUser = {setUser}  setIsLoggedIn = {setIsLoggedIn}/>) : (
+        
+      <div>
+        <header>
+          <h1> 
+            <NavigateBar user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} />
+          </h1>
+        </header>
 
-    <div >
-      <Outlet context = {{ stock, setStock, handleRandomStock, logo, quote, intraday, news, user, search, graph, handleSearch, filteredStocks}} />
-    </div>
-
-  </div>
-  )}
-
+          <Outlet context = {{ stock, setStock, handleRandomStock, logo, quote, intraday, news, user, search, graph, handleSearch, filteredStocks}} />
+      </div>
+    )}
 
 </div>
-
 );
-
-
 }
 export default App;

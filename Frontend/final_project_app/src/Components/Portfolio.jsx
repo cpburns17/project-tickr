@@ -8,14 +8,14 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 
 //This is MUI
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import Buy from "./Buy";
-import Sell from "./Sell"
+// import Box from '@mui/material/Box';
+// import Typography from '@mui/material/Typography';
+// import Modal from '@mui/material/Modal';
+// import Buy from "./Buy";
+// import Sell from "./Sell"
 
 function Portfolio() {
-    const { user } = useOutletContext();
+    const { user, logo } = useOutletContext();
     const [transactions, setTransactions] = useState();
     const [selectedTicker, setSelectedTicker] = useState(null);
 
@@ -92,10 +92,13 @@ function Portfolio() {
                 : 0;
 // MAP RETURN        
 return (
-    <Card> 
+
+
+    <Card className="card-item"> 
+        {/* <Card.Img variant="top" src={logo?.logo} /> */}
         <Card.Body>
             <ListGroup> 
-                <h2>{trade.name}</h2>
+                <h2 className="portfolio-card-company-name">{trade.name}</h2>
                 <Card.Text>Ticker: {trade.ticker}</Card.Text>
                 <Card.Text>Shares Owned: {aggregatedQuantity}</Card.Text>
                 <Card.Text>Total Investment: ${totalInvestment.toFixed(2)}</Card.Text>
@@ -157,22 +160,23 @@ aria-describedby="modal-modal-description"
                         <ListGroup.Item key={index}>
 
                             {transaction.bought > 0 && (
-                        <h4 style={{ color: "red", fontSize: 'bold' }}>Bought: {transaction.quantity} of {transaction.ticker} @ $
+                        <h4 style={{ color: "red", fontSize: '1rem', fontWeight: 'bold'  }}>Bought: {transaction.quantity} of {transaction.ticker} @ $
                                 {(transaction.stock_price).toFixed(2)} = - ${(transaction.bought).toFixed(2)}
                         </h4> )}
 
                             {transaction.sold > 0 && (
-                        <h4 style={{ color: "green", fontSize: 'bold'}}>Sold: {transaction.quantity} of {transaction.ticker} @ $
+                        <h4 style={{ color: "green", fontSize: '1rem', fontWeight: 'bold' }}>Sold: {transaction.quantity} of {transaction.ticker} @ $
                                 {(transaction.stock_price).toFixed(2)} = + ${(transaction.sold).toFixed(2)}
                         </h4>)}
 
                         <Card.Footer>{transaction.time}</Card.Footer>
                         </ListGroup.Item>
                             ))
-                        };
+                        }
                     </ListGroup>
                 )}
     </Card>
+
 
 );
 });
@@ -180,12 +184,13 @@ aria-describedby="modal-modal-description"
 // PORTFOLIO RETURN
 
     return (
-        <div className="portfolio">
+        <div className="portfolio-container">
             <h1 className="portfolio-balance" >Balance: ${myBalance}</h1>
             <h2> {user?.name}'s Portfolio</h2>
             <br></br>
-            {/* <h2>My Portfolio:</h2> */}
-            <ul>{portfolioMap}</ul>
+            <div className="card-container">
+                <ul className='card-list'>{portfolioMap}</ul>
+            </div>
             <h2>
                 <NavLink to="/transactions" className="nav-transactions">
                     See All Transactions
@@ -212,3 +217,78 @@ export default Portfolio;
 //         </h2>
 //     </div>
 // );
+
+
+
+//    <Card>
+//         <CardHeader 
+//         title= {trade?.name}
+//         subheader= {trade.ticker}
+//         />
+//         <CardMedia
+//         component="img"
+//         height="194"
+//         image="/static/images/cards/paella.jpg"
+//         alt="Paella dish"
+//         />
+//         <CardContent>
+//             <Typography variant="body2" color="text.secondary">
+//                 Shares Owned: {aggregatedQuantity}
+//                 Total Investment: ${totalInvestment.toFixed(2)}
+//             </Typography>
+
+//                 <NavLink
+//                     to={{ pathname: "/sell" }}
+//                     state={{ trade: trade, aggregatedQuantity: aggregatedQuantity }}
+//                     className="nav-sell"
+//                 >
+//                     Sell
+//                 </NavLink>
+//                 <NavLink
+//                     to={{ pathname: "/buy" }}
+//                     state={{ trade: trade, aggregatedQuantity: aggregatedQuantity }}
+//                     className="nav-buy"
+//                 >
+//                     Buy
+//                 </NavLink>
+
+//         </CardContent>
+//         <CardActions disableSpacing>
+//             <ExpandMore
+//             expand={expanded}
+//             onClick={handleExpandClick}
+//             aria-expanded={expanded}
+//             aria-label="show more"
+//             >
+//             <ExpandMoreIcon />
+//             </ExpandMore>
+//         </CardActions>
+//         <Collapse in={expanded} timeout="auto" unmountOnExit>
+//             <CardContent>
+
+//             {selectedTicker === trade.ticker && (
+//                     <ListGroup className="each-transaction">
+//                         {transactions
+//                             .filter((transaction) => transaction.ticker === trade.ticker)
+//                             .map((transaction, index) => (
+//                         <ListGroup.Item key={index}>
+
+//                             {transaction.bought > 0 && (
+//                         <h4 style={{ color: "red", fontSize: 'bold' }}>Bought: {transaction.quantity} of {transaction.ticker} @ $
+//                                 {(transaction.stock_price).toFixed(2)} = - ${(transaction.bought).toFixed(2)}
+//                         </h4> )}
+
+//                             {transaction.sold > 0 && (
+//                         <h4 style={{ color: "green", fontSize: 'bold'}}>Sold: {transaction.quantity} of {transaction.ticker} @ $
+//                                 {(transaction.stock_price).toFixed(2)} = + ${(transaction.sold).toFixed(2)}
+//                         </h4>)}
+
+//                         <Card.Footer>{transaction.time}</Card.Footer>
+//                         </ListGroup.Item>
+//                             ))
+//                         };
+//                     </ListGroup>
+//                 )}
+//             </CardContent>
+//         </Collapse>
+// </Card>

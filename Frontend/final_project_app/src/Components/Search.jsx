@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from "react"
 import { useOutletContext, useNavigate } from "react-router-dom"
 
+import { TextField } from '@mui/material';
+
+
 function Search () {
 
     const {search, handleSearch, filteredStocks, setStock} = useOutletContext()
@@ -46,20 +49,34 @@ function Search () {
 
 return(
 
-<div>
-    Search here...
-    <div className="search-container">
-        <div >
-            <input 
-            onChange={handleSearchChange}
-            className="prompt"
-            placeholder="Search by ticker symbol.."
-            value={search}
-            />
-            <i className="search-box" />
-            {listSearch}
-        </div>
+<div className="search-container">
+
+    <h1 className="search-title">Looking for a specific stock? </h1>
+    <div >
+    <TextField
+                    id="search-input"
+                    onChange={handleSearchChange}
+                    label="Search by company name..."
+                    variant="outlined"
+                    value={search}
+                    fullWidth
+                    sx={{
+                        backgroundColor: "white",
+                        width: "60vw", // Adjust the width as needed
+                        "& .MuiOutlinedInput-root": {
+                            "& fieldset": {
+                                borderColor: "black" // Set the outline color
+                            },
+                            "&:hover fieldset": {
+                                borderColor: "black" // Set the outline color on hover
+                            }
+                        }
+                    }}
+                />
+        <i className="search-box" />
+        {listSearch}
     </div>
+    
 </div>
 )
 

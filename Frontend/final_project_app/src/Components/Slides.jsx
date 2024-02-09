@@ -20,15 +20,19 @@ function Slides () {
     }
 
 
-
+    const carouselArrowStyle = {
+        fontSize: '3rem',  // Adjust the size of the arrows
+        color: 'blue'       // Change the color of the arrows
+    };
 
 
 return (
 <div> 
-<Carousel activeIndex={index} onSelect={handleSelect} className="slides-container">
+<Carousel activeIndex={index} interval={null} onSelect={handleSelect} className="slides-container" prevIcon={<span style={carouselArrowStyle}>&#9664;</span>} nextIcon={<span style={carouselArrowStyle}>&#9654;</span>}>
 
     <Carousel.Item className="slide1-container">
-    <img src={background} style={{height: '80vh', width: '90vw'}}/>
+        <div style={{ height: '80vh', width: '90vw', backgroundColor: 'rgba(255, 255, 255, 0.6)' }} />
+
     <Carousel.Caption className="slide1">
         <h1 style={{fontWeight: "bold"}}>📈 Getting Started with Stocks: A Quick Overview</h1>
         <br></br>
@@ -38,7 +42,8 @@ return (
     </Carousel.Item>
 
     <Carousel.Item className="slide2-container">
-<img src={background} style={{height: '80vh', width: '90vw'}}/>
+        <div style={{ height: '80vh', width: '90vw', backgroundColor: 'rgba(255, 255, 255, 0.6)' }} />
+
     <Carousel.Caption className="slide2">
         <h1 style={{fontWeight: "bold"}}>💸 Buying Stocks:</h1>
         <br></br>
@@ -55,7 +60,8 @@ return (
     </Carousel.Item>
 
     <Carousel.Item className="slide3-container">
-<img src={background} style={{height: '80vh', width: '90vw'}}/>
+        <div style={{ height: '80vh', width: '90vw', backgroundColor: 'rgba(255, 255, 255, 0.6)' }} />
+
     <Carousel.Caption className="slide3">
         <h1 style={{fontWeight: "bold"}}>💰 Selling Stocks:</h1>
         <br></br>
@@ -70,7 +76,8 @@ return (
     </Carousel.Item>
 
     <Carousel.Item className="slide4-container">
-<img src={background} style={{height: '80vh', width: '90vw'}}/>
+        <div style={{ height: '80vh', width: '90vw', backgroundColor: 'rgba(255, 255, 255, 0.6)' }} />
+
     <Carousel.Caption className="slide4">
         <h1 style={{fontWeight: "bold"}}>💼 Managing Your Portfolio:</h1>
         <br></br>
@@ -86,7 +93,8 @@ return (
 
 
     <Carousel.Item className="slide5-container">
-<img src={background} style={{height: '80vh', width: '90vw'}}/>
+        <div style={{ height: '80vh', width: '90vw', backgroundColor: 'rgba(255, 255, 255, 0.6)' }} />
+
     <Carousel.Caption className="slide5">
         <h1 style={{fontWeight: "bold"}}> 📊 Best Practices for Evaluating Stocks:</h1>
         <br></br>
@@ -101,7 +109,8 @@ return (
 
 
     <Carousel.Item className="slide6-container">
-<img src={background} style={{height: '80vh', width: '90vw'}}/>
+        <div style={{ height: '80vh', width: '90vw', backgroundColor: 'rgba(255, 255, 255, 0.6)' }} />
+
     <Carousel.Caption className="slide6">
         <h1 style={{fontWeight: "bold"}}>📚 Basic Terminology:</h1>
         <br></br>
@@ -120,7 +129,8 @@ return (
 
 
     <Carousel.Item className="slide7-container">
-<img src={background} style={{height: '80vh', width: '90vw'}}/>
+        <div style={{ height: '80vh', width: '90vw', backgroundColor: 'rgba(255, 255, 255, 0.6)' }} />
+
     <Carousel.Caption className="slide7">
         <h1 style={{fontWeight: "bold"}}>📈 Stock Performance Metrics:</h1>
         <br></br>
@@ -137,7 +147,8 @@ return (
 
 
     <Carousel.Item className="last-slide-container">
-<img src={background} style={{height: '80vh', width: '90vw'}}/>
+        <div style={{ height: '80vh', width: '90vw', backgroundColor: 'rgba(255, 255, 255, 0.6)' }} />
+
     <Carousel.Caption className="last-slide">
         <h1 style={{fontWeight: "bold"}}>🚀 Ready to Dive In?</h1>
         <br></br>

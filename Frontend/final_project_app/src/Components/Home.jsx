@@ -8,7 +8,7 @@ function Home () {
 
 return (
 
-<div>
+<div className='body-container'>
     {/* <header>
         <h1> 
         <NavBar />
