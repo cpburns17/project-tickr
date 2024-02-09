@@ -55,10 +55,9 @@ return (
     <h2>
         {stock?.name}
     </h2>
-    <Card.Subtitle>
-        {stock?.symbol}
-    </Card.Subtitle>
-    <br></br>
+
+    <h3> '{stock?.symbol}' </h3>
+
     <h1>
         ${isNaN(closeValue) ? "N/A" : closeValue.toFixed(2)} USD
     </h1>
