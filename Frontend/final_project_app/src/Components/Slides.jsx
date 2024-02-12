@@ -15,6 +15,10 @@ function Slides () {
     setIndex(selectedIndex);
     };
 
+    function handleHome () {
+        navigate('/')
+    }
+
     function handleClick () {
         navigate('/')
     }
@@ -38,6 +42,8 @@ return (
         <br></br>
         <h2> Congratulations on taking the first step towards financial empowerment! Whether you're a seasoned investor or a complete beginner, our user-friendly app is designed to demystify the stock market for you.
         </h2>
+        <br></br>
+        <h2> How to Play ➡️</h2>
     </Carousel.Caption>
     </Carousel.Item>
 
@@ -156,8 +162,9 @@ return (
         <p>Explore the fascinating world of stock trading with Tickr! Whether you're looking to grow your wealth, or simply want to get a feel for buying & selling stocks, we're here to guide you every step of the way.</p>
         <br></br>
         <h2 style={{fontWeight: "bold"}}>Happy Trading! 🎉</h2>
-
+        <button onClick={handleHome} className="slides-button"> START </button>
     </Carousel.Caption>
+    
     </Carousel.Item>
 
 

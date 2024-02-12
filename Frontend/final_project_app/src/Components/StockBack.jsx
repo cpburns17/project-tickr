@@ -59,11 +59,11 @@ function StockBack ({flipCard}) {
         width: '80%', // Adjust the width as needed
         maxWidth: '800px', // Set max width if necessary
         maxHeight: '80%', // Set max height if necessary
-        overflowY: 'auto', // Enable vertical scrolling if content overflows
-        bgcolor: 'background.paper',
+        overflowY: 'auto', // Enable vertical scrolling if content overflows,
+        bgcolor: 'rgb(0, 0, 0, .9)',
         border: '10px solid #000',
         boxShadow: 24,
-        p:'60px 60px',
+        p:'110px 110px',
     };
 
 
@@ -78,8 +78,8 @@ return (
     <Card.Body> 
         <h2> {stock?.name} </h2>
         {/* <p>Price: ${parsePrice.toFixed(2)}</p> */}
-        <ListGroup >
-        <ListGroup.Item>Open: ${parseOpen.toFixed(2)}</ListGroup.Item>
+        <ListGroup className="card-back-list" >
+        <ListGroup.Item >Open: ${parseOpen.toFixed(2)}</ListGroup.Item>
         <ListGroup.Item>Previous Close: ${parseClose.toFixed(2)}</ListGroup.Item>
         <ListGroup.Item>52 Week High: ${stock?.fiftytwo_high}</ListGroup.Item>
         <ListGroup.Item>52 Week Low: ${stock?.fiftytwo_low}</ListGroup.Item>

@@ -62,7 +62,7 @@ return (
         <p className="welcome-text">Tickr’s goal is to educate and entertain users who are interested in mock-investing in the stock market, but have little to no experience or knowledge of stocks. </p>
         <p className="welcome-text">Upon signup, you can choose to go through a quick, high-level introduction of the stock market, along with important terminology needed to navigate a traditionally complex industry. Or, you can jump right in and be matched with a random stock. </p>
         <p className="welcome-text">You will be given “$10,000” of ticker money which you can use to invest in real stocks, in real time. Keep in mind, this isn’t real money, so your investments won’t have any impact on the market. However, Tickr tracks all of your trades in your Portfolio, so you will get a feel for what it COULD be like to make (or lose!) money. </p>
-        <p className="welcome-text">Once you feel like you have a good enough understanding of the stock market, we encourage users to continue their stock trading journey by creating a robinhood, E-trade, or Fidelity account. These applications are fantastic for real investing, so check them out!</p>
+        <p className="welcome-text">Once you feel like you have a good enough understanding of the stock market, we encourage users to continue their stock trading journey by creating a robinhood, E-trade, or Fidelity account. These applications are fantastic for real investing!</p>
         <p className="welcome-text">Happy Trading! 🎉</p>
         <br></br>
         <br></br>

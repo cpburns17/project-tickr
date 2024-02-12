@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react'
 // import {useNavigate} from 'react-router-dom'
 import {Outlet, useLocation} from 'react-router-dom'
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
-import background from './assets/background.jpg'
 
 import NavigateBar from './Components/NavigateBar'
 import Welcome from './Components/Welcome'
@@ -95,7 +94,7 @@ useEffect(() => {
     fetch(`api/intraday/${stock?.symbol}`)
     .then(r => r.json())
     .then (data => {
-        // console.log(data)
+        console.log(data)
         setIntraday(data)
     })
     .catch((error) => {
@@ -192,7 +191,7 @@ return (
           </h1>
         </header>
 
-          <Outlet context = {{ stock, setStock, handleRandomStock, logo, quote, intraday, news, user, search, graph, handleSearch, filteredStocks}} />
+          <Outlet context = {{ stock, setStock, handleRandomStock, logo, quote, intraday, news, user, search, graph, handleSearch, filteredStocks, isLoading}} />
       </div>
     )}
 

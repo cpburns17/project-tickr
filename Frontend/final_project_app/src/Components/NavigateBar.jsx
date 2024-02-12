@@ -7,6 +7,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import logo1 from '../assets/logo.png'
+import logo6 from '../assets/logo6.png'
+import logo7 from '../assets/logo7.png'
+
+
 
 
 
@@ -25,7 +30,15 @@ function NavigateBar ({user, setUser, setIsLoggedIn}) {
 return (
 <div>
     <Navbar className="navbar" bg="dark" fixed="top" variant='dark' expand="lg">
-        <Navbar.Brand className="ticker-logo">Tickr</Navbar.Brand>
+        {/* <Navbar.Brand className="ticker-logo" style={{color: 'rgb(74, 213, 238)', fontWeight: 'bolder', fontSize: '22px'}}> Tickr</Navbar.Brand> */}
+        <Navbar.Brand className="ticker-logo" style={{color: 'rgb(74, 213, 238)', fontWeight: 'bolder', fontSize: '22px'}}>
+            <img
+            src={logo7}
+            width="60"
+            height="60"
+            />
+        </Navbar.Brand>
+
         <Navbar.Toggle /> 
         <Navbar.Collapse>
             <Nav>
