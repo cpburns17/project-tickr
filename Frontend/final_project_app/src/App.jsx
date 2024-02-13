@@ -19,6 +19,7 @@ function App () {
   const [jsonList, setJsonList] = useState()
   const [logo, setLogo] = useState()
   const [graph, setGraph] = useState()
+  const [topTrades, setTopTrades] = useState()
 
   const [isLoading, setIsLoading] = useState(false);
   const location = useLocation() 
@@ -148,6 +149,16 @@ useEffect(() => {
   }, []);
 
 
+  // GET TOP GAINERS & LOSERS 
+useEffect(() => {
+  fetch('api/top_trades')
+  .then(r => r.json())
+  .then(data => {
+    console.log(data)
+    setTopTrades(data)
+  })
+
+}, []) 
 
 // GET USER 
 useEffect(() => {
@@ -156,11 +167,12 @@ useEffect(() => {
     if (r.ok){
       return r.json()
     }
-   throw Error()
+  throw Error()
   })
   .then (data => {
       setUser(data)
   })  
+  
   }, []);
 
   // console.log(user)
@@ -176,6 +188,19 @@ function handleSearch(searchTerm){
   : jsonList?.filter(list => list?.name.toLowerCase().includes(search.toLowerCase()))
 
 
+  const filteredTopTrades = topTrades.map((t) => {
+    return (
+
+        <div className="footer-slides">
+          <p className="footer-text"> {t?.ticker}</p>
+          <p className="footer-text"> ${t?.price}</p>
+          <p className="footer-text"> ${t?.change}</p>
+          <p className="footer-text"> {t?.percentage}</p>
+        </div>
+
+
+    )
+  })
 
 
 return (
@@ -192,7 +217,12 @@ return (
         </header>
 
           <Outlet context = {{ stock, setStock, handleRandomStock, logo, quote, intraday, news, user, search, graph, handleSearch, filteredStocks, isLoading}} />
+
+          <footer> 
+            {filteredTopTrades}
+          </footer>
       </div>
+      
     )}
 
 </div>

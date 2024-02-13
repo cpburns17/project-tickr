@@ -271,6 +271,30 @@ def get_stock_news(ticker):
     return news_list
 
 
+# TOP TRADES
+@app.get('/api/top_trades')
+def get_top_trades():
+    url = f'https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey={config["my_key"]}'
+    r = requests.get(url)
+    data = r.json()
+
+    top_gainers = data.get('top_gainers', [])
+    top_trades_list = []
+
+    for g in top_gainers:
+        d = {
+            'ticker': g.get('ticker', ''),
+            'price': g.get('price', ''),
+            'change': g.get('change_amount', ''),
+            'percentage': g.get('change_percentage', '')
+        }
+        top_trades_list.append(d)
+    print(data)
+    return top_trades_list
+
+
+
+
 # SEARCH FOR STOCK 
 @app.get('/api/search')
 def search_by_ticker(ticker):
@@ -290,14 +314,7 @@ def search_by_ticker(ticker):
     return results_list
 
 
-# TOP TRADES
-# @app.get('/top_trades')
-# def get_top_trades():
-#     url = f'https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey={config["my_key"]}'
-#     r = requests.get(url)
-#     data = r.json()
-#     print(data)
-#     return data
+
 
 
 # TRADES TABLE
@@ -351,7 +368,7 @@ def transaction():
         print(e)
         return {'errors': str(e)}, 400
     
- 
+
 
 @app.get('/api/SMA/<ticker>')
 def get_sma(ticker):

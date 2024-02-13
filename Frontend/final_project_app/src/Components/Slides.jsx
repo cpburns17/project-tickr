@@ -3,8 +3,6 @@ import { useOutletContext, useNavigate } from "react-router-dom"
 import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
 
-import img1 from '../assets/slide1.jpg'
-import img2 from '../assets/slide2.png'
 import  background from '../assets/slide4.jpg'
 
 function Slides () {
