@@ -63,7 +63,7 @@ button:focus-visible {
     /* NAVBAR SETUP */
 
 header {
-  margin-bottom: 70px;
+  margin-bottom: 20px;
 }
 
 .ticker-logo {
@@ -119,6 +119,7 @@ header {
 .body-container{
   display: flex;
   justify-content: center;
+  margin-top: 80px;
 }
 
 .stock-card {
@@ -417,17 +418,6 @@ max-width: 100%;
   margin-bottom: 20px; /* Adjust as needed */
 }
 
-/* @media (max-width: 992px) {
-  .card-item {
-    width: calc(50% - 10px);
-  }
-}
-
-@media (max-width: 768px) {
-  .card-item {
-    width: 100%;
-  } 
-} */
 
 .each-transaction {
   font-size: small !important;
@@ -453,62 +443,108 @@ margin-bottom: 6%;
     /* FOOTER  */
 
 
-/* .footer:before{
-  position: absolute;
-  top:100;
-  left: 0;
-  width: 40px;
-  height: 0%;
-  background-color: antiquewhite;
-  content: 'Todays Top Trades';
-  z-index: 2;
-
-} */
-
-footer:hover .footer-slides {
+.footer:hover .footer-slides {
   animation-play-state: paused;
 }
 
-@keyframes slides {
+@keyframes slide {
   from {
-    transform: translateX(0);
+    transform: translateX(100%);
   }
   to {
-    transform: translateX(-100%)
+    transform: translateX(-370%)
   }
 }
 
 
-footer {
-  margin-top: 20px;
-  background: rgb(6, 6, 6);
-  display: flex;
-  align-items: center;
+.header {
+  margin-top: 40px;
+  background-color: black;
   overflow: hidden;
-  height: 50px;
-}
-
-.footer-container {
-  background: white;
-  max-width: 100vw;
-  overflow: hidden;
-  padding: 20px 0;
-}
-
-.footer-slides {
+  padding: 10px 0;
+  background-color: black;
   white-space: nowrap;
+}
+
+
+.top-trades {
   display: flex;
-animation: 35s slides infinite linear;
+  animation: 50s slide infinite linear;
+  justify-content: center;
 
 }
 
-.footer-text {
-  display: flex;
-  align-items: center;
-  height: 30px;
-  margin: 0 30px;
-  font-weight: bold;
+
+.top-trades-slides {
+  background-color: black;
+
+}
+
+
+.top-trades-text {
+  height: 10px;
+  margin-right: 40px;
+  margin-left: 40px;
   font-family: monospace;
   color: white;
 
+}
+
+.sell-buy-buttons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sell-link{
+  margin: 0 20px;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.4em .8em;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: inherit;
+  background-color: green;
+  cursor: pointer;
+  transition: border-color 0.25s;
+
+}
+
+.buy-link {
+  margin: 0 20px;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.4em .8em;
+  font-size: 1em;
+  font-weight: bold;
+  font-family: inherit;
+  background-color: red;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+
+
+.sell-container {
+  padding: 5%;
+  background: rgb(255, 255, 255, .8);
+  width: 700px;
+  max-width: fit-content;
+  justify-content: center;
+  align-items: center;
+  margin-left: 300px;
+}
+
+.buy-container {
+  padding: 5%;
+  background: rgb(255, 255, 255, .8);
+  width: 700px;
+  max-width: fit-content;
+  justify-content: center;
+  align-items: center;
+  margin-left: 300px;
 }

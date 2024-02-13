@@ -23,11 +23,11 @@ function StockBack ({flipCard}) {
     const parseClose = parseFloat(quote?.previous_close);
     const parsePrice = parseFloat(quote?.price);
 
-    const [openMetrics, setOpenMetrics] = useState(false); // State for Metrics Modal
+    const [openMetrics, setOpenMetrics] = useState(false);
     const handleOpenMetrics = () => setOpenMetrics(true);
     const handleCloseMetrics = () => setOpenMetrics(false);
 
-    const [openNews, setOpenNews] = useState(false); // State for News Modal
+    const [openNews, setOpenNews] = useState(false); 
     const handleOpenNews = () => setOpenNews(true);
     const handleCloseNews = () => setOpenNews(false);
 
@@ -72,9 +72,15 @@ function StockBack ({flipCard}) {
         justifyContent: 'space-evenly',
     };
 
+
+    const thirtyDayGraph = {
+        
+    }
+
 return (
 <Card className="stock-back" data-bs-theme="dark">
 <Card.Img variant="top" src={logo?.logo} />
+{/* <Metrics2 style={style}/> */}
     <Card.Body> 
         <h2> {stock?.name} </h2>
         {/* <p>Price: ${parsePrice.toFixed(2)}</p> */}

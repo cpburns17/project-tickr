@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-// import {useNavigate} from 'react-router-dom'
 import {Outlet, useLocation} from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
@@ -19,6 +18,7 @@ function App () {
   const [jsonList, setJsonList] = useState()
   const [logo, setLogo] = useState()
   const [graph, setGraph] = useState()
+  // const [graph2, setGraph2] = useState()
   const [topTrades, setTopTrades] = useState()
 
   const [isLoading, setIsLoading] = useState(false);
@@ -34,6 +34,22 @@ fetch('api/random_stock')
     setStock(data)
 })  
 }, []);
+
+
+// RANDOM STOCK FUNCTION 
+function handleRandomStock() {
+  fetch('api/random_stock')
+  .then(r => r.json())
+  .then (data => {
+      // console.log(data)
+      setStock(data)
+      setQuote(data)
+  }) 
+  .catch((error) => {
+    console.error('Error fetching random stock:', error);
+  });
+}
+
 
 // GET STOCK LOGO 
 useEffect(() => {
@@ -52,6 +68,8 @@ useEffect(() => {
 }
   }, [stock]);
 
+
+  // GET GRAPH DATA FOR METRICS
   useEffect(() => {
     if (stock) {
       
@@ -62,11 +80,29 @@ useEffect(() => {
         setGraph(data)
     })
     .catch((error) => {
-      console.error('Error fetching stock price:', error);
+      console.error('Error fetching graph data:', error);
   
     });
   }
     }, [stock]);
+
+
+    // GET GRAPH 2 DATA 
+    // useEffect(() => {
+    //   if (stock) {
+        
+    //   fetch(`api/thirty_day/${stock?.symbol}`)
+    //   .then(r => r.json())
+    //   .then (data => {
+    //       console.log(data)
+    //       setGraph2(data)
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error fetching graph 2 data:', error);
+    
+    //   });
+    // }
+    //   }, [stock]);
 
 
 // GET STOCK PRICE DETAILS
@@ -121,24 +157,7 @@ useEffect(() => {
       }, [stock]);
 
 
-
-
-// RANDOM Stock function
-function handleRandomStock() {
-  fetch('api/random_stock')
-  .then(r => r.json())
-  .then (data => {
-      // console.log(data)
-      setStock(data)
-      setQuote(data)
-  }) 
-  .catch((error) => {
-    console.error('Error fetching random stock:', error);
-  });
-
-}
-
-// Get from JSON File
+// GET JSON FILE
 useEffect(() => {
   fetch('api/tickers_list')
   .then(r => r.json())
@@ -149,12 +168,12 @@ useEffect(() => {
   }, []);
 
 
-  // GET TOP GAINERS & LOSERS 
+// GET TOP GAINERS & LOSERS 
 useEffect(() => {
   fetch('api/top_trades')
   .then(r => r.json())
   .then(data => {
-    console.log(data)
+    // console.log(data)
     setTopTrades(data)
   })
 
@@ -175,52 +194,61 @@ useEffect(() => {
   
   }, []);
 
-  // console.log(user)
 
 
-  //Search function 
+// SEARCH FUNCTION
 function handleSearch(searchTerm){
   setSearch(searchTerm)
 }
 
+// FILTERS JSON LIST 
   const filteredStocks = search.trim() === ""
   ? []
   : jsonList?.filter(list => list?.name.toLowerCase().includes(search.toLowerCase()))
 
 
-  const filteredTopTrades = topTrades.map((t) => {
+  // TOP TRADES MAP
+  const filteredTopTrades = topTrades?.map((t) => {
     return (
-
-        <div className="footer-slides">
-          <p className="footer-text"> {t?.ticker}</p>
-          <p className="footer-text"> ${t?.price}</p>
-          <p className="footer-text"> ${t?.change}</p>
-          <p className="footer-text"> {t?.percentage}</p>
+        <div className="top-trades-slides" >
+          <p className="top-trades-text" style={{fontWeight: 300}}> {t?.ticker}</p>
+          <p className="top-trades-text"> prev close: ${t?.price}</p>
+          <p className="top-trades-text" style={{color:'green'}}> change: +${t?.change}</p>
+          <p className="top-trades-text" style={{color:'green'}}> %change: {t?.percentage}↑</p>
         </div>
+        
 
-
+        
     )
   })
 
 
 return (
-<div >
+<div className="app-container">
 
     {user === null ? (
       <Welcome user = {user} setUser = {setUser}  setIsLoggedIn = {setIsLoggedIn}/>) : (
         
       <div>
-        <header>
+        <header className="header">
           <h1> 
             <NavigateBar user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} />
           </h1>
+          <div className="top-trades" color="white">
+          
+          {filteredTopTrades}
+          Top Trades:
+          {filteredTopTrades}
+          </div>
+
         </header>
+ 
 
           <Outlet context = {{ stock, setStock, handleRandomStock, logo, quote, intraday, news, user, search, graph, handleSearch, filteredStocks, isLoading}} />
 
-          <footer> 
-            {filteredTopTrades}
-          </footer>
+          {/* <footer className="top-trades"> 
+       
+          </footer> */}
       </div>
       
     )}

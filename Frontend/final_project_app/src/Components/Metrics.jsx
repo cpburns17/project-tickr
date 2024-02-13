@@ -34,7 +34,7 @@ return (
             datasets: [
                 {
                     label: "Stock Price",
-                    data: graph?.values,
+                    data:  graph?.values,
                     backgroundColor: 'rgb(97, 180, 215)',
                     borderColor: 'rgb(97, 180, 215)'
                 },

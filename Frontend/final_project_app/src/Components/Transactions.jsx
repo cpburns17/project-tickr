@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react"
-import { useOutletContext } from "react-router-dom"
+import { useOutletContext, useNavigate } from "react-router-dom"
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 
@@ -12,11 +12,14 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+import Button from 'react-bootstrap/Button';
+
 
 function Transactions () {
 
     const {user} = useOutletContext()
     const [transactions, setTransactions] = useState()
+    const navigate = useNavigate();
 
     const parseBalance = parseFloat(user?.balance)
     const myBalance = parseBalance.toFixed(2)
@@ -26,6 +29,10 @@ useEffect(() => {
         setTransactions(user.trades.slice().reverse());
     }
     }, [user]);
+
+    function handleGoBack() {
+        navigate(-1);
+    }
 
 
 // const transactionMap = transactions?.map((trade, index) => (
@@ -86,6 +93,8 @@ return (
     </TableBody>
     </Table>
     </TableContainer>
+    <br></br>
+    <Button onClick={handleGoBack} > Go Back </Button>
     </div>
 
 

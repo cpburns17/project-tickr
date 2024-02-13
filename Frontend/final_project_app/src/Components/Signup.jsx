@@ -5,7 +5,7 @@ function Signup ({setIsLoggedIn, setUser}) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
-    const [balance, setBalance] = useState(10000)
+    const [balance, setBalance] = useState(20000)
     const navigate = useNavigate();
 
     const handleUsername = (e) => {

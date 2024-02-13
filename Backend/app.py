@@ -278,10 +278,10 @@ def get_top_trades():
     r = requests.get(url)
     data = r.json()
 
-    top_gainers = data.get('top_gainers', [])
+    most_traded = data.get('most_actively_traded', [])
     top_trades_list = []
 
-    for g in top_gainers:
+    for g in most_traded:
         d = {
             'ticker': g.get('ticker', ''),
             'price': g.get('price', ''),
@@ -289,7 +289,8 @@ def get_top_trades():
             'percentage': g.get('change_percentage', '')
         }
         top_trades_list.append(d)
-    print(data)
+
+
     return top_trades_list
 
 
@@ -369,7 +370,7 @@ def transaction():
         return {'errors': str(e)}, 400
     
 
-
+    # SIMPLE MOVING AVERAGE GRAPH
 @app.get('/api/SMA/<ticker>')
 def get_sma(ticker):
     url = f'https://www.alphavantage.co/query?function=SMA&symbol={ticker}&interval=monthly&time_period=10&series_type=open&apikey={config["my_key"]}'
@@ -389,6 +390,26 @@ def get_sma(ticker):
     }
 
     return sma_graph
+
+# @app.get('/api/thirty_day/<ticker>')
+# def get_thirty(ticker):
+#     url = f'https://www.alphavantage.co/query?function=SMA&symbol={ticker}&interval=30min&time_period=10&series_type=open&apikey={config["my_key"]}'
+#     r = requests.get(url)
+#     data = r.json()
+
+#     d = data['Technical Analysis: SMA']
+#     dates = []
+#     values = []
+#     for date, value in d.items():
+#         dates.append(date)
+#         values.append(float(value['SMA']))
+    
+#     sma_graph2 = {
+#         'dates': dates,
+#         'values': values,
+#     }
+
+#     return sma_graph2
 
 
 

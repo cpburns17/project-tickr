@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react"
 import { useOutletContext, useLocation, useNavigate } from "react-router-dom"
 
+import Button from 'react-bootstrap/Button';
 
 function Sell () {
     const {stock, quote, intraday, user} = useOutletContext() 
@@ -24,11 +25,11 @@ function Sell () {
 
     const closeValue = parseFloat(stockPrice);
     const currentPrice = closeValue.toFixed(2)
-    console.log(currentPrice)
+    // console.log(currentPrice)
     const stockName = trade?.name
     const stockTick = trade?.ticker
     const currentQuantity = aggregatedQuantity.aggregatedQuantity
-    console.log(currentQuantity)
+    // console.log(currentQuantity)
     const userID = user?.id
 
 
@@ -113,14 +114,14 @@ function Sell () {
 
 return (
 
-<div>
+<div className="sell-container">
     <h2>Company: {trade.name}</h2>
         {/* <p>Ticker: {trade.ticker}</p> */}
-        <p>Shares Owned: {currentQuantity}</p>
+        <h3>Shares Owned: {currentQuantity}</h3>
         {/* <p>PPS: ${trade.stock_price}</p>
         <p>Total: ${trade.bought}</p> */}
-        <div>
-            <h3>Current Stock PPS: ${currentPrice}</h3>
+        <div className="sell-card"> 
+            <h4>Current Stock PPS: ${currentPrice}</h4>
             <h1>${(currentPrice * quantity).toFixed(2)}</h1>
             <p>Enter # of shared you'd like to sell (max {currentQuantity}):</p>
             <form onSubmit={handleSubmit}>
@@ -132,12 +133,13 @@ return (
                     onChange={(e) => setQuantity(e.target.value)}
                     className="form-control"
                 />
-                <button type='submit'>
-                    Execute
-                </button>
                 <br></br>
-                <button  onClick={handleGoBack}> Go Back </button>
+                <Button type='submit'>
+                    Execute
+                </Button>
             </form>
+            <br></br>
+            <button  onClick={handleGoBack}> Go Back </button>
 
         {sellSuccess && (
         <p>Congrats, you sold {sellQuantity} shares for ${(currentPrice * sellQuantity).toFixed(2)}!</p>

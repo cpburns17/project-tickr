@@ -105,7 +105,7 @@ return (
             </ListGroup>
         </Card.Body>
 
-        <Card.Body> 
+        <Card.Body className="sell-buy-buttons"> 
 {/* 
 <Button onClick={handleOpenSell}>Sell</Button>
 <Modal
@@ -134,14 +134,14 @@ aria-describedby="modal-modal-description"
             <NavLink
                 to={{ pathname: "/sell" }}
                 state={{ trade: trade, aggregatedQuantity: aggregatedQuantity }}
-                className="nav-sell"
+                className="sell-link"
             >
                 Sell
             </NavLink>
             <NavLink
                 to={{ pathname: "/buy" }}
                 state={{ trade: trade, aggregatedQuantity: aggregatedQuantity }}
-                className="nav-buy"
+                className="buy-link"
             >
                 Buy
             </NavLink>

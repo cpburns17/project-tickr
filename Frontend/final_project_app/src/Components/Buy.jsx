@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from "react"
 import { useOutletContext, useLocation, useNavigate} from "react-router-dom"
 
+import Button from 'react-bootstrap/Button';
+
 
 function Buy (){
     const {stock, quote, intraday, user} = useOutletContext() 
@@ -108,15 +110,15 @@ function Buy (){
 
 return (
 
-<div>
+<div className="buy-container">
     <h2>Company: {trade.name}</h2>
-        <p>Ticker: {trade.ticker}</p>
-        <p>Shares Owned: {currentQuantity}</p>
+        {/* <p>Ticker: {trade.ticker}</p> */}
+        <h3>Shares Owned: {currentQuantity}</h3>
         {/* <p>PPS: ${trade.stock_price}</p>
         <p>Total: ${trade.bought}</p> */}
         <div>
-            <h3>Current Stock PPS: ${currentPrice}</h3>
-            <h1>${(currentPrice * quantity).toFixed(2)}</h1>
+            <h2 >Current Stock PPS: ${currentPrice}</h2>
+            <h1 >${(currentPrice * quantity).toFixed(2)}</h1>
             <p>Enter # of shared you'd like to buy:</p>
             <form onSubmit={handleSubmit}>
                 <input
@@ -127,12 +129,14 @@ return (
                     onChange={(e) => setQuantity(e.target.value)}
                     className="form-control"
                 />
-                <button type='submit'>
-                    Place order
-                </button>
                 <br></br>
-                <button  onClick={handleGoBack}> Go Back </button>
+                <Button type='submit'>
+                    Place order
+                </Button>
+                <br></br>
             </form>
+            <br></br>
+            <button  onClick={handleGoBack}> Go Back </button>
 
 
         {buySuccess && (
