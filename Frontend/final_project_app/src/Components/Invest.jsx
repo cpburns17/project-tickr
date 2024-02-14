@@ -14,7 +14,7 @@ function Invest () {
     const [quantity, setQuantity] = useState(0)
     const [time, setTime] = useState()
     // const [user, setUser] = useState(1)
-
+    const [overdraft, setOverdraft] = useState(false)
     const [buySuccess, setBuySuccess] = useState(false)
     const [buyQuantity, setBuyQuantity] = useState(0); 
 
@@ -37,9 +37,14 @@ function Invest () {
         e.preventDefault();
         setStockPrice(currentPrice)
         const buyQuantity = parseFloat(quantity)
-        // setUser(1)
-        // setBought(currentPrice * quantity)
-        // setQuantity(quantity)
+        if ((quantity * currentPrice) > user?.balance) {
+            // Show an error message or handle the validation appropriately
+            setOverdraft(true)
+            console.error("Not enough funds");
+            return;
+        }
+        setBought(currentPrice * quantity)
+
 
         const currentDate = new Date();
         const formattedDate = currentDate.toLocaleString('en-US', { timeZone: 'America/New_York' });
@@ -103,6 +108,12 @@ return (
             <Button className="invest-button" type='submit'>
                 Place Order
             </Button>
+        {overdraft && (
+            <div>
+                <br></br>
+                <p style={{color: 'red'}}> Error: Not Enough Funds</p>
+            </div>
+        )}
 
 
 

@@ -19,6 +19,7 @@ function Buy (){
     const [sold, setSold] = useState(0)
     const [quantity, setQuantity] = useState(0)
     const [time, setTime] = useState()
+    const [overdraft, setOverdraft] = useState(false)
 
     const [currentStockData, setCurrentStockData] = useState()
     const [ticker, setTicker] = useState("DefaultTicker");
@@ -56,12 +57,13 @@ function Buy (){
     function handleSubmit(e) {
         e.preventDefault();
         const buyQuantity = parseFloat(quantity);
-        // if (buyQuantity <= 0 || buyQuantity > currentQuantity) {
-        //     // Show an error message or handle the validation appropriately
-        //     console.error("Invalid quantity entered");
-        //     return;
-        // }
 
+        if ((quantity * currentPrice) > user?.balance) {
+            // Show an error message or handle the validation appropriately
+            console.error("Not enough funds");
+            setOverdraft(true)
+            return;
+        }
         setStockPrice(currentPrice)
 
         const currentDate = new Date();
@@ -134,6 +136,12 @@ return (
                     Place order
                 </Button>
                 <br></br>
+                {overdraft && (
+            <div>
+                <br></br>
+                <p style={{color: 'red'}}> Error: Not Enough Funds</p>
+            </div>
+        )}
             </form>
             <br></br>
             <button  onClick={handleGoBack}> Go Back </button>
