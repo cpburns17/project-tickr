@@ -40,7 +40,28 @@
 //         }),
 //       }));
 
+//THIS IS MODAL 
 
+    // const [openBuy, setOpenBuy] = React.useState(false);
+    // const handleOpenBuy = () => setOpenBuy(true);
+    // const handleCloseBuy = () => setOpenBuy(false);
+
+    // const [openSell, setOpenSell] = React.useState(false);
+    // const handleOpenSell = () => setOpenSell(true);
+    // const handleCloseSell = () => setOpenSell(false);
+
+
+    // const style = {
+    //     position: 'absolute',
+    //     top: '50%',
+    //     left: '50%',
+    //     transform: 'translate(-50%, -50%)',
+    //     width: 400,
+    //     bgcolor: 'background.paper',
+    //     border: '2px solid #000',
+    //     boxShadow: 24,
+    //     p: 4,
+    // };
 
 //     useEffect(() => {
 //         if (user) {
@@ -105,6 +126,32 @@
 //                 Shares Owned: {aggregatedQuantity}
 //                 Total Investment: ${totalInvestment.toFixed(2)}
 //             </Typography>
+
+{/* 
+<Button onClick={handleOpenSell}>Sell</Button>
+<Modal
+open={openSell}
+onClose={handleCloseSell}
+aria-labelledby="modal-modal-title"
+aria-describedby="modal-modal-description"
+>
+<Box sx={style}>
+    <Sell trade={trade} aggregatedQuantity={aggregatedQuantity} />
+</Box>
+</Modal>
+
+<Button onClick={handleOpenBuy}>Buy</Button>
+<Modal
+open={openBuy}
+onClose={handleCloseBuy}
+aria-labelledby="modal-modal-title"
+aria-describedby="modal-modal-description"
+>
+<Box sx={style}>
+    <Buy trade={trade} aggregatedQuantity={aggregatedQuantity} />
+</Box>
+</Modal> */}
+
 
 //                 <NavLink
 //                     to={{ pathname: "/sell" }}

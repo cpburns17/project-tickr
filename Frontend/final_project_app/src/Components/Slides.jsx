@@ -171,7 +171,7 @@ return (
         <p> <strong>Significance: </strong> The P/E ratio provides insights into how much investors are willing to pay for a company's earnings. It reflects market expectations regarding a company's future growth and profitability.</p>
         <p> <strong>Interpretation:  </strong>A higher P/E ratio may indicate that investors expect strong future growth, while a lower P/E ratio may suggest lower growth expectations. However, it's essential to compare P/E ratios within the same industry or sector for a meaningful analysis.</p>
         <br></br>
-        <p>Understanding volume and the price-earnings ratio can enhance your ability to assess a stock's performance and make more informed investment decisions.</p>
+        <p>*Understanding volume and the price-earnings ratio can enhance your ability to assess a stock's performance and make more informed investment decisions.</p>
     </Carousel.Caption>
     </Carousel.Item>
 

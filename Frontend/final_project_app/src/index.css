@@ -244,7 +244,7 @@ max-width: 100%;
   color: black !important;
   font-weight: 700;
   font-size: x-large;
-  margin-bottom: 15%;
+  margin-bottom: 10%;
 
 }
 
@@ -260,7 +260,7 @@ max-width: 100%;
   color: black !important;
   font-weight: 600;
   font-size: x-large;
-  margin-bottom: 12%;
+  margin-bottom: 5%;
 
 }
 
@@ -278,7 +278,7 @@ max-width: 100%;
   font-size: x-large;
   max-height: 80%;
   overflow-y: auto;
-  margin-bottom: 8%
+  margin-bottom: 5%
 
 }
 
@@ -361,7 +361,7 @@ max-width: 100%;
   font-size: large;
   max-height: 80%;
   overflow-y: auto;
-  margin-bottom: 12%
+  margin-bottom: 6%
 }
 
 .slide9-container {
@@ -425,7 +425,7 @@ max-width: 100%;
   font-size: large;
   max-height: 80%;
   overflow-y: auto;
-  margin-bottom: 12%
+  margin-bottom: 10%
 }
 
 .last-slide-container {

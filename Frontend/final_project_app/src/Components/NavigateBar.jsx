@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import logo from '../assets/logo7.png'
+import logo from '../assets/final-logo.png'
 
 
 
@@ -32,8 +32,8 @@ return (
         <Navbar.Brand className="ticker-logo" style={{color: 'rgb(74, 213, 238)', fontWeight: 'bolder', fontSize: '22px'}}>
             <img
             src={logo}
-            width="60"
-            height="60"
+            width="50"
+            height="50"
             />
         </Navbar.Brand>
 
