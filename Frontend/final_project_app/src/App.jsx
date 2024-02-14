@@ -58,7 +58,7 @@ useEffect(() => {
   fetch(`api/logo/${stock?.symbol}`)
   .then(r => r.json())
   .then (data => {
-      console.log(data)
+      // console.log(data)
       setLogo(data)
   })
   .catch((error) => {
@@ -76,7 +76,7 @@ useEffect(() => {
     fetch(`api/SMA/${stock?.symbol}`)
     .then(r => r.json())
     .then (data => {
-        console.log(data)
+        // console.log(data)
         setGraph(data)
     })
     .catch((error) => {
@@ -131,7 +131,7 @@ useEffect(() => {
     fetch(`api/intraday/${stock?.symbol}`)
     .then(r => r.json())
     .then (data => {
-        console.log(data)
+        // console.log(data)
         setIntraday(data)
     })
     .catch((error) => {
@@ -215,10 +215,7 @@ function handleSearch(searchTerm){
           <p className="top-trades-text"> prev close: ${t?.price}</p>
           <p className="top-trades-text" style={{color:'green'}}> change: +${t?.change}</p>
           <p className="top-trades-text" style={{color:'green'}}> %change: {t?.percentage}↑</p>
-        </div>
-        
-
-        
+        </div>        
     )
   })
 
@@ -234,7 +231,7 @@ return (
           <h1> 
             <NavigateBar user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} />
           </h1>
-          <div className="top-trades" color="white">
+          <div className="top-trades" style={{color: 'white'}}>
           
           {filteredTopTrades}
           Top Trades:
@@ -242,13 +239,9 @@ return (
           </div>
 
         </header>
- 
 
           <Outlet context = {{ stock, setStock, handleRandomStock, logo, quote, intraday, news, user, search, graph, handleSearch, filteredStocks, isLoading}} />
 
-          {/* <footer className="top-trades"> 
-       
-          </footer> */}
       </div>
       
     )}

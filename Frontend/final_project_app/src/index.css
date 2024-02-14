@@ -260,7 +260,7 @@ max-width: 100%;
   color: black !important;
   font-weight: 600;
   font-size: x-large;
-  margin-bottom: 9%;
+  margin-bottom: 12%;
 
 }
 
@@ -278,7 +278,7 @@ max-width: 100%;
   font-size: x-large;
   max-height: 80%;
   overflow-y: auto;
-  margin-bottom: 5%
+  margin-bottom: 8%
 
 }
 
@@ -326,7 +326,7 @@ max-width: 100%;
   text-align: center;
   color: black !important;
   font-weight: 600;
-  font-size: large;
+  font-size: x-large;
   max-height: 80%;
   overflow-y: auto;
   margin-bottom: 5%
@@ -342,10 +342,90 @@ max-width: 100%;
   text-align: center;
   color: black !important;
   font-weight: 600;
-  font-size: x-large;
+  font-size: large;
   max-height: 80%;
   overflow-y: auto;
   margin-bottom: 5%
+}
+
+.slide8-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide8{
+  text-align: center;
+  color: black !important;
+  font-weight: 600;
+  font-size: large;
+  max-height: 80%;
+  overflow-y: auto;
+  margin-bottom: 12%
+}
+
+.slide9-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide9{
+  text-align: center;
+  color: black !important;
+  font-weight: 600;
+  font-size: large;
+  max-height: 80%;
+  overflow-y: auto;
+  margin-bottom: 5%
+}
+
+.slide10-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide10{
+  text-align: center;
+  color: black !important;
+  font-weight: 600;
+  font-size: large;
+  max-height: 80%;
+  overflow-y: auto;
+  margin-bottom: 5%
+}
+
+.slide11-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide11{
+  text-align: center;
+  color: black !important;
+  font-weight: 600;
+  font-size: large;
+  max-height: 80%;
+  overflow-y: auto;
+  margin-bottom: 5%
+}
+
+.slide12-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide12{
+  text-align: center;
+  color: black !important;
+  font-weight: 600;
+  font-size: large;
+  max-height: 80%;
+  overflow-y: auto;
+  margin-bottom: 12%
 }
 
 .last-slide-container {
