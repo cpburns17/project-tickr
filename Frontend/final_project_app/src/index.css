@@ -488,7 +488,8 @@ max-width: 100%;
 .card-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start /* or justify-content: space-between; */
+  justify-content: flex-start; /* or justify-content: space-between; */
+  margin-left: 2%;
 }
 
 .card-item {
@@ -520,7 +521,7 @@ margin-bottom: 6%;
 }
 
 
-    /* FOOTER  */
+    /* TOP TRADES SLIDER  */
 
 
 .footer:hover .footer-slides {
