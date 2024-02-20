@@ -35,6 +35,55 @@
     "id": 5
   },
   {
+    "ticker": "AAPL",
+    "name": "Apple Inc",
+    "is_etf": null,
+    "exchange": "NASDAQ",
+    "id": 3128
+  },
+  {
+    "ticker": "TSLA",
+    "name": "Tesla Inc",
+    "is_etf": null,
+    "exchange": "NASDAQ",
+    "id": 3129
+  },
+  {
+    "ticker": "AMZN",
+    "name": "Amazon.com Inc",
+    "is_etf": null,
+    "exchange": "NASDAQ",
+    "id": 3130
+  },
+  {
+    "ticker": "NVDA",
+    "name": "NVIDIA Corp",
+    "is_etf": null,
+    "exchange": "NASDAQ",
+    "id": 3131
+  },
+  {
+    "ticker": "MSFT",
+    "name": "Microsoft Corp",
+    "is_etf": null,
+    "exchange": "NASDAQ",
+    "id": 3132
+  },
+  {
+    "ticker": "INTC",
+    "name": "Intel Corp",
+    "is_etf": null,
+    "exchange": "NASDAQ",
+    "id": 3133
+  },
+  {
+    "ticker": "AMD",
+    "name": "Advanced Micro Devices, Inc.",
+    "is_etf": null,
+    "exchange": "NASDAQ",
+    "id": 3134
+  },
+  {
     "ticker": "AAT",
     "name": "American Assets Trust, Inc.",
     "is_etf": null,
