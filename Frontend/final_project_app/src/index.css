@@ -244,7 +244,7 @@ max-width: 100%;
   color: black !important;
   font-weight: 700;
   font-size: x-large;
-  margin-bottom: 10%;
+  margin-bottom: 15%;
 
 }
 
@@ -260,7 +260,7 @@ max-width: 100%;
   color: black !important;
   font-weight: 600;
   font-size: x-large;
-  margin-bottom: 5%;
+  margin-bottom: 15%;
 
 }
 
@@ -278,7 +278,7 @@ max-width: 100%;
   font-size: x-large;
   max-height: 80%;
   overflow-y: auto;
-  margin-bottom: 5%
+  margin-bottom: 12%
 
 }
 
@@ -296,7 +296,7 @@ max-width: 100%;
   font-size: x-large;
   max-height: 80%;
   overflow-y: auto;
-  margin-bottom: 5%
+  margin-bottom: 10%
 }
 
 .slide5-container {
@@ -312,7 +312,7 @@ max-width: 100%;
   font-size: x-large;
   max-height: 80%;
   overflow-y: auto;
-  margin-bottom: 5%
+  margin-bottom: 10%
 }
 
 
@@ -329,7 +329,7 @@ max-width: 100%;
   font-size: x-large;
   max-height: 80%;
   overflow-y: auto;
-  margin-bottom: 5%
+  margin-bottom: 10%
 }
 
 .slide7-container {
@@ -345,7 +345,7 @@ max-width: 100%;
   font-size: large;
   max-height: 80%;
   overflow-y: auto;
-  margin-bottom: 5%
+  margin-bottom: 10%
 }
 
 .slide8-container {
@@ -361,7 +361,7 @@ max-width: 100%;
   font-size: large;
   max-height: 80%;
   overflow-y: auto;
-  margin-bottom: 6%
+  margin-bottom: 15%
 }
 
 .slide9-container {
@@ -377,7 +377,7 @@ max-width: 100%;
   font-size: large;
   max-height: 80%;
   overflow-y: auto;
-  margin-bottom: 5%
+  margin-bottom: 10%
 }
 
 .slide10-container {
@@ -393,7 +393,7 @@ max-width: 100%;
   font-size: large;
   max-height: 80%;
   overflow-y: auto;
-  margin-bottom: 5%
+  margin-bottom: 10%
 }
 
 .slide11-container {
@@ -425,7 +425,7 @@ max-width: 100%;
   font-size: large;
   max-height: 80%;
   overflow-y: auto;
-  margin-bottom: 10%
+  margin-bottom: 15%
 }
 
 .last-slide-container {
@@ -440,7 +440,7 @@ max-width: 100%;
   color: black !important;
   font-weight: 700;
   font-size: x-large;
-  margin-bottom: 10%;
+  margin-bottom: 15%;
 
 }
 

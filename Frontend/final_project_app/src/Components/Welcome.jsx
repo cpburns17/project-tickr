@@ -9,17 +9,15 @@ function Welcome ({user, setUser, setIsLoggedIn}) {
     const [filterValue, setFilterValue] = useState("");
     const [begin, setBegin] = useState(false)
     const [showSignup, setShowSignup] = useState(false);
-
     const navigate = useNavigate();
     
-    // console.log(isLoggedIn);
     console.log(user);
     
     function handleClick() {
         setBegin(true)
     }
 
-
+    // Check session
     useEffect(() => {
     fetch(`api/check_session`).then((res) => {
         if (res.ok) {
@@ -30,32 +28,30 @@ function Welcome ({user, setUser, setIsLoggedIn}) {
     
     // Authentication
     function attemptLogin(userInfo) {
-    fetch(`api/login`, {
-        method: "POST",
-        headers: {
-        "Content-Type": "application/json",
-        Accepts: "application/json",
-        },
-        body: JSON.stringify(userInfo),
-    })
-        .then((res) => {
-        if (res.ok) {
-            return res.json();
-            
-        }
-        alert("username and/or password not found")
-        throw res;
+        fetch(`api/login`, {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            Accepts: "application/json",
+            },
+            body: JSON.stringify(userInfo),
         })
-        .then((data) => {
-        navigate("/");
-        setUser(data);
-        })
-        .catch((e) => console.log(e));
+            .then((res) => {
+            if (res.ok) {
+                return res.json();
+            }
+            alert("username and/or password not found")
+            throw res;
+            })
+            .then((data) => {
+            navigate("/");
+            setUser(data);
+            })
+            .catch((e) => console.log(e));
     }
 
 
 return (
-
     <div className="welcome-page">
         <h2 className="welcome-h2"> Welcome to Tickr! </h2>
         <br></br>
@@ -76,25 +72,22 @@ return (
         ) : null}
 
         {user === null ? (
-        <div className="d-flex justify-content-center mt-3">
-            <button
-                className="btn btn-primary"
-                onClick={() => setShowSignup(!showSignup)}
-            >
-                {showSignup ? "Go to Login" : "Go to Signup"}
-            </button>
-            
-        </div>
+            <div className="d-flex justify-content-center mt-3">
+                <button
+                    className="btn btn-primary"
+                    onClick={() => setShowSignup(!showSignup)}
+                >
+                    {showSignup ? "Go to Login" : "Go to Signup"}
+                </button>
+            </div>
+        ) : null}
 
-    ) : null}
     <br></br>
-
-
     </div>
 
-)
+);
 
-}
+};
 
 export default Welcome
 

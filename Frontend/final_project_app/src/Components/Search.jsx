@@ -37,49 +37,39 @@ function Search () {
         </div>
     })
 
-
-    // useEffect(() => {
-    //     fetch('http://localhost:5555/search')
-    //     .then(r => r.json())
-    //     .then (data => {
-    //         console.log(data)
-    //         setStock(data)
-    //     })  
-    //     }, []);
-
 return(
-
-<div className="search-container">
-
-    <h1 className="search-title">Looking for a specific stock? </h1>
-    <div >
-    <TextField
-                    id="search-input"
-                    onChange={handleSearchChange}
-                    label="Search by company name..."
-                    variant="outlined"
-                    value={search}
-                    fullWidth
-                    sx={{
-                        backgroundColor: "white",
-                        width: "60vw", // Adjust the width as needed
-                        "& .MuiOutlinedInput-root": {
-                            "& fieldset": {
-                                borderColor: "black" // Set the outline color
-                            },
-                            "&:hover fieldset": {
-                                borderColor: "black" // Set the outline color on hover
-                            }
+    <div className="search-container">
+        <h1 className="search-title">Looking for a specific stock? </h1>
+        <div >
+            <TextField
+                id="search-input"
+                onChange={handleSearchChange}
+                label="Search by company name..."
+                variant="outlined"
+                value={search}
+                fullWidth
+                sx={{
+                    backgroundColor: "white",
+                    width: "60vw", // Adjust the width as needed
+                    "& .MuiOutlinedInput-root": {
+                        "& fieldset": {
+                            borderColor: "black" // Set the outline color
+                        },
+                        "&:hover fieldset": {
+                            borderColor: "black" // Set the outline color on hover
                         }
-                    }}
-                />
-        <i className="search-box" />
-        {listSearch}
-    </div>
-    
-</div>
-)
+                    }
+                }}
+            />
+            <i className="search-box" />
 
-}
+            {listSearch}
+
+        </div>
+    </div>
+
+);
+
+};
 
 export default Search

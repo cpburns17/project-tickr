@@ -7,40 +7,35 @@ function Sell () {
     const {stock, quote, intraday, user} = useOutletContext() 
 
     const navigate = useNavigate() //This is used to go back (button)
-
     const location = useLocation();
     const trade = location.state && location.state.trade;
     const aggregatedQuantity = location.state;
 
-    console.log(trade)
-
+    // console.log(trade)
+    const [currentStockData, setCurrentStockData] = useState()
+    const [ticker, setTicker] = useState("DefaultTicker");
     const [sellSuccess, setSellSuccess] = useState(false);
     const [sellQuantity, setSellQuantity] = useState(0); 
-
     const [stockPrice, setStockPrice] = useState()
     const [bought, setBought] = useState(0)
     const [sold, setSold] = useState(0)
     const [quantity, setQuantity] = useState(0)
     const [time, setTime] = useState()
 
+    // converts float and 2 decimals
     const closeValue = parseFloat(stockPrice);
     const currentPrice = closeValue.toFixed(2)
-    // console.log(currentPrice)
+
+    // renames props
     const stockName = trade?.name
     const stockTick = trade?.ticker
     const currentQuantity = aggregatedQuantity.aggregatedQuantity
-    // console.log(currentQuantity)
     const userID = user?.id
-
-
-    const [currentStockData, setCurrentStockData] = useState()
-    const [ticker, setTicker] = useState("DefaultTicker");
 
 
     function handleGoBack() {
         navigate(-1);
     }
-
 
     useEffect(() => {
     fetch(`api/intraday/${stockTick}`)
@@ -56,66 +51,58 @@ function Sell () {
     }, [location]);
 
 
-
     function handleSubmit(e) {
         e.preventDefault();
         const sellQuantity = parseFloat(quantity);
+        // error if user tries to sell more than owned
         if (sellQuantity <= 0 || sellQuantity > currentQuantity) {
-            // Show an error message or handle the validation appropriately
             console.error("Invalid quantity entered");
             return;
         }
-
         setStockPrice(currentPrice)
 
+        // time stamped
         const currentDate = new Date();
         const formattedDate = currentDate.toLocaleString('en-US', { timeZone: 'America/New_York' });
 
-
-    const newStockSold = {
-        name: stockName,
-        ticker: stockTick,
-        stock_price: currentPrice, 
-        bought: bought,
-        sold: currentPrice * sellQuantity,
-        quantity: sellQuantity,
-        time: formattedDate,
-        user_id: userID,
-
-    }
-
-
-    fetch('api/trades', {
-        method: "POST",
-        headers: {
-            "Content-type": "application/json"
-        },
-        body: JSON.stringify(newStockSold)
-    })
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        const newStockSold = {
+            name: stockName,
+            ticker: stockTick,
+            stock_price: currentPrice, 
+            bought: bought,
+            sold: currentPrice * sellQuantity,
+            quantity: sellQuantity,
+            time: formattedDate,
+            user_id: userID,
         }
-        return response.json();
+
+
+        fetch('api/trades', {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(newStockSold)
         })
-        .then((data) => {
-        console.log("Post successful:", data);
-        setSellSuccess(true);
-        setQuantity(0);
-        setSellQuantity(sellQuantity); // Store sellQuantity in state
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+            })
+            .then((data) => {
+            console.log("Post successful:", data);
+            setSellSuccess(true);
+            setQuantity(0);
+            setSellQuantity(sellQuantity);
+            })
+            .catch((error) => console.error("Post error:", error));
 
-
-        })
-        .catch((error) => console.error("Post error:", error));
-
-
-    }
-
+    };
 
 return (
-
-<div className="sell-container">
-    <h2>Company: {trade.name}</h2>
+    <div className="sell-container">
+        <h2>Company: {trade.name}</h2>
         {/* <p>Ticker: {trade.ticker}</p> */}
         <h3>Shares Owned: {currentQuantity}</h3>
         {/* <p>PPS: ${trade.stock_price}</p>
@@ -133,7 +120,7 @@ return (
                     onChange={(e) => setQuantity(e.target.value)}
                     className="form-control"
                 />
-                <br></br>
+            <br></br>
                 <Button type='submit'>
                     Execute
                 </Button>
@@ -144,9 +131,9 @@ return (
         {sellSuccess && (
         <p>Congrats, you sold {sellQuantity} shares for ${(currentPrice * sellQuantity).toFixed(2)}!</p>
         )}
+        
         </div>
-
-</div>
+    </div>
 
 );
 

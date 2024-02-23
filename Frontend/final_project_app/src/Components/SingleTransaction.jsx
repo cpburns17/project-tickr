@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react"
 import { useOutletContext } from "react-router-dom"
-import { NavLink } from "react-router-dom";
 
 
 function SingleTransaction () {
@@ -16,16 +15,14 @@ useEffect(() => {
     }
     }, [user]);
 
-
 return (
     <div>
         <h1>Balance: ${myBalance}</h1>
-        
         <h2>Transaction History:</h2>
-        {/* <h3> {transactionMap}</h3> */}
     </div>
+
 );
 
-}
+};
 
 export default SingleTransaction

@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, useOutletContext } from 'react-router-dom'; 
 
-import Button from 'react-bootstrap/Button';
 
-function Logout({setUser, setIsLoggedIn, user}) {
-    // const {setUser, setIsLoggedIn} = useOutletContext()
-
+function Logout({setUser, setIsLoggedIn}) {
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -21,11 +18,13 @@ function Logout({setUser, setIsLoggedIn, user}) {
         })
     };
 
-    return (
+return (
     <button onClick={handleLogout} className="nav-link">
         Logout
     </button>
-    );
-}
+
+);
+
+};
 
 export default Logout;

@@ -6,7 +6,6 @@ import './App.css'
 import NavigateBar from './Components/NavigateBar'
 import Welcome from './Components/Welcome'
 
-
 function App () {
   const [stock, setStock] = useState()
   const [quote, setQuote] = useState()
@@ -106,21 +105,20 @@ useEffect(() => {
 
 
 // GET STOCK PRICE DETAILS
-useEffect(() => {
-  if (stock) {
-    
-  fetch(`api/stock_price/${stock?.symbol}`)
-  .then(r => r.json())
-  .then (data => {
-      // console.log(data)
-      setQuote(data)
-  })
-  .catch((error) => {
-    console.error('Error fetching stock price:', error);
-
-  });
-}
-  }, [stock]);
+  useEffect(() => {
+    if (stock) {
+      
+    fetch(`api/stock_price/${stock?.symbol}`)
+    .then(r => r.json())
+    .then (data => {
+        // console.log(data)
+        setQuote(data)
+    })
+    .catch((error) => {
+      console.error('Error fetching stock price:', error);
+    });
+    }
+    }, [stock]);
 
 
 
@@ -142,64 +140,64 @@ useEffect(() => {
 
 
 // GET STOCK MARKET NEWS
-    useEffect(() => {
-      if (stock) {
-      fetch(`api/news/${stock?.symbol}`)
-      .then(r => r.json())
-      .then (data => {
-          // console.log(data.slice(1, 6))
-          setNews(data.slice(1, 10))
-      })
-      .catch((error) => {
-        console.error('Error fetching news:', error);
-      });
-    }
-      }, [stock]);
+  useEffect(() => {
+    if (stock) {
+    fetch(`api/news/${stock?.symbol}`)
+    .then(r => r.json())
+    .then (data => {
+        // console.log(data.slice(1, 6))
+        setNews(data.slice(1, 10))
+    })
+    .catch((error) => {
+      console.error('Error fetching news:', error);
+    });
+  }
+    }, [stock]);
 
 
 // GET JSON FILE
-useEffect(() => {
-  fetch('api/tickers_list')
-  .then(r => r.json())
-  .then (data => {
-      // console.log(data)
-      setJsonList(data)
-  })  
-  }, []);
+  useEffect(() => {
+    fetch('api/tickers_list')
+    .then(r => r.json())
+    .then (data => {
+        // console.log(data)
+        setJsonList(data)
+    })  
+    }, []);
 
 
 // GET TOP GAINERS & LOSERS 
-useEffect(() => {
-  fetch('api/top_trades')
-  .then(r => r.json())
-  .then(data => {
-    // console.log(data)
-    setTopTrades(data)
-  })
+  useEffect(() => {
+    fetch('api/top_trades')
+    .then(r => r.json())
+    .then(data => {
+      // console.log(data)
+      setTopTrades(data)
+    })
 
-}, []) 
+  }, []) 
 
 // GET USER 
-useEffect(() => {
-  fetch('api/user/')
-  .then(r => {
-    if (r.ok){
-      return r.json()
-    }
-  throw Error()
-  })
-  .then (data => {
-      setUser(data)
-  })  
-  
-  }, []);
+  useEffect(() => {
+    fetch('api/user/')
+    .then(r => {
+      if (r.ok){
+        return r.json()
+      }
+    throw Error()
+    })
+    .then (data => {
+        setUser(data)
+    })  
+    
+    }, []);
 
 
 
 // SEARCH FUNCTION
-function handleSearch(searchTerm){
-  setSearch(searchTerm)
-}
+  function handleSearch(searchTerm){
+    setSearch(searchTerm)
+  }
 
 // FILTERS JSON LIST 
   const filteredStocks = search.trim() === ""
@@ -217,36 +215,33 @@ function handleSearch(searchTerm){
           <p className="top-trades-text" style={{color:'green'}}> %change: {t?.percentage}↑</p>
         </div>        
     )
-  })
+  });
 
 
 return (
 <div className="app-container">
-
     {user === null ? (
       <Welcome user = {user} setUser = {setUser}  setIsLoggedIn = {setIsLoggedIn}/>) : (
-        
       <div>
         <header className="header">
           <h1> 
             <NavigateBar user = {user} setUser = {setUser} setIsLoggedIn = {setIsLoggedIn} />
           </h1>
-          <div className="top-trades" style={{color: 'white'}}>
-          
-          {filteredTopTrades}
-          Top Trades:
-          {filteredTopTrades}
+          <div className="top-trades" style={{color: 'white'}}> 
+            {filteredTopTrades}
+            Top Trades:
+            {filteredTopTrades}
           </div>
-
         </header>
 
-          <Outlet context = {{ stock, setStock, handleRandomStock, logo, quote, intraday, news, user, search, graph, handleSearch, filteredStocks, isLoading}} />
+      <Outlet context = {{ stock, setStock, handleRandomStock, logo, quote, intraday, news, user, search, graph, handleSearch, filteredStocks, isLoading}} />
 
       </div>
-      
-    )}
-
+    )};
 </div>
+
 );
-}
+
+};
+
 export default App;
