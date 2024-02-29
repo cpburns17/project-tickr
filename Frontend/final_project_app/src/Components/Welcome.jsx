@@ -11,8 +11,6 @@ function Welcome ({user, setUser, setIsLoggedIn}) {
     const [showSignup, setShowSignup] = useState(false);
     const navigate = useNavigate();
     
-    console.log(user);
-    
     function handleClick() {
         setBegin(true)
     }

@@ -18,12 +18,12 @@ function Buy (){
     const [currentStockData, setCurrentStockData] = useState()
     const [ticker, setTicker] = useState("DefaultTicker");
 
-    const navigate = useNavigate() // Used for back button
+// location used to trigger fetch when user navigates to different route
     const location = useLocation(); 
     const trade = location.state && location.state.trade;  // Used 
     const aggregatedQuantity = location.state;
 
-    // Makes integer float and only 2 decimals
+    // gets current close price of stock
     const closeValue = parseFloat(stockPrice);
     const currentPrice = closeValue.toFixed(2)
 
@@ -31,11 +31,6 @@ function Buy (){
     const stockTick = trade?.ticker
     const currentQuantity = aggregatedQuantity.aggregatedQuantity
     const userID = user?.id
-
-
-    function handleGoBack() {
-        navigate(-1);
-    }
 
 
     useEffect(() => {
@@ -132,7 +127,6 @@ return (
             )}
         </form>
         <br></br>
-        <button  onClick={handleGoBack}> Go Back </button>
 
     {buySuccess && (
     <p>Congrats, you bought {buyQuantity} shares for ${(currentPrice * buyQuantity).toFixed(2)}!</p>
