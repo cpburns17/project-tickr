@@ -17,6 +17,8 @@ function App () {
   const [jsonList, setJsonList] = useState()
   const [logo, setLogo] = useState()
   const [graph, setGraph] = useState()
+  const [crypto, setCrypto] = useState()
+  const [cryptoIntraday, setCryptoIntraday] = useState();
   // const [graph2, setGraph2] = useState()
   const [topTrades, setTopTrades] = useState()
 
@@ -48,6 +50,44 @@ function handleRandomStock() {
     console.error('Error fetching random stock:', error);
   });
 }
+
+
+// RANDOM CRYPTO FUNCTION
+
+
+useEffect(() => {
+    fetch('api/random_crypto')
+    .then(r => r.json())
+    .then(data => {
+      console.log(data)
+      setCrypto(data)
+    })
+}, [])
+
+function handleRandomCrypto() {
+    fetch('api/random_crypto')
+    .then(r => r.json())
+    .then(data => {
+      console.log(data)
+      setCrypto(data)
+    })
+}
+
+
+useEffect(() => {
+  if (crypto) {
+  fetch(`api/crypto_intraday/${crypto?.symbol}`)
+  .then(r => r.json())
+  .then(data => {
+    console.log(data)
+    setCryptoIntraday(data)
+
+  })
+}
+}, [crypto])
+
+
+
 
 
 // GET STOCK LOGO 
@@ -234,7 +274,7 @@ return (
           </div>
         </header>
 
-      <Outlet context = {{ stock, setStock, handleRandomStock, logo, quote, intraday, news, user, search, graph, handleSearch, filteredStocks, isLoading}} />
+      <Outlet context = {{ handleRandomCrypto, cryptoIntraday, stock, setStock, handleRandomStock, logo, quote, intraday, news, user, search, graph, handleSearch, filteredStocks, isLoading}} />
 
       </div>
     )};

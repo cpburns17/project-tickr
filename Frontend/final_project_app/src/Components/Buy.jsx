@@ -5,25 +5,21 @@ import Button from 'react-bootstrap/Button';
 
 
 function Buy (){
-    const {stock, quote, intraday, user} = useOutletContext() 
+    const {user} = useOutletContext() 
 
     const [buySuccess, setBuySuccess] = useState(false); 
     const [buyQuantity, setBuyQuantity] = useState(0); 
     const [stockPrice, setStockPrice] = useState()
-    const [bought, setBought] = useState(0)
-    const [sold, setSold] = useState(0)
     const [quantity, setQuantity] = useState(0)
-    const [time, setTime] = useState()
     const [overdraft, setOverdraft] = useState(false)
     const [currentStockData, setCurrentStockData] = useState()
-    const [ticker, setTicker] = useState("DefaultTicker");
 
-// location used to trigger fetch when user navigates to different route
+// location used to access trade data passed as state from portfolio
     const location = useLocation(); 
-    const trade = location.state && location.state.trade;  // Used 
+    const trade = location.state && location.state.trade; 
     const aggregatedQuantity = location.state;
 
-    // gets current close price of stock
+// assigns current price to current PPS 
     const closeValue = parseFloat(stockPrice);
     const currentPrice = closeValue.toFixed(2)
 
@@ -31,6 +27,12 @@ function Buy (){
     const stockTick = trade?.ticker
     const currentQuantity = aggregatedQuantity.aggregatedQuantity
     const userID = user?.id
+
+    const navigate = useNavigate() 
+
+    function handleGoBack() {
+        navigate(-1);
+    }
 
 
     useEffect(() => {
@@ -66,7 +68,7 @@ function Buy (){
             ticker: stockTick,
             stock_price: currentPrice, 
             bought: currentPrice * buyQuantity,
-            sold: sold,
+            sold: 0,
             quantity: buyQuantity,
             time: formattedDate,
             user_id: userID,
@@ -127,6 +129,7 @@ return (
             )}
         </form>
         <br></br>
+        <button  onClick={handleGoBack}> Go Back </button>
 
     {buySuccess && (
     <p>Congrats, you bought {buyQuantity} shares for ${(currentPrice * buyQuantity).toFixed(2)}!</p>

@@ -34,6 +34,128 @@ def index():
 
 
 
+# GRABS CRYPTO JSON FILE
+def crypto_list():
+    with open('cryptos.json') as f:
+        data = json.load(f)
+        if data:
+            return data
+        else:
+            return None
+        
+def random_crypto():
+    data = crypto_list()
+    if data:
+        if isinstance(data, dict):
+            symbol = random.choice(list(data.keys()))
+        elif isinstance(data, list):
+            symbol = random.choice(data)
+        else:
+            symbol = None
+        print(f' this is just symbol {symbol}')
+        return symbol
+    else:
+        return None
+            
+
+@app.route('/api/random_crypto')
+def get_random_symbol():
+    crypto = random_crypto()
+    if crypto:
+        return {"symbol": crypto}
+    else:
+        return {"error": "No cryptocurrencies available"}
+        
+
+# CRYPTO LIST
+@app.get('/api/crypto_intraday/<symbol>')
+def get_crypto(symbol: str):
+        url = f"https://www.alphavantage.co/query?function=CRYPTO_INTRADAY&symbol={symbol}&market=USD&interval=1min&apikey={config['my_key']}"
+        r = requests.get(url)
+        data = r.json()
+
+        # if "Error Message" in data:
+        #     return {"error": data["Error Message"]}
+
+        meta_data = data.get('Meta Data', {})
+        time_series = data.get('Time Series Crypto (1min)', {})
+
+        # if not time_series:
+        #     return {'error': 'no intraday data found'}
+        
+        last_refreshed = meta_data.get('6. Last Refreshed', '')
+        currency_code = meta_data.get('2. Digital Currency Code', '')
+
+        latest_data = time_series.get(last_refreshed)
+
+
+
+        crypto_info= {
+            'last_refreshed': last_refreshed,
+            'currency_code': currency_code,
+            'open': latest_data.get('1. open', ''),
+            'high': latest_data.get('2. high', ''),
+            'low': latest_data.get('3. low', ''),
+            'close': latest_data.get('4. close', ''),
+            'volume': latest_data.get('5. volume', '')
+        }
+        print(f'this is crypto info {crypto_info}')
+
+        return crypto_info
+
+        # d = {
+        #     'last_refreshed': time.get('6. Last Refreshed', '')
+        # }
+        # print(data)
+
+
+
+        # time = data['Meta Data']['6. Last Refreshed']
+        # name = data['Meta Data']['2. Digital Currency Code']
+        # intraday = data['Time Series (5min)'][time]
+        # print(name)
+
+        # t = {
+        #     'open': intraday.get('1. open', ''),
+        #     'high': intraday.get('2. high', ''),
+        #     'low': intraday.get('3. low', ''),
+        #     'close': intraday.get('4. close', ''),
+        #     'volume': intraday.get('5. volume', '')
+        # }
+        # return t, d 
+
+
+# GET CRYPTO INTRADAY DATA
+# @app.get('/api/crypto_list/<symbol>')
+# def get_crypto_intraday(symbol):
+#     fetched = False
+#     while not fetched:
+#         crypto = random_crypto()
+#         url = f"https://www.alphavantage.co/query?function=CRYPTO_INTRADAY&symbol={symbol}&market=USD&interval=5min&apikey={config['my_key']}"
+#         r = requests.get(url)
+#         data = r.json()
+
+#         time = data.get('Meta Data', {})
+#         # print(time)
+#         d = {
+#             'last_refreshed': time.get('6. Last Refreshed', '')
+#         }
+#         # print(data)
+#         time = data['Meta Data']['6. Last Refreshed']
+#         name = data['Meta Data']['2. Digital Currency Code']
+#         intraday = data['Time Series (5min)'][time]
+#         # print(name)
+
+#         t = {
+#             'open': intraday.get('1. open', ''),
+#             'high': intraday.get('2. high', ''),
+#             'low': intraday.get('3. low', ''),
+#             'close': intraday.get('4. close', ''),
+#             'volume': intraday.get('5. volume', '')
+#         }
+#         return t, d 
+
+
 # FinnHub FETCH (LOGO)
 
 @app.get('/api/logo/<ticker>')
@@ -81,13 +203,14 @@ def logout():
     return {"message": "Logged out"}, 200
 
 
-# GET AND POST USER 
+# GET USER 
 
 @app.get('/api/user')
 def get_user():
     users = User.query.all()
     return [u.to_dict() for u in users]
 
+# POST USER
 
 @app.post('/api/user')
 def create_user():
@@ -118,8 +241,6 @@ def get_user_by_id(id):
     return current_user.to_dict(), 200
         
 
-
-
 # RANDOM STOCK FUNCTION
 def random_stock():
     with open('tickers.json') as f:
@@ -129,7 +250,7 @@ def random_stock():
         else:
             return None
 
-# GRABS JSON FILE 
+# GRABS TICKERS JSON FILE 
 def json_list():
     with open('tickers.json') as f:
         data = json.load(f)
@@ -137,8 +258,9 @@ def json_list():
             return data
         else:
             return None
+        
 
-# RETURNS JSON LIST
+# RETURNS TICKERS JSON LIST
 @app.get('/api/tickers_list')
 def get_tickers():
     stocks = json_list()
@@ -169,6 +291,39 @@ def get_stocks():
             fetched = True
 
     return d,200
+
+
+
+# GET INTRADAY DATA 
+@app.get("/api/intraday/<ticker>")
+def get_stock_intraday(ticker):
+    # print(ticker)
+    url = f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={ticker}&interval=1min&entitlement=delayed&apikey={config["my_key"]}'
+    r = requests.get(url)
+    data = r.json() 
+
+    time = data.get('Meta Data', {})
+    # print(time)
+    d = {
+        'last_refreshed': time.get('3. Last Refreshed', '')
+    }
+    # print(data)
+    time = data['Meta Data']['3. Last Refreshed']
+    intraday = data['Time Series (1min)'][time]
+
+    # print(f"intraday:\n{intraday}\n")
+
+    p = {
+        'open': intraday.get('1. open', ''),
+        'high': intraday.get('2. high', ''),
+        'low': intraday.get('3. low', ''),
+        'close': intraday.get('4. close', ''),
+        'volume': intraday.get('5. volume', '')
+
+    }
+    return p, d
+
+
 
 # OVERVIEW OF STOCK 
 @app.get("/api/overview/<ticker>")
@@ -216,34 +371,6 @@ def get_stock_pride(stock):
     return d
 
 
-# INTRADAY DATA 
-@app.get("/api/intraday/<ticker>")
-def get_stock_intraday(ticker):
-    # print(ticker)
-    url = f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={ticker}&interval=1min&entitlement=delayed&apikey={config["my_key"]}'
-    r = requests.get(url)
-    data = r.json() 
-
-    time = data.get('Meta Data', {})
-    # print(time)
-    d = {
-        'last_refreshed': time.get('3. Last Refreshed', '')
-    }
-    # print(data)
-    time = data['Meta Data']['3. Last Refreshed']
-    intraday = data['Time Series (1min)'][time]
-
-    print(f"intraday:\n{intraday}\n")
-
-    p = {
-        'open': intraday.get('1. open', ''),
-        'high': intraday.get('2. high', ''),
-        'low': intraday.get('3. low', ''),
-        'close': intraday.get('4. close', ''),
-        'volume': intraday.get('5. volume', '')
-
-    }
-    return p, d
 
 
 # NEWS & SENTIMENTS

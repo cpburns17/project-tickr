@@ -8,7 +8,7 @@ import StockBack from './StockBack'
 import Button from 'react-bootstrap/Button';
 
 function StockCard () {
-    const { stock, setStock, handleRandomStock } = useOutletContext();
+    const { stock, setStock, handleRandomStock, handleRandomCrypto, cryptoIntraday } = useOutletContext();
     const [frontCard, setFrontCard] = useState(true)
     const location = useLocation() 
 
@@ -16,6 +16,8 @@ function StockCard () {
     function flipCard() {
         setFrontCard(!frontCard)
     }
+
+    // console.log(cryptoIntraday)
 
 
 return (
@@ -29,6 +31,10 @@ return (
         </div>
         <br></br>
         <Button onClick={handleRandomStock} variant="success"> Random Stock</Button>
+        {/* <Button onClick={handleRandomCrypto} variant='success'> Random Crypto</Button>
+        <div>
+            <p> {cryptoIntraday?.close}</p>
+        </div> */}
     </div>
 
 );

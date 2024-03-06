@@ -28,10 +28,11 @@ function Portfolio() {
     // Object to keep track of aggregated quantities for each ticker
     const aggregatedQuantities = {};
 
-    // Update aggregated quantities based on trade type
+    // maintains cumulative count of bought/sold for each ticker
     transactions?.forEach((trade) => {
         const { ticker, bought, sold, quantity } = trade;
 
+    // adds/subtracts quantity from current transaction from existing aggreg quantity
         if (bought > 0) {
             aggregatedQuantities[ticker] = (aggregatedQuantities[ticker] || 0) + quantity;
         } else if (sold > 0) {
@@ -39,6 +40,8 @@ function Portfolio() {
         }
     });
 
+// created one trade object for each unique ticker in transactions array
+// Array.from() converts unique tickers back into an array
     const uniqueTradeObjects = Array.from(
         new Set(transactions?.map((trade) => trade.ticker))
     ).map((ticker) => {
