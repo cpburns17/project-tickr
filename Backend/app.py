@@ -58,7 +58,7 @@ def random_crypto():
         return None
             
 
-@app.route('/api/random_crypto')
+@app.get('/api/random_crypto')
 def get_random_symbol():
     crypto = random_crypto()
     if crypto:
@@ -70,21 +70,22 @@ def get_random_symbol():
 # CRYPTO LIST
 @app.get('/api/crypto_intraday/<symbol>')
 def get_crypto(symbol: str):
-        url = f"https://www.alphavantage.co/query?function=CRYPTO_INTRADAY&symbol={symbol}&market=USD&interval=1min&apikey={config['my_key']}"
+        url = f"https://www.alphavantage.co/query?function=CRYPTO_INTRADAY&symbol={symbol}&market=USD&interval=5min&apikey={config['my_key']}"
         r = requests.get(url)
         data = r.json()
 
-        # if "Error Message" in data:
-        #     return {"error": data["Error Message"]}
+        if "Error Message" in data:
+            return {"error": data["Error Message"]}
 
         meta_data = data.get('Meta Data', {})
-        time_series = data.get('Time Series Crypto (1min)', {})
+        time_series = data.get('Time Series Crypto (5min)', {})
 
         # if not time_series:
         #     return {'error': 'no intraday data found'}
         
         last_refreshed = meta_data.get('6. Last Refreshed', '')
         currency_code = meta_data.get('2. Digital Currency Code', '')
+        currency_name = meta_data.get('3. Digital Currency Name')
 
         latest_data = time_series.get(last_refreshed)
 
@@ -93,6 +94,7 @@ def get_crypto(symbol: str):
         crypto_info= {
             'last_refreshed': last_refreshed,
             'currency_code': currency_code,
+            'currency_name': currency_name,
             'open': latest_data.get('1. open', ''),
             'high': latest_data.get('2. high', ''),
             'low': latest_data.get('3. low', ''),

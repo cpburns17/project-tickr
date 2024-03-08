@@ -274,10 +274,10 @@ return (
           </div>
         </header>
 
-      <Outlet context = {{ handleRandomCrypto, cryptoIntraday, stock, setStock, handleRandomStock, logo, quote, intraday, news, user, search, graph, handleSearch, filteredStocks, isLoading}} />
+      <Outlet context = {{crypto, cryptoIntraday, handleRandomCrypto, stock, setStock, handleRandomStock, logo, quote, intraday, news, user, search, graph, handleSearch, filteredStocks, isLoading}} />
 
       </div>
-    )};
+    )}
 </div>
 
 );

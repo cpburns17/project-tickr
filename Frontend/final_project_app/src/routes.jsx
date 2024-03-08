@@ -14,6 +14,7 @@ import Welcome from './Components/Welcome.jsx'
 import Signup from './Components/Signup.jsx'
 import Logout from './Components/Logout.jsx'
 import Slides from './Components/Slides.jsx'
+import Crypto from './Components/Crypto.jsx'
 
 
 const routes = [
@@ -92,6 +93,11 @@ const routes = [
                 element: <Slides />,
                 errorElement: <h1>Something went wrong!</h1>
             },      
+            {
+                path: "/crypto",
+                element: <Crypto />,
+                errorElement: <h1>Something went wrong!</h1>
+            }
         ]
     }
 ];

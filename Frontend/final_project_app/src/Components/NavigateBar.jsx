@@ -40,6 +40,10 @@ return (
                         Home
                     </Nav.Link>
 
+                    <Nav.Link href="/crypto" className="nav-link">
+                        Crypto
+                    </Nav.Link>
+
                     <Nav.Link href="/search" className="nav-link" >
                         Search 
                     </Nav.Link>
