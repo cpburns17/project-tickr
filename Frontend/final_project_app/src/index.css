@@ -229,6 +229,18 @@ max-width: 100%;
 }
 
 
+    /* CRYPTO CARD  */
+
+.crypto-card .card-body {
+  height: 100%;
+}
+
+.crypto-card .card-text {
+  overflow: auto;
+  max-height: 100%;
+}
+
+
 
       /* SLIDES COMPONENT  */
 

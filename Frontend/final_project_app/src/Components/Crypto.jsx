@@ -29,13 +29,13 @@ return (
                 {cryptoName}
             </h1>
             <h2> 
-                {cryptoCode} 
+                "{cryptoCode}"
             </h2>
             <h3>
-                ${isNaN(cryptoClose) ? "N/A" : cryptoClose.toFixed(2)} USD
+                Close: ${isNaN(cryptoClose) ? "N/A" : cryptoClose.toFixed(5)} USD
             </h3>
             <h3>
-                ${isNaN(cryptoOpen) ? "N/A" : cryptoOpen.toFixed(2)} USD
+                Open: ${isNaN(cryptoOpen) ? "N/A" : cryptoOpen.toFixed(5)} USD
             </h3>
             <h3> Volume: {cryptoVolume}</h3>
             <p> Time Zone: UTC</p>
@@ -55,8 +55,10 @@ return (
         </div>
         <br></br>
         </Card.Body>
-        <Button onClick={handleRandomCrypto} variant='success'> Random Crypto</Button>
+        <Button > Buy Crypto</Button>
     </Card>
+    <br></br>
+    <Button onClick={handleRandomCrypto} variant='success'> Random Crypto</Button>
 
 </div>
 
